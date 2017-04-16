@@ -26,7 +26,14 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+https://angular.io/docs/ts/latest/cli-quickstart.html
 
 ## ngx-boostrap
+Description : Use bootstrap components in pure angular
 Infos install : https://github.com/valor-software/ngx-bootstrap/blob/development/docs/getting-started/bootstrap4.md
 Infos use : http://valor-software.com/ngx-bootstrap/#/alerts#usage
+
+## font-awesome
+Description : Librairie d'icones
+Infos install : http://fontawesome.io/get-started/
+Infos use : http://fontawesome.io/examples/
