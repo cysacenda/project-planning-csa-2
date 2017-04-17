@@ -1,36 +1,4 @@
-<nav class="navbar navbar-inverse bg-inverse">
-  <div class="navbar-nav">
-    <form class="form-inline">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="nav-item nav-link" href="#">Today</a>
-      <i class="nav-item nav-link fa fa-angle-left fa-lg" aria-hidden="true"></i>
-      <i class="nav-item nav-link fa fa-angle-right fa-lg" aria-hidden="true"></i>
-      <a class="nav-item nav-link fa fa-angle-down  fa-align-right" href="#">2017</a>
-      <span dropdown (isOpenChange)="toggled($event)">
-        <a href dropdownToggle (click)="false">2017</a>
-          <ul *dropdownMenu class="dropdown-menu">
-            <li *ngFor="let choice of items">
-              <a class="dropdown-item" href="#">{{choice}}</a>
-            </li>
-          </ul>
-      </span>
-      <a class="nav-item nav-link" href="#">Jan</a>
-      <a class="nav-item nav-link" href="#">Feb</a>
-      <a class="nav-item nav-link" href="#">Mar</a>
-      <a class="nav-item nav-link" href="#">Apr</a>
-      <a class="nav-item nav-link" href="#">May</a>
-      <a class="nav-item nav-link" href="#">Jun</a>
-      <a class="nav-item nav-link" href="#">Jul</a>
-      <a class="nav-item nav-link" href="#">Aug</a>
-      <a class="nav-item nav-link" href="#">Sep</a>
-      <a class="nav-item nav-link" href="#">Oct</a>
-      <a class="nav-item nav-link" href="#">Nov</a>
-      <a class="nav-item nav-link" href="#">Dev</a>
-    </form>
-  </div>
-</nav>
+<app-layout-header></app-layout-header>
 
 <div class="container">
 
@@ -51,4 +19,22 @@
   <a class="list-group-item" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp; Settings</a>
 </div>
 
+<!--
+<pre class="card card-block card-header">{{radioModel || 'null'}}</pre>
+<div class="btn-group">
+  <label class="btn btn-primary" [(ngModel)]="radioModel"
+         btnRadio="Left">Left</label>
+  <label class="btn btn-primary" [(ngModel)]="radioModel" btnRadio="Middle">Middle</label>
+  <label class="btn btn-primary" [(ngModel)]="radioModel"
+         btnRadio="Right">Right</label>
+</div>
+<div class="btn-group">
+  <label class="btn btn-success" [(ngModel)]="radioModel" btnRadio="Left"
+         uncheckable>Left</label>
+  <label class="btn btn-success" [(ngModel)]="radioModel" btnRadio="Middle"
+         uncheckable>Middle</label>
+  <label class="btn btn-success" [(ngModel)]="radioModel" btnRadio="Right"
+         uncheckable>Right</label>
+</div>
+-->
 
