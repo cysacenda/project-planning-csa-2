@@ -11,11 +11,11 @@
       <span dropdown (isOpenChange)="toggled($event)">
         <a href dropdownToggle (click)="false">2017</a>
         <!-- FIXME -->
-        <ul *dropdownMenu class="dropdown-menu">
+        <!--<ul *dropdownMenu class="dropdown-menu">
           <li *ngFor="let choice of items">
             <a class="dropdown-item" href="#">{{choice}}</a>
           </li>
-        </ul>
+        </ul>-->
       </span>
       <a class="nav-item nav-link" href="#">Jan</a>
       <a class="nav-item nav-link" href="#">Feb</a>
@@ -29,6 +29,12 @@
       <a class="nav-item nav-link" href="#">Oct</a>
       <a class="nav-item nav-link" href="#">Nov</a>
       <a class="nav-item nav-link" href="#">Dev</a>
+
+      <button type="button" class="btn btn-primary"
+              [(ngModel)]="singleModel" btnCheckbox
+              btnCheckboxTrue="1" btnCheckboxFalse="0" ngDefaultControl>
+        Zoom in
+      </button>
     </form>
   </div>
 </nav>
