@@ -36,6 +36,10 @@ https://angular.io/
   - https://github.com/gothinkster/
 
 ## ngx-boostrap
+
+=> TODO : Utiliser material https://material.angular.io/guide/getting-started
+
+
 Description : Use bootstrap components in pure angular
 Infos install : https://github.com/valor-software/ngx-bootstrap/blob/development/docs/getting-started/bootstrap4.md
 Infos use : http://valor-software.com/ngx-bootstrap/#/alerts#usage
