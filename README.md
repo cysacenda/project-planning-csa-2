@@ -31,20 +31,14 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
 ## Help
 https://angular.io/
 
+
 ## Inspiration
 - https://thinkster.io/
   - https://github.com/gothinkster/
 
-## ngx-boostrap
+## Material Design
+-Guide : https://material.angular.io/guide/getting-started
+-Icones : 
+  -Infos : https://material.io/icons/
+  -Mise en place : https://google.github.io/material-design-icons/
 
-=> TODO : Utiliser material https://material.angular.io/guide/getting-started
-
-
-Description : Use bootstrap components in pure angular
-Infos install : https://github.com/valor-software/ngx-bootstrap/blob/development/docs/getting-started/bootstrap4.md
-Infos use : http://valor-software.com/ngx-bootstrap/#/alerts#usage
-
-## font-awesome
-Description : Librairie d'icones
-Infos install : http://fontawesome.io/get-started/
-Infos use : http://fontawesome.io/examples/

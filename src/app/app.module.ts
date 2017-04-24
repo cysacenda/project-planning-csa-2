@@ -5,8 +5,10 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { AlertModule } from 'ngx-bootstrap';
 import {HeaderComponent} from './shared/layout/header.component';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import {HeaderComponent} from './shared/layout/header.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AlertModule.forRoot()
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [
