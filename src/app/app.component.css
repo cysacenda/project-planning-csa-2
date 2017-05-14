@@ -8,9 +8,13 @@
 
 .app-toolbar-menu {
   padding: 0 14px 0 14px;
-  color: white;
 }
 
 .app-content {
   padding: 20px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }

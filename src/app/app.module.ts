@@ -10,7 +10,7 @@ import {HeaderComponent} from './shared/layout/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
-import {MdToolbarModule, MdMenuModule, MdButtonModule, MdIconModule} from '@angular/material';
+import {MdToolbarModule, MdMenuModule, MdButtonModule, MdIconModule, MdSlideToggleModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -25,10 +25,12 @@ import {MdToolbarModule, MdMenuModule, MdButtonModule, MdIconModule} from '@angu
     MdToolbarModule,
     MdMenuModule,
     MdButtonModule,
-    MdIconModule
+    MdIconModule,
+    MdSlideToggleModule,
   ],
   providers: [],
   bootstrap: [
     AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
