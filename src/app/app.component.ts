@@ -6,10 +6,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  foods = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
+  possiblePositions = [
+    {value: '1', viewValue: '1'},
+    {value: '2', viewValue: '2'},
+    {value: '3', viewValue: '3'}
   ];
 
+  possibleResources = [
+    {value: '1', viewValue: 'Cyril S.'},
+    {value: '2', viewValue: 'Mohamed B.'},
+    {value: '3', viewValue: 'Rudy J.'}
+  ];
+
+  possibleProjects = [
+    {value: '1', viewValue: 'DC Mobile'},
+    {value: '2', viewValue: 'P&F'},
+    {value: '3', viewValue: 'DC AE'}
+  ];
 }

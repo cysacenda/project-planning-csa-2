@@ -30,10 +30,10 @@ import {
     MdButtonModule,
     MdIconModule,
     MdSlideToggleModule,
-    MdGridListModule,
+      MdGridListModule,
     MdCardModule,
     MdSelectModule,
-    MdOptionModule
+    MdOptionModule,
   ],
   providers: [],
   bootstrap: [

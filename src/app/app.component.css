@@ -1,3 +1,8 @@
 md-grid-tile {
   background: lightblue;
 }
+
+.app-content {
+  padding: 15px;
+  font: 11px noto;
+}
