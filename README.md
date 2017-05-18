@@ -31,6 +31,8 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
 ## Help
 https://angular.io/
 
+Résumé : https://angular.io/docs/ts/latest/guide/cheatsheet.html 
+
 
 ## Inspiration
 - https://thinkster.io/
