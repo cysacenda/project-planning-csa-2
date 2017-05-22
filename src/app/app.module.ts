@@ -4,15 +4,15 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
-
 import {HeaderComponent} from './shared/layout/header.component';
+import {ResourcesComponent} from './resources.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import {AppRoutingModule} from './app-routing.module';
 
-// Material design module
+// Material design modules
 import {
   MdToolbarModule,
   MdMenuModule,
@@ -30,7 +30,8 @@ import {ScheduleComponent} from './schedule.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ResourcesComponent
   ],
   imports: [
     BrowserModule,
