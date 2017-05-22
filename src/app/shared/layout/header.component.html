@@ -31,26 +31,23 @@
         <a md-line href="https://www.google.fr">Today</a>
       </md-list-item>
       <md-list-item>
-        <a md-line href="https://www.google.fr"><i class="material-icons">keyboard_arrow_left</i></a>
+        <a md-line class="material-icons" href="https://www.google.fr">keyboard_arrow_left</a>
       </md-list-item>
       <md-list-item>
-        <a md-line href="https://www.google.fr"><i class="material-icons">keyboard_arrow_right</i></a>
+        <a md-line class="material-icons" href="https://www.google.fr">keyboard_arrow_right</a>
       </md-list-item>
       <md-list-item>
         <a md-line href="https://www.google.fr">2017<i class="material-icons">keyboard_arrow_down</i></a>
       </md-list-item>
-    </md-nav-list>
-  </span>
-
-  <span>
-    <md-nav-list>
       <md-list-item *ngFor="let monthName of monthNames">
        <a md-line href="test">{{ monthName }}</a>
+      </md-list-item>
+      <md-list-item>
+       - <md-slide-toggle></md-slide-toggle> +
       </md-list-item>
     </md-nav-list>
 
   </span>
-  <span> - <md-slide-toggle></md-slide-toggle> + </span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="app-toolbar-filler"></span>
