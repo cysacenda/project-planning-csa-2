@@ -3,3 +3,9 @@
 body {
   margin: 0;
 }
+
+.app-content {
+  padding: 15px;
+  font: 11px noto;
+}
+
