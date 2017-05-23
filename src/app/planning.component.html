@@ -38,16 +38,16 @@
 
     <md-grid-tile rowspan="4" colspan="1">
       <md-select>
-        <md-option *ngFor="let resource of possibleResources" [value]="resource.value">
-          {{ resource.viewValue }}
+        <md-option *ngFor="let resource of resources" [value]="resource.name">
+          {{ resource.name }}
         </md-option>
       </md-select>
     </md-grid-tile>
 
     <md-grid-tile rowspan="4" colspan="1">
       <md-select>
-        <md-option *ngFor="let project of possibleProjects" [value]="project.value">
-          {{ project.viewValue }}
+        <md-option *ngFor="let project of projects" [value]="project.name">
+          {{ project.name }}
         </md-option>
       </md-select>
     </md-grid-tile>

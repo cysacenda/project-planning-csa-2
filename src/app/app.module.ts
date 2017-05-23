@@ -12,6 +12,10 @@ import 'hammerjs';
 
 import {AppRoutingModule} from './app-routing.module';
 
+/* TODO : A suprimer quand vraie données depuis API */
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './shared/services/in-memory-data.service';
+
 // Material design modules
 import {
   MdToolbarModule,
@@ -24,7 +28,8 @@ import {
   MdSelectModule,
   MdOptionModule
 } from '@angular/material';
-import {ScheduleComponent} from './schedule.component';
+import {ScheduleComponent} from './planning.component';
+import {PlanningService} from './shared/services/planning.service';
 
 @NgModule({
   declarations: [
@@ -48,8 +53,9 @@ import {ScheduleComponent} from './schedule.component';
     MdCardModule,
     MdSelectModule,
     MdOptionModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 })
   ],
-  providers: [],
+  providers: [PlanningService],
   bootstrap: [
     AppComponent]
 })
