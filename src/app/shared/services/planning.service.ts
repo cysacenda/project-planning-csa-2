@@ -5,12 +5,14 @@ import 'rxjs/add/operator/toPromise';
 
 import {Project} from '../models/project.model';
 import {Resource} from '../models/resource.model';
+import {PlanningTask} from '../models/planning-task.model';
 
 @Injectable()
 export class PlanningService {
   // URL to web api
   private projectsUrl = 'app/projects';
   private resourcesUrl = 'app/resources';
+  private planningTasksUrl = 'app/planningTasks';
 
   constructor(private http: Http) { }
 
@@ -30,6 +32,16 @@ export class PlanningService {
       .toPromise()
       .then((response) => {
         return response.json().data as Resource[];
+      })
+      .catch(this.handleError);
+  }
+
+  getPlanningTasks(): Promise<Array<PlanningTask>> {
+    return this.http
+      .get(this.planningTasksUrl)
+      .toPromise()
+      .then((response) => {
+        return response.json().data as PlanningTask[];
       })
       .catch(this.handleError);
   }

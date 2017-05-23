@@ -19,6 +19,10 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 2, name: 'Mohamed B.' },
       { id: 3, name: 'Rudy J.' }
     ];
-    return { projects, positions, resources };
+    const planningTasks = [
+      { id: 1, name: 'Install API GW', workload: 5.5, etc: 2.25, position: 1, resourceId: 1, projectId: 1 },
+      { id: 2, name: 'Config API GW', workload: 1.5, etc: 0, position: 2, resourceId: 2, projectId: 1 }
+    ];
+    return { projects, positions, resources, planningTasks };
   }
 }
