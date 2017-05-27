@@ -3,9 +3,10 @@ import { Headers, Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Project} from '../models/project.model';
-import {Resource} from '../models/resource.model';
+import {PlanningProject} from '../models/planning-project.model';
+import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
+import {PlanningParams} from '../models/planning-params.model';
 
 @Injectable()
 export class PlanningService {
@@ -13,25 +14,26 @@ export class PlanningService {
   private projectsUrl = 'app/projects';
   private resourcesUrl = 'app/resources';
   private planningTasksUrl = 'app/planningTasks';
+  private planningParamsUrl = 'app/planningParams';
 
   constructor(private http: Http) { }
 
-  getProjects(): Promise<Array<Project>> {
+  getProjects(): Promise<Array<PlanningProject>> {
     return this.http
       .get(this.projectsUrl)
       .toPromise()
       .then((response) => {
-        return response.json().data as Project[];
+        return response.json().data as PlanningProject[];
       })
       .catch(this.handleError);
   }
 
-  getResources(): Promise<Array<Resource>> {
+  getResources(): Promise<Array<PlanningResource>> {
     return this.http
       .get(this.resourcesUrl)
       .toPromise()
       .then((response) => {
-        return response.json().data as Resource[];
+        return response.json().data as PlanningResource[];
       })
       .catch(this.handleError);
   }
@@ -42,6 +44,16 @@ export class PlanningService {
       .toPromise()
       .then((response) => {
         return response.json().data as PlanningTask[];
+      })
+      .catch(this.handleError);
+  }
+
+  getPlanningParams(): Promise<Array<PlanningParams>> {
+    return this.http
+      .get(this.planningParamsUrl)
+      .toPromise()
+      .then((response) => {
+        return response.json().data as PlanningParams[];
       })
       .catch(this.handleError);
   }

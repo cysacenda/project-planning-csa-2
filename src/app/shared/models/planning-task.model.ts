@@ -1,4 +1,3 @@
-// Task
 export class PlanningTask {
   id: number;
   name: string;
@@ -7,4 +6,6 @@ export class PlanningTask {
   position: number;
   resourceId: number;
   projectId: number;
+
+  daysMap: Map<Date, number>; // Days planned
 }

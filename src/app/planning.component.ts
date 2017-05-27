@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {PlanningService} from './shared/services/planning.service';
-import {Project} from './shared/models/project.model';
-import {Resource} from './shared/models/resource.model';
+import {PlanningProject} from './shared/models/planning-project.model';
+import {PlanningResource} from './shared/models/planning-resource.model';
+import {PlanningTask} from './shared/models/planning-task.model';
+import {PlanningParams} from './shared/models/planning-params.model';
 
 @Component({
   selector: 'app-schedule',
@@ -9,8 +11,11 @@ import {Resource} from './shared/models/resource.model';
   styleUrls: ['./planning.component.css']
 })
 export class ScheduleComponent implements OnInit {
-  projects: Project[] = [];
-  resources: Resource[] = [];
+  projects: PlanningProject[] = [];
+  resources: PlanningResource[] = [];
+  tasks: PlanningTask[] = [];
+  params: PlanningParams[] = [];
+
 
   constructor(
     private planningService: PlanningService) {
@@ -22,6 +27,12 @@ export class ScheduleComponent implements OnInit {
 
     this.planningService.getResources()
       .then(resources => this.resources = resources);
+
+    this.planningService.getPlanningTasks()
+      .then(tasks => this.tasks = tasks);
+
+    this.planningService.getPlanningParams()
+      .then(params => this.params = params);
   }
 
 }

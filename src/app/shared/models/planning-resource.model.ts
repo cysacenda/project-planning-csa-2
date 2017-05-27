@@ -1,4 +1,4 @@
-export class Resource {
+export class PlanningResource {
   id: number;
   name: string;
 }
