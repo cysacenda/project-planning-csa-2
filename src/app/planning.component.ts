@@ -16,7 +16,6 @@ export class ScheduleComponent implements OnInit {
   tasks: PlanningTask[] = [];
   params: PlanningParams[] = [];
 
-
   constructor(
     private planningService: PlanningService) {
   }
