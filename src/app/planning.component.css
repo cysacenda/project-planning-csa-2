@@ -1,3 +1,12 @@
-md-grid-tile {
+table {
   background: lightblue;
+  border-collapse: collapse;
+  width: 100%;
+}
+table, th, td {
+  border: 1px solid black;
+}
+
+th.white, td.white {
+  border: 0px;
 }

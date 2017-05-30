@@ -1,43 +1,45 @@
 <div class="app-content">
 
-  <md-grid-list cols="13" rowHeight="15px" class="mat-elevation-z2">
-    <!-- TODO : Utiliser md-grid-tile-header ?  https://groups.google.com/forum/#!topic/angular-material2/EO4ODHNWmTM -->
-    <md-grid-tile colspan="6"></md-grid-tile>
-    <md-grid-tile colspan="7">1 - 7 May 2017</md-grid-tile>
-
-    <md-grid-tile colspan="6"></md-grid-tile>
-    <md-grid-tile colspan="1">Monday</md-grid-tile>
-    <md-grid-tile colspan="1">Tuesday</md-grid-tile>
-    <md-grid-tile colspan="1">Wednesday</md-grid-tile>
-    <md-grid-tile colspan="1">Thursday</md-grid-tile>
-    <md-grid-tile colspan="1">Friday</md-grid-tile>
-    <md-grid-tile colspan="1">Saturday</md-grid-tile>
-    <md-grid-tile colspan="1">Sunday</md-grid-tile>
-
-    <md-grid-tile colspan="1">Position</md-grid-tile>
-    <md-grid-tile colspan="1">Resource</md-grid-tile>
-    <md-grid-tile colspan="1">Project</md-grid-tile>
-    <md-grid-tile colspan="1">Task</md-grid-tile>
-    <md-grid-tile colspan="1">Workload</md-grid-tile>
-    <md-grid-tile colspan="1">RAE</md-grid-tile>
-    <md-grid-tile colspan="1">01</md-grid-tile>
-    <md-grid-tile colspan="1">02</md-grid-tile>
-    <md-grid-tile colspan="1">03</md-grid-tile>
-    <md-grid-tile colspan="1">04</md-grid-tile>
-    <md-grid-tile colspan="1">05</md-grid-tile>
-    <md-grid-tile colspan="1">06</md-grid-tile>
-    <md-grid-tile colspan="1">07</md-grid-tile>
+  <!-- cf. material CSS + Drag & Drop : utiliser hammerjs-->
+  <table class="mat-elevation-z2">
+    <tr>
+      <th colspan="6" class="white"></th>
+      <th colspan="7" class="white">1 - 7 May 2017</th>
+    </tr>
+    <tr>
+      <th colspan="6"></th>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+      <th>Sunday</th>
+    </tr>
+    <tr>
+      <th>Position</th>
+      <th>Resource</th>
+      <th>Project</th>
+      <th>Task</th>
+      <th>Workload</th>
+      <th>RAE</th>
+      <th>01</th>
+      <th>02</th>
+      <th>03</th>
+      <th>04</th>
+      <th>05</th>
+      <th>06</th>
+      <th>07</th>
+    </tr>
 
     <!-- Pour chaque tâche -->
-    <md-grid-tile *ngFor="let task of tasks" >
-
-    {{task.name}}
-
-    <md-grid-tile>toto</md-grid-tile>
-
-    </md-grid-tile>
-
-  </md-grid-list>
-
-
+    <tr *ngFor="let task of tasks">
+      <td>{{task.position}}</td>
+      <td>{{task.resourceId}}</td>
+      <td>{{task.projectId}}</td>
+      <td>{{task.name}}</td>
+      <td>{{task.workload}}</td>
+      <td>{{task.etc}}</td>
+    </tr>
+  </table>
 </div>
