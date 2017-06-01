@@ -14,7 +14,7 @@ export class ScheduleComponent implements OnInit {
   projects: PlanningProject[] = [];
   resources: PlanningResource[] = [];
   tasks: PlanningTask[] = [];
-  params: PlanningParams[] = [];
+  planningparams: PlanningParams;
 
   constructor(
     private planningService: PlanningService) {
@@ -31,7 +31,7 @@ export class ScheduleComponent implements OnInit {
       .then(tasks => this.tasks = tasks);
 
     this.planningService.getPlanningParams()
-      .then(params => this.params = params);
+      .then(params => this.planningparams = params);
   }
 
 }

@@ -1,5 +1,8 @@
 <div class="app-content">
 
+  <!-- Questions expert : Logique calcul portée par Back- ou Front ? => Back -->
+  <!-- Pb cast https://stackoverflow.com/questions/42774431/typescript-default-properties-when-type-casting -->
+  <!-- Modélisation JSON => garder ID pour update, mais logique update en masse plutot que référence par Id -->
   <!-- cf. material CSS + Drag & Drop : utiliser hammerjs-->
   <table class="mat-elevation-z2">
     <tr>
@@ -8,13 +11,12 @@
     </tr>
     <tr>
       <th colspan="6"></th>
-      <th>Monday</th>
+      <th><!--{{planningparams.currentDate | date: 'EEEE'}}--></th>
       <th>Tuesday</th>
       <th>Wednesday</th>
       <th>Thursday</th>
       <th>Friday</th>
-      <th>Saturday</th>
-      <th>Sunday</th>
+      <th>WE</th>
     </tr>
     <tr>
       <th>Position</th>
@@ -28,8 +30,7 @@
       <th>03</th>
       <th>04</th>
       <th>05</th>
-      <th>06</th>
-      <th>07</th>
+      <th></th>
     </tr>
 
     <!-- Pour chaque tâche -->
