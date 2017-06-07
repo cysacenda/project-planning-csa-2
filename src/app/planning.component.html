@@ -1,4 +1,4 @@
-<div class="app-content">
+<div class="app-content" *ngIf="planningParams!= null">
 
   <!-- Questions expert : Logique calcul portée par Back- ou Front ? => Back -->
   <!-- Pb cast https://stackoverflow.com/questions/42774431/typescript-default-properties-when-type-casting -->
@@ -11,11 +11,11 @@
     </tr>
     <tr>
       <th colspan="6"></th>
-      <th><!--{{planningparams.currentDate | date: 'EEEE'}}--></th>
-      <th>Tuesday</th>
-      <th>Wednesday</th>
-      <th>Thursday</th>
-      <th>Friday</th>
+      <th>{{planningParams.currentDate | date: 'EEEE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 1) | date: 'EEEE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 2) | date: 'EEEE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 3) | date: 'EEEE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 4) | date: 'EEEE'}}</th>
       <th>WE</th>
     </tr>
     <tr>
@@ -25,11 +25,11 @@
       <th>Task</th>
       <th>Workload</th>
       <th>RAE</th>
-      <th>01</th>
-      <th>02</th>
-      <th>03</th>
-      <th>04</th>
-      <th>05</th>
+      <th>{{planningParams.currentDate | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 1) | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 2) | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 3) | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 4) | date: 'dd'}}</th>
       <th></th>
     </tr>
 
@@ -42,5 +42,6 @@
       <td>{{task.workload}}</td>
       <td>{{task.etc}}</td>
     </tr>
+
   </table>
 </div>

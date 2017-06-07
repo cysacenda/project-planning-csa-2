@@ -14,10 +14,9 @@ export class ScheduleComponent implements OnInit {
   projects: PlanningProject[] = [];
   resources: PlanningResource[] = [];
   tasks: PlanningTask[] = [];
-  planningparams: PlanningParams;
+  planningParams: PlanningParams = null;
 
-  constructor(
-    private planningService: PlanningService) {
+  constructor(private planningService: PlanningService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +30,12 @@ export class ScheduleComponent implements OnInit {
       .then(tasks => this.tasks = tasks);
 
     this.planningService.getPlanningParams()
-      .then(params => this.planningparams = params);
+      .then(planningParams => this.planningParams = planningParams);
   }
 
+  addDays(date: Date, days: number): Date {
+    let newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + days);
+    return newDate;
+  }
 }

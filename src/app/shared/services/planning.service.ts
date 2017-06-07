@@ -7,6 +7,7 @@ import {PlanningProject} from '../models/planning-project.model';
 import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
 import {PlanningParams} from '../models/planning-params.model';
+import {toArray} from "rxjs/operator/toArray";
 
 @Injectable()
 export class PlanningService {
@@ -44,6 +45,7 @@ export class PlanningService {
       .get(this.planningTasksUrl)
       .toPromise()
       .then((response) => {
+        console.log(response.json().data);
         return response.json().data as PlanningTask[];
       })
       .catch(this.handleError);
@@ -54,7 +56,7 @@ export class PlanningService {
       .get(this.planningParamsUrl)
       .toPromise()
       .then((response) => {
-        /*console.log( /*response.json().data);*/
+        console.log(response.json().data);
         return response.json().data as PlanningParams;
       })
       .catch(this.handleError);
