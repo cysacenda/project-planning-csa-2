@@ -7,7 +7,7 @@
   <table class="mat-elevation-z2">
     <tr>
       <th colspan="6" class="white"></th>
-      <th colspan="7" class="white">1 - 7 May 2017</th>
+      <th colspan="7" class="white">{{planningParams.currentDate | date: 'dd'}} - {{addDays(planningParams.currentDate, 6) | date: 'dd'}} {{planningParams.currentDate | date: 'MMMM'}} {{planningParams.currentDate | date: 'yyyy'}}</th>
     </tr>
     <tr>
       <th colspan="6"></th>
