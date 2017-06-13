@@ -38,4 +38,14 @@ export class ScheduleComponent implements OnInit {
     newDate.setDate(newDate.getDate() + days);
     return newDate;
   }
+
+  getWorkloadForDate(taskMap: Map<Date, number>, date: Date, days: number): number {
+    let workloadForDate = 0;
+    let tmpDate = this.addDays(date, days);
+    if (taskMap.has(tmpDate)) {
+      return taskMap.get(tmpDate);
+    } else {
+      return 0;
+    }
+  }
 }
