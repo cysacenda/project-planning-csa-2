@@ -14,4 +14,3 @@ export class PlanningTask {
     this.daysMap = new Map<Date, number>(daysMap.map((i) => [i.key, i.val]));
   }
 }
-

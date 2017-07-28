@@ -43,4 +43,7 @@ Résumé : https://angular.io/docs/ts/latest/guide/cheatsheet.html
 -Icones : 
   -Infos : https://material.io/icons/
   -Mise en place : https://google.github.io/material-design-icons/
+  
+## Update dependencies npm-check-updates
+ncu -u => Met à jour le package.json
 

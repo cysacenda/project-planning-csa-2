@@ -1,6 +1,5 @@
 <div class="app-content" *ngIf="planningParams!= null">
 
-  <!-- Questions expert : Logique calcul portée par Back- ou Front ? => Back -->
   <!-- Pb cast https://stackoverflow.com/questions/42774431/typescript-default-properties-when-type-casting -->
   <!-- Modélisation JSON => garder ID pour update, mais logique update en masse plutot que référence par Id -->
   <!-- cf. material CSS + Drag & Drop : utiliser hammerjs-->
@@ -44,7 +43,7 @@
       <td>{{task.name}}</td>
       <td>{{task.workload}}</td>
       <td>{{task.etc}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 0)}}</td>
+      <td><!--{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 0)}}--></td>
     </tr>
 
   </table>
