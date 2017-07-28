@@ -41,14 +41,14 @@ export class PlanningService {
   }
 
   getPlanningTasks(): Promise<Array<PlanningTask>> {
-    return this.http
-      .get(this.planningTasksUrl)
-      .toPromise()
-      .then((response) => {
-        console.log(response.json().data);
-        return response.json().data as PlanningTask[];
-      })
-      .catch(this.handleError);
+      return this.http
+        .get(this.planningTasksUrl)
+        .toPromise()
+        .then((response) => {
+          console.log(response.json().data);
+          return response.json().data as PlanningTask[];
+        })
+        .catch(this.handleError);
   }
 
   getPlanningParams(): Promise<PlanningParams> {

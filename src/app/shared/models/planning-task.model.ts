@@ -10,7 +10,7 @@ export class PlanningTask {
   daysMap: Map<Date, number>; // Days planned
 
   constructor(public id: number, public name: string, public workload: number, public etc: number, public position: number,
-              public resourceId: number, public projectId: number, daysMap: any) {
-    this.daysMap = new Map<Date, number>(daysMap.map((i) => [i.key, i.val]));
+              public resourceId: number, public projectId: number, daysArray: any) {
+    this.daysMap = new Map<Date, number>(daysArray.map((i) => [i.key, i.val]));
   }
 }
