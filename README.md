@@ -29,21 +29,33 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 https://angular.io/docs/ts/latest/cli-quickstart.html
 
 ## Help
-https://angular.io/
-
-Résumé : https://angular.io/docs/ts/latest/guide/cheatsheet.html 
-
+* https://angular.io/
+* Résumé : https://angular.io/docs/ts/latest/guide/cheatsheet.html 
 
 ## Inspiration
-- https://thinkster.io/
-  - https://github.com/gothinkster/
+* https://thinkster.io/
+* https://github.com/gothinkster/
 
 ## Material Design
--Guide : https://material.angular.io/guide/getting-started
--Icones : 
-  -Infos : https://material.io/icons/
-  -Mise en place : https://google.github.io/material-design-icons/
+* Guide : https://material.angular.io/guide/getting-started
+* Icones : 
+  * Infos : https://material.io/icons/
+  * Mise en place : https://google.github.io/material-design-icons/
   
 ## Update dependencies npm-check-updates
-ncu -u => Met à jour le package.json
+* ncu -u => Met à jour le package.json
+
+## Notes
+* Pb casts : 
+  * https://stackoverflow.com/questions/37310511/how-to-map-a-response-from-http-get-to-a-new-instance-of-a-typed-object-in-angul
+  * Pb cast https://stackoverflow.com/questions/42774431/typescript-default-properties-when-type-casting
+* Modélisation JSON => garder ID pour update, mais logique update en masse plutot que référence par Id
+* cf. material CSS + Drag & Drop : utiliser hammerjs
+* http://2ality.com/2015/08/es6-map-json.html
+
+#Tips
+* Debug : 
+  * Lancer npm start
+  * Lancer Debug via petite bête
+
 

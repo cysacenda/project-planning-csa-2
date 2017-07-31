@@ -20,10 +20,10 @@ export class InMemoryDataService implements InMemoryDbService {
       {id: 3, name: 'Rudy J.'}
     ];
     const planningTasks = [
-      {id: 1, name: 'Install API GW', workload: 5.5, etc: 2.25, position: 1, resourceId: 1, projectId: 1, daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}]},
-      {id: 2, name: 'Config API GW', workload: 1.5, etc: 0, position: 2, resourceId: 2, projectId: 1, daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}]},
-      {id: 4, name: 'Deploy API GW', workload: 0.5, etc: 0.5, position: 3, resourceId: 1, projectId: 1, daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}]},
-      {id: 3, name: 'Test API GW', workload: 1, etc: 1, position: 4, resourceId: 2, projectId: 1, daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}]}
+      {id: 1, name: 'Install API GW', workload: 5.5, etc: 2.25, position: 1, resource: 'Cyril SACENDA', project: 'NOBC Mobile', daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}]},
+      {id: 2, name: 'Config API GW', workload: 1.5, etc: 0, position: 2, resource: 'Cyril SACENDA', project: 'NOBC Mobile', daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}]},
+      {id: 4, name: 'Deploy API GW', workload: 0.5, etc: 0.5, position: 3, resource: 'Mohamed BOUHAMYD', project: 'NOBC Mobile', daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}]},
+      {id: 3, name: 'Test API GW', workload: 1, etc: 1, position: 4, resource: 'Mohamed BOUHAMYD', project: 'NOBC Mobile', daysMap: [{key : '2017-06-14T00:00:00.000Z', val : 1}, {key : '2017-06-15T00:00:00.000Z', val : 0.5}]}
     ];
     const planningParams = {currentDate: '2017-06-12T00:00:00.000Z'};
 

@@ -1,10 +1,6 @@
 <div class="app-content" *ngIf="planningParams!= null">
 
-  <!-- Pb cast https://stackoverflow.com/questions/42774431/typescript-default-properties-when-type-casting -->
-  <!-- Modélisation JSON => garder ID pour update, mais logique update en masse plutot que référence par Id -->
-  <!-- cf. material CSS + Drag & Drop : utiliser hammerjs-->
-  <!-- http://2ality.com/2015/08/es6-map-json.html -->
-  <table class="mat-elevation-z2">
+  <table class="mat-elevation-z8">
     <tr>
       <th colspan="6" class="white"></th>
       <th colspan="7" class="white">{{planningParams.currentDate | date: 'dd'}} - {{addDays(planningParams.currentDate,
@@ -38,12 +34,19 @@
     <!-- Pour chaque tâche -->
     <tr *ngFor="let task of tasks">
       <td>{{task.position}}</td>
-      <td>{{task.resourceId}}</td>
-      <td>{{task.projectId}}</td>
+      <td>{{task.resource}}</td>
+      <td>{{task.project}}</td>
       <td>{{task.name}}</td>
       <td>{{task.workload}}</td>
       <td>{{task.etc}}</td>
+
+      <!-- TODO : Boucle ? -->
       <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 0)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 1)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 2)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 3)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 4)}}</td>
+      <td></td>
     </tr>
 
   </table>

@@ -44,10 +44,10 @@ export class PlanningService {
       return this.http
         .get(this.planningTasksUrl)
         .toPromise()
-        .then((response) => {
-          console.log(response.json().data);
-          return response.json().data as PlanningTask[];
-        })
+        // .map((response: Response) => response.json()))
+         .then((response) => {
+           return response.json().data as PlanningTask[];
+         })
         .catch(this.handleError);
   }
 
@@ -56,8 +56,9 @@ export class PlanningService {
       .get(this.planningParamsUrl)
       .toPromise()
       .then((response) => {
-        console.log(response.json().data);
-        return response.json().data as PlanningParams;
+        //TODO : A changer, ne fonctionne pas
+        let obj = new PlanningParams();
+        return Object.assign(obj, response.json().data);
       })
       .catch(this.handleError);
   }
