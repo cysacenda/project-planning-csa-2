@@ -35,9 +35,11 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
 ## Inspiration
 * https://thinkster.io/
 * https://github.com/gothinkster/
+* MEAN repo avec authent JSON : https://github.com/linnovate/mean/
 
 ## Material Design
 * Guide : https://material.angular.io/guide/getting-started
+* Couleurs : https://material.io/guidelines/style/color.html#color-color-palette
 * Icones : 
   * Infos : https://material.io/icons/
   * Mise en place : https://google.github.io/material-design-icons/
@@ -57,5 +59,15 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
 * Debug : 
   * Lancer npm start
   * Lancer Debug via petite bête
+* External Tools (ex : MongoDB) : https://www.jetbrains.com/help/webstorm/external-tools.html
+  
+# MEAN / Express
+* Set up MEAN : https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli 
+* Exemple MEAN Angular2 : http://jasonwatmore.com/post/2017/02/22/mean-with-angular-2-user-registration-and-login-example-tutorial
+* Node + Mongo : https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+
+#Pré-requis pour faire tourner l'app
+* Installation MongoDb : http://jasonwatmore.com/post/2015/12/26/setup-the-mean-stack-on-windows
+* Installation NodeJS
 
 

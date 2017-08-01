@@ -40,15 +40,15 @@ export class ScheduleComponent implements OnInit {
     return newDate;
   }
 
-  getWorkloadForDate(taskMap: any, date: string, days: number): number {
+  getWorkloadForDate(taskMap: any, date: string, days: number): string {
     let tmpDate: string = JSON.parse(JSON.stringify(this.addDays(date, days)));
     let taskDays: Map<string, number>;
     taskDays = new Map(taskMap.map((i) => [i.key, parseFloat(i.val)]));
 
     if (taskDays.has(tmpDate)) {
-      return taskDays.get(tmpDate);
+      return taskDays.get(tmpDate).toString();
     } else {
-      return 0;
+      return '';
     }
   }
 }

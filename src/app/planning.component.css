@@ -1,12 +1,36 @@
 table {
-  background: lightblue;
   border-collapse: collapse;
   width: 100%;
 }
-table, th, td {
-  border: 1px solid black;
+table, td {
+  border: 1px solid lightgrey;
+  text-align: center;
+}
+
+tr.tabHeader {
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  background-color: #F06292;
+  color: white;
+}
+
+td:empty{
+  background-color: lightgrey;
+}
+
+td:not(:empty){
+  background-color: yellow;
+}
+
+td.notColored {
+  background-color: white;
 }
 
 th.white, td.white {
+  border: 0px;
+}
+
+td.weekEnd, td.white {
   border: 0px;
 }
