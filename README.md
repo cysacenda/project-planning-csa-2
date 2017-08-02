@@ -66,8 +66,12 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
 * Exemple MEAN Angular2 : http://jasonwatmore.com/post/2017/02/22/mean-with-angular-2-user-registration-and-login-example-tutorial
 * Node + Mongo : https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
 
+* Express + MongoDB https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+
 #Pré-requis pour faire tourner l'app
 * Installation MongoDb : http://jasonwatmore.com/post/2015/12/26/setup-the-mean-stack-on-windows
 * Installation NodeJS
 
+#TODO : 
+* https://trello.com/b/HDge0ptu/csa-outil-planning
 

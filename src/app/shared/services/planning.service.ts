@@ -7,7 +7,7 @@ import {PlanningProject} from '../models/planning-project.model';
 import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
 import {PlanningParams} from '../models/planning-params.model';
-import {toArray} from "rxjs/operator/toArray";
+import {toArray} from 'rxjs/operator/toArray';
 
 @Injectable()
 export class PlanningService {
