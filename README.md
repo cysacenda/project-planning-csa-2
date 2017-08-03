@@ -67,11 +67,12 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
 * Node + Mongo : https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
 
 * Express + MongoDB https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+* http://brianflove.com/2016/11/11/typescript-2-express-mongoose-mocha-chai/
 
 #Pré-requis pour faire tourner l'app
 * Installation MongoDb : http://jasonwatmore.com/post/2015/12/26/setup-the-mean-stack-on-windows
 * Installation NodeJS
 
 #TODO : 
-* https://trello.com/b/HDge0ptu/csa-outil-planning
+https://trello.com/b/HDge0ptu/csa-outil-planning
 

@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;        // set our port
 
-var PlanningParams = require('./server/modelTmp/planning-params.model');
+//var PlanningParams = require('./server/modelTmp/planning-params.model');
 //var PlanningParams = require('./dist/out-tsc/planning-params.model');
 
 // ROUTES FOR OUR API
