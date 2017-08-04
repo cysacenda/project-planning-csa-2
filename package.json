@@ -2,17 +2,17 @@
   "name": "project-planning-csa",
   "version": "0.0.1",
   "main": "server/app.js",
-  "license": "MIT",
+  "license": "Cyril SACENDA",
   "scripts": {
     "ng": "ng",
     "start-front": "ng serve --watch --open",
     "start-server": "node dist/server/www.js",
-    "build": "ng build",
+    "build-front": "ng build",
+    "build-server": "tsc -p ./server",
     "test-front": "ng test",
     "test-back": "mocha --reporter spec ./dist/server/tests/*.js",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "_server:build": "tsc -p ./server"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

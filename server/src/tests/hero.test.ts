@@ -51,7 +51,8 @@ chai.use(require('chai-http'));
    */
   public static before() {
     // connect to MongoDB
-    mongoose.connect('mongodb://localhost:27017/planning-csa');
+    // TODO : Variables env
+    mongoose.connect('mongodb://localhost:27017/planning-csa-tests');
     HerosTest.Hero = mongoose.model<HeroModel, HeroModelStatic>('Hero', heroSchema);
 
     // create http server
