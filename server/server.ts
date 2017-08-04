@@ -1,50 +1,112 @@
-import * as http from 'http';
-import * as debug from 'debug';
+import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
+import * as express from 'express';
+import * as morgan from 'morgan';
+import * as path from 'path';
+import errorHandler = require('errorhandler');
+import mongoose = require('mongoose');
 
-import App from './App';
+// api
+import { HerosApi } from './api/heros';
 
-debug('ts-express:server');
+/**
+ * The server.
+ *
+ * @class Server
+ */
+export class Server {
 
-const port = normalizePort(process.env.PORT || 3000);
-App.set('port', port);
+  /**
+   * The express application.
+   * @type {Application}
+   */
+  public app: express.Application;
 
-const server = http.createServer(App);
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-function normalizePort(val: number | string): number | string | boolean {
-  let port: number = (typeof val === 'string') ? parseInt(val, 10) : val;
-  if (isNaN(port)) {
-    return val;
-  } else if (port >= 0) {
-    return port;
-  } else {
-    return false;
+  /**
+   * Bootstrap the application.
+   * @static
+   */
+  public static bootstrap(): Server {
+    return new Server();
   }
-}
 
-function onError(error: NodeJS.ErrnoException): void {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-  let bind = (typeof port === 'string') ? 'Pipe ' + port : 'Port ' + port;
-  switch (error.code) {
-    case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
+  /**
+   * @constructor
+   */
+  constructor() {
+    // create expressjs application
+    this.app = express();
 
-function onListening(): void {
-  let addr = server.address();
-  let bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
-  debug(`Listening on ${bind}`);
+    // configure application
+    this.config();
+
+    // add api
+    this.api();
+  }
+
+  /**
+   * REST API endpoints.
+   */
+  public api() {
+    let router = express.Router();
+
+    // configure CORS (Attention restriction à provenance http://localhost:4200
+    const corsOptions: cors.CorsOptions = {
+      allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token'],
+      credentials: true,
+      methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+      origin: 'http://localhost:4200',
+      preflightContinue: false
+    };
+    router.use(cors(corsOptions));
+
+    // root request
+    router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+      res.json({ announcement: 'Welcome to our API.' });
+      next();
+    });
+
+    // create API routes
+    HerosApi.create(router);
+
+    // wire up the REST API
+    this.app.use('/api', router);
+
+    // enable CORS pre-flight
+    router.options('*', cors(corsOptions));
+  }
+
+  /**
+   * Configure application
+   *
+   * @class Server
+   */
+  public config() {
+    // morgan middleware to log HTTP requests
+    this.app.use(morgan('dev'));
+
+    // use json form parser middlware
+    this.app.use(bodyParser.json());
+
+    // use query string parser middlware
+    this.app.use(bodyParser.urlencoded({
+      extended: true
+    }));
+
+    // connect to mongoose
+    // TODO : Store in config file
+    mongoose.connect('mongodb://localhost:27017/planning-csa');
+    mongoose.connection.on('error', error => {
+      console.error(error);
+    });
+
+    // catch 404 and forward to error handler
+    this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+        err.status = 404;
+        next(err);
+    });
+
+    // error handling
+    this.app.use(errorHandler());
+  }
 }

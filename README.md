@@ -61,7 +61,8 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
   * Lancer Debug via petite bête
 * External Tools (ex : MongoDB) : https://www.jetbrains.com/help/webstorm/external-tools.html
   
-# MEAN / Express
+# Express API Mongoose, etc.
+* GROS TUTO : https://github.com/blove/mean-material-reactive/tree/initial-app
 * Set up MEAN : https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli 
 * Exemple MEAN Angular2 : http://jasonwatmore.com/post/2017/02/22/mean-with-angular-2-user-registration-and-login-example-tutorial
 * Node + Mongo : https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
