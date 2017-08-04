@@ -95,7 +95,7 @@ export class Server {
 
     // connect to mongoose
     // TODO : Store in config file
-    mongoose.connect('mongodb://localhost:27017/planning-csa');
+    mongoose.connect('mongodb://localhost:27017/planning-csa' , {useMongoClient: true});
     mongoose.connection.on('error', error => {
       console.error(error);
     });

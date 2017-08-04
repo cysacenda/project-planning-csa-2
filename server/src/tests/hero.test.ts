@@ -3,18 +3,18 @@ process.env.NODE_ENV = 'test';
 // mocha
 import 'mocha';
 import 'chai';
-import { suite, test } from 'mocha-typescript';
+import {suite, test} from 'mocha-typescript';
 
 // mongodb
-import { ObjectID } from 'mongodb';
+import {ObjectID} from 'mongodb';
 
 // server
-import { Server } from '../server';
+import {Server} from '../server';
 
 // model
-import { Hero } from '../interfaces/hero';
-import { HeroModel, HeroModelStatic } from '../models/hero';
-import { heroSchema } from '../schemas/hero';
+import {Hero} from '../interfaces/hero';
+import {HeroModel, HeroModelStatic} from '../models/hero';
+import {heroSchema} from '../schemas/hero';
 
 // mongoose
 import mongoose = require('mongoose');
@@ -29,7 +29,8 @@ chai.should();
 // configure chai-http
 chai.use(require('chai-http'));
 
-@suite class HerosTest {
+@suite
+class HerosTest {
 
   // constants
   public static BASE_URI: string = '/api/heros';
@@ -52,7 +53,7 @@ chai.use(require('chai-http'));
   public static before() {
     // connect to MongoDB
     // TODO : Variables env
-    mongoose.connect('mongodb://localhost:27017/planning-csa-tests');
+    mongoose.connect('mongodb://localhost:27017/planning-csa-tests', {useMongoClient: true});
     HerosTest.Hero = mongoose.model<HeroModel, HeroModelStatic>('Hero', heroSchema);
 
     // create http server
@@ -88,7 +89,8 @@ chai.use(require('chai-http'));
     });
   }
 
-  @test public delete() {
+  @test
+  public delete() {
     const data: Hero = {
       name: 'To be deleted'
     };
@@ -99,7 +101,8 @@ chai.use(require('chai-http'));
     });
   }
 
-  @test public get() {
+  @test
+  public get () {
     return chai.request(HerosTest.server).get(`${HerosTest.BASE_URI}/${HerosTest.hero._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
@@ -107,7 +110,8 @@ chai.use(require('chai-http'));
     });
   }
 
-  @test public list() {
+  @test
+  public list() {
     return chai.request(HerosTest.server).get(HerosTest.BASE_URI).then(response => {
       response.should.have.status(200);
       response.body.should.be.an('array');
@@ -115,7 +119,8 @@ chai.use(require('chai-http'));
     });
   }
 
-  @test public post() {
+  @test
+  public post() {
     const data: Hero = {
       name: 'Magneto'
     };
@@ -130,7 +135,8 @@ chai.use(require('chai-http'));
       });
   }
 
-  @test public put() {
+  @test
+  public put() {
     const data: Hero = {
       name: 'Superman'
     }
