@@ -53,7 +53,7 @@ class PlanningParamsTest {
   public static before() {
     // connect to MongoDB
     // TODO : Variables env
-    mongoose.connect('mongodb://localhost:27017/planning-csa', {useMongoClient: true});
+    mongoose.connect('mongodb://localhost:27017/planning-csa-tests');
     PlanningParamsTest.planningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningParamsModel', PlanningParamsSchema);
 
     // create http server
@@ -63,11 +63,11 @@ class PlanningParamsTest {
     PlanningParamsTest.server = http.createServer(app);
     PlanningParamsTest.server.listen(port);
 
-    return PlanningParamsTest.CreatePlanningParams();
+   // return PlanningParamsTest.CreatePlanningParams();
   }
 
   /**
-   * After all hook
+   * After all hook => @@@PlanningparamsModel : KO
    */
   /*public static after() {
     return PlanningParamsTest.planningParamsDocument.remove()
@@ -77,7 +77,7 @@ class PlanningParamsTest {
   }*/
 
   /**
-   * Create a test planning-params.
+   * Create a test planning-params. @@@PlanningparamsModel : KO
    */
   public static CreatePlanningParams(): Promise<PlanningParamsModelInterface> {
     const tmpDate: Date = new Date('11/20/2014 04:11');
@@ -90,18 +90,20 @@ class PlanningParamsTest {
     });
   }
 
-  /*@test
+  // Create a test planning-params. @@@Crée PlanningparamsModel et delete PlanningParam : KO
+  @test
   public delete() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningParamsInterface = {
       currentDate: tmpDate
     };
+    // TODO : Transformer en requete comme le post pour la création ? Pourquoi marchait avant ?
     return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
       return chai.request(PlanningParamsTest.server).del(`${PlanningParamsTest.BASE_URI}/${planningParams._id}`).then(response => {
         response.should.have.status(200);
       });
     });
-  }*/
+  }
 
   @test
   public get () {
@@ -122,6 +124,7 @@ class PlanningParamsTest {
   }
 
   @test
+  // @@@Planningparams : OK
   public post() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningParamsInterface = {
