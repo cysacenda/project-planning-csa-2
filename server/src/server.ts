@@ -7,7 +7,7 @@ import errorHandler = require('errorhandler');
 import mongoose = require('mongoose');
 
 // api
-import { HerosApi } from './api/heros';
+import { PlanningParamsApi } from './api/planning-params.api';
 
 /**
  * The server.
@@ -48,14 +48,14 @@ export class Server {
    * REST API endpoints.
    */
   public api() {
-    let router = express.Router();
+    const router = express.Router();
 
     // configure CORS (Attention restriction à provenance http://localhost:4200
     const corsOptions: cors.CorsOptions = {
       allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token'],
       credentials: true,
       methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-      origin: 'http://localhost:4200',
+      /*origin: 'http://localhost:4200',*/
       preflightContinue: false
     };
     router.use(cors(corsOptions));
@@ -67,7 +67,7 @@ export class Server {
     });
 
     // create API routes
-    HerosApi.create(router);
+    PlanningParamsApi.create(router);
 
     // wire up the REST API
     this.app.use('/api', router);

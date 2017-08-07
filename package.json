@@ -10,7 +10,7 @@
     "build-front": "ng build",
     "build-server": "tsc -p ./server",
     "test-front": "ng test",
-    "test-back": "mocha --reporter spec ./dist/server/tests/*.js",
+    "test-server": "mocha --reporter spec ./dist/server/tests/*.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

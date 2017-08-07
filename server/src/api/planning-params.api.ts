@@ -2,12 +2,12 @@
 import { NextFunction, Response, Request, Router } from 'express';
 
 // model
-import { Hero, HeroModel } from '../models/hero';
+import { PlanningParamsModel, PlanningParamsModelInterface } from '../models/planning-params.model';
 
 /**
- * @class HerosApi
+ * @class PlanningParamsApi
  */
-export class HerosApi {
+export class PlanningParamsApi {
 
   /**
    * Create the api.
@@ -15,46 +15,46 @@ export class HerosApi {
    */
   public static create(router: Router) {
     // DELETE
-    router.delete('/heros/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
-      new HerosApi().delete(req, res, next);
+    router.delete('/planning-params/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningParamsApi().delete(req, res, next);
     });
 
     // GET
-    router.get('/heros', (req: Request, res: Response, next: NextFunction) => {
-      new HerosApi().list(req, res, next);
+    router.get('/planning-params', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningParamsApi().list(req, res, next);
     });
-    router.get('/heros/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
-      new HerosApi().get(req, res, next);
+    router.get('/planning-params/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningParamsApi().get(req, res, next);
     });
 
     // POST
-    router.post('/heros', (req: Request, res: Response, next: NextFunction) => {
-      new HerosApi().create(req, res, next);
+    router.post('/planning-params', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningParamsApi().create(req, res, next);
     });
 
     // PUT
-    router.put('/heros/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
-      new HerosApi().update(req, res, next);
+    router.put('/planning-params/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningParamsApi().update(req, res, next);
     });
   }
 
   /**
-   * Create a new hero.
+   * Create a new planning-params.
    * @param req {Request} The express request object.
    * @param res {Response} The express response object.
    * @param next {NextFunction} The next function to continue.
    */
   public create(req: Request, res: Response, next: NextFunction) {
-    // create hero
-    const hero = new Hero(req.body);
-    hero.save().then(hero => {
-      res.json(hero.toObject());
+    // create planning-params
+    const planningParam = new PlanningParamsModel(req.body);
+    planningParam.save().then(planningParams => {
+      res.json(planningParams.toObject());
       next();
     }).catch(next);
   }
 
   /**
-   * Delete a hero.
+   * Delete a planning-params.
    * @param req {Request} The express request object.
    * @param res {Response} The express response object.
    * @param next {NextFunction} The next function to continue.
@@ -71,17 +71,17 @@ export class HerosApi {
     // get id
     const id: string = req.params[PARAM_ID];
 
-      // get hero
-      Hero.findById(id).then(hero => {
+      // get planningParamsDocument
+      PlanningParamsModel.findById(id).then(planningParams => {
 
-      // verify hero exists
-      if (hero === null) {
+      // verify planningParamsDocument exists
+      if (planningParams === null) {
         res.sendStatus(404);
         next();
         return;
       }
 
-      hero.remove().then(() => {
+        planningParams.remove().then(() => {
         res.sendStatus(200);
         next();
       }).catch(next);
@@ -89,7 +89,7 @@ export class HerosApi {
   }
 
   /**
-   * Get a hero.
+   * Get a planningParamsDocument.
    * @param req {Request} The express request object.
    * @param res {Response} The express response object.
    * @param next {NextFunction} The next function to continue.
@@ -106,18 +106,18 @@ export class HerosApi {
     // get id
     const id: string = req.params[PARAM_ID];
 
-    // get hero
-      Hero.findById(id).then(hero => {
+    // get planningParamsDocument
+      PlanningParamsModel.findById(id).then(planningParams => {
 
-      // verify hero was found
-      if (hero === null) {
+      // verify planningParamsDocument was found
+      if (planningParams === null) {
         res.sendStatus(404);
         next();
         return;
       }
 
-      // send json of hero object
-      res.json(hero.toObject());
+      // send json of planningParamsDocument object
+      res.json(planningParams.toObject());
       next();
     }).catch(next);
   }
@@ -130,14 +130,14 @@ export class HerosApi {
    */
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
-    Hero.find().then(heros => {
-      res.json(heros.map(hero => hero.toObject()));
+    PlanningParamsModel.find().then(planningParams => {
+      res.json(planningParams.map(planningParam => planningParam.toObject()));
       next();
     }).catch(next);
   }
 
   /**
-   * Update a hero.
+   * Update a planningParamsDocument.
    * @param req {Request} The express request object.
    * @param res {Response} The express response object.
    * @param next {NextFunction} The next function to continue.
@@ -155,19 +155,19 @@ export class HerosApi {
     // get id
     const id: string = req.params[PARAM_ID];
 
-    // get hero
-    Hero.findById(id).then(hero => {
+    // get planningParamsDocument
+    PlanningParamsModel.findById(id).then(planningParams => {
 
-      // verify hero was found
-      if (hero === null) {
+      // verify planningParamsDocument was found
+      if (planningParams === null) {
         res.sendStatus(404);
         next();
         return;
       }
 
-      // save hero
-      Object.assign(hero, req.body).save().then((hero: HeroModel) => {
-        res.json(hero.toObject());
+      // save planningParamsDocument
+      Object.assign(planningParams, req.body).save().then((planningParam: PlanningParamsModelInterface) => {
+        res.json(planningParam.toObject());
         next();
       }).catch(next);
     }).catch(next);

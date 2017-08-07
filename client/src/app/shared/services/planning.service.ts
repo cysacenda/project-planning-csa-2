@@ -70,23 +70,23 @@ export class PlanningService {
   }
 
   /*
-   getHero(id: number): Promise<Hero> {
+   getHero(id: number): Promise<PlanningParamsInterface> {
    return this.getHeroes()
-   .then(heroes => heroes.find(hero => hero.id === id));
+   .then(heroes => heroes.find(planningParamsDocument => planningParamsDocument.id === id));
    }
 
-   save(hero: Hero): Promise<Hero> {
-   if (hero.id) {
-   return this.put(hero);
+   save(planningParamsDocument: PlanningParamsInterface): Promise<PlanningParamsInterface> {
+   if (planningParamsDocument.id) {
+   return this.put(planningParamsDocument);
    }
-   return this.post(hero);
+   return this.post(planningParamsDocument);
    }
 
-   delete(hero: Hero): Promise<Response> {
+   delete(planningParamsDocument: PlanningParamsInterface): Promise<Response> {
    const headers = new Headers();
    headers.append('Content-Type', 'application/json');
 
-   const url = `${this.heroesUrl}/${hero.id}`;
+   const url = `${this.heroesUrl}/${planningParamsDocument.id}`;
 
    return this.http
    .delete(url, { headers: headers })
@@ -94,30 +94,30 @@ export class PlanningService {
    .catch(this.handleError);
    }
 
-   // Add new Hero
-   private post(hero: Hero): Promise<Hero> {
+   // Add new PlanningParamsInterface
+   private post(planningParamsDocument: PlanningParamsInterface): Promise<PlanningParamsInterface> {
    const headers = new Headers({
    'Content-Type': 'application/json'
    });
 
    return this.http
-   .post(this.heroesUrl, JSON.stringify(hero), { headers: headers })
+   .post(this.heroesUrl, JSON.stringify(planningParamsDocument), { headers: headers })
    .toPromise()
    .then(res => res.json().data)
    .catch(this.handleError);
    }
 
-   // Update existing Hero
-   private put(hero: Hero): Promise<Hero> {
+   // Update existing PlanningParamsInterface
+   private put(planningParamsDocument: PlanningParamsInterface): Promise<PlanningParamsInterface> {
    const headers = new Headers();
    headers.append('Content-Type', 'application/json');
 
-   const url = `${this.heroesUrl}/${hero.id}`;
+   const url = `${this.heroesUrl}/${planningParamsDocument.id}`;
 
    return this.http
-   .put(url, JSON.stringify(hero), { headers: headers })
+   .put(url, JSON.stringify(planningParamsDocument), { headers: headers })
    .toPromise()
-   .then(() => hero)
+   .then(() => planningParamsDocument)
    .catch(this.handleError);
    }
 
