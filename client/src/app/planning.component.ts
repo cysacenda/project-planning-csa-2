@@ -35,13 +35,13 @@ export class ScheduleComponent implements OnInit {
 
   // TODO : A optimiser
   addDays(date: string, days: number): Date {
-    let newDate = new Date(date);
+    const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + days);
     return newDate;
   }
 
   getWorkloadForDate(taskMap: any, date: string, days: number): string {
-    let tmpDate: string = JSON.parse(JSON.stringify(this.addDays(date, days)));
+    const tmpDate: string = JSON.parse(JSON.stringify(this.addDays(date, days)));
     let taskDays: Map<string, number>;
     taskDays = new Map(taskMap.map((i) => [i.key, parseFloat(i.val)]));
 

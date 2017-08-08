@@ -48,13 +48,13 @@ class PlanningParamsTest {
   public static server: any;
 
   /**
-   * Before all hook.
+   * Before all hook
    */
   public static before() {
     // connect to MongoDB
     // TODO : Variables env
     mongoose.connect('mongodb://localhost:27017/planning-csa-tests');
-    PlanningParamsTest.planningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningParamsModel', PlanningParamsSchema);
+    PlanningParamsTest.planningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningParams', PlanningParamsSchema);
 
     // create http server
     const port = 8001;
@@ -63,21 +63,21 @@ class PlanningParamsTest {
     PlanningParamsTest.server = http.createServer(app);
     PlanningParamsTest.server.listen(port);
 
-   // return PlanningParamsTest.CreatePlanningParams();
+   return PlanningParamsTest.CreatePlanningParams();
   }
 
   /**
-   * After all hook => @@@PlanningparamsModel : KO
+   * After all hook
    */
-  /*public static after() {
+  public static after() {
     return PlanningParamsTest.planningParamsDocument.remove()
       .then(() => {
         return mongoose.disconnect();
       });
-  }*/
+  }
 
   /**
-   * Create a test planning-params. @@@PlanningparamsModel : KO
+   * Create a test planning-params
    */
   public static CreatePlanningParams(): Promise<PlanningParamsModelInterface> {
     const tmpDate: Date = new Date('11/20/2014 04:11');
@@ -90,14 +90,13 @@ class PlanningParamsTest {
     });
   }
 
-  // Create a test planning-params. @@@Crée PlanningparamsModel et delete PlanningParam : KO
+  // Delete a PlanningParam
   @test
   public delete() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningParamsInterface = {
       currentDate: tmpDate
     };
-    // TODO : Transformer en requete comme le post pour la création ? Pourquoi marchait avant ?
     return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
       return chai.request(PlanningParamsTest.server).del(`${PlanningParamsTest.BASE_URI}/${planningParams._id}`).then(response => {
         response.should.have.status(200);
@@ -110,7 +109,7 @@ class PlanningParamsTest {
     return chai.request(PlanningParamsTest.server).get(`${PlanningParamsTest.BASE_URI}/${PlanningParamsTest.planningParamsDocument._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
-      response.body.should.have.property('currentDate').eql(PlanningParamsTest.planningParamsDocument.currentDate);
+      response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(PlanningParamsTest.planningParamsDocument.currentDate)));
     });
   }
 
@@ -119,7 +118,7 @@ class PlanningParamsTest {
     return chai.request(PlanningParamsTest.server).get(PlanningParamsTest.BASE_URI).then(response => {
       response.should.have.status(200);
       response.body.should.be.an('array');
-      response.body.should.have.lengthOf(5);
+      response.body.should.have.lengthOf(1);
     });
   }
 
@@ -153,7 +152,7 @@ class PlanningParamsTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(data.currentDate);
+        response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(data.currentDate)));
       });
   }
 

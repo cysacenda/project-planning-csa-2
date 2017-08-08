@@ -13,8 +13,8 @@ import 'hammerjs';
 import {AppRoutingModule} from './app-routing.module';
 
 /* TODO : A suprimer quand vraie données depuis API */
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './shared/services/in-memory-data.service';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './shared/services/in-memory-data.service';
 
 // Material design modules
 import {
@@ -53,7 +53,9 @@ import {PlanningService} from './shared/services/planning.service';
     MdCardModule,
     MdSelectModule,
     MdOptionModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 })
+    InMemoryWebApiModule.forRoot(InMemoryDataService, {
+      passThruUnknownUrl: true,
+      /*delay: 100*/})
   ],
   providers: [PlanningService],
   bootstrap: [

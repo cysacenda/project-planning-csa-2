@@ -7,7 +7,6 @@ import {PlanningProject} from '../models/planning-project.model';
 import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
 import {PlanningParams} from '../models/planning-params.model';
-import {toArray} from 'rxjs/operator/toArray';
 
 @Injectable()
 export class PlanningService {
@@ -15,7 +14,8 @@ export class PlanningService {
   private projectsUrl = 'app/projects';
   private resourcesUrl = 'app/resources';
   private planningTasksUrl = 'app/planningTasks';
-  private planningParamsUrl = 'app/planningParams';
+  // private planningParamsUrl = 'app/planningParams';
+  private planningParamsUrl = 'http://localhost:3000/api/planning-params';
 
   constructor(private http: Http) {
   }
@@ -56,9 +56,10 @@ export class PlanningService {
       .get(this.planningParamsUrl)
       .toPromise()
       .then((response) => {
-        //TODO : A changer, ne fonctionne pas
-        let obj = new PlanningParams();
-        return Object.assign(obj, response.json().data);
+      console.log(response.json());
+         return (response.json() as PlanningParams[])[0];
+        // let obj = new PlanningParams();
+        // return Object.assign(obj, response.json());
       })
       .catch(this.handleError);
   }
