@@ -1,4 +1,5 @@
 export class PlanningResource {
-  id: number;
+  _id: number;
+  trigram: string;
   name: string;
 }

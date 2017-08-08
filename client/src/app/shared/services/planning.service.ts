@@ -10,12 +10,18 @@ import {PlanningParams} from '../models/planning-params.model';
 
 @Injectable()
 export class PlanningService {
+
+  // Base URL to api
+  // TODO : conf file
+  private basicURL: string = 'http://localhost:3000/api/'
+
   // URL to web api
-  private projectsUrl = 'app/projects';
-  private resourcesUrl = 'app/resources';
-  private planningTasksUrl = 'app/planningTasks';
+  private projectsUrl: string = 'app/projects';
+  private resourcesUrl: string = 'app/resources';
+  private planningTasksUrl: string = 'app/planningTasks';
+
   // private planningParamsUrl = 'app/planningParams';
-  private planningParamsUrl = 'http://localhost:3000/api/planning-params';
+  private planningParamsUrl: string = this.basicURL + 'planning-params';
 
   constructor(private http: Http) {
   }
@@ -56,10 +62,7 @@ export class PlanningService {
       .get(this.planningParamsUrl)
       .toPromise()
       .then((response) => {
-      console.log(response.json());
          return (response.json() as PlanningParams[])[0];
-        // let obj = new PlanningParams();
-        // return Object.assign(obj, response.json());
       })
       .catch(this.handleError);
   }

@@ -3,8 +3,8 @@
   <table class="mat-elevation-z8">
     <tr class="tabHeader">
       <th colspan="6" class="white"></th>
-      <th colspan="13" class="white">{{planningParams.currentDate | date: 'dd' }} {{planningParams.currentDate | date: 'MMMM'}} {{planningParams.currentDate | date: 'yyyy'}} - {{addDays(planningParams.currentDate,
-        13) | date: 'dd'}} {{addDays(planningParams.currentDate, 13) | date: 'MMMM'}} {{addDays(planningParams.currentDate, 13) | date: 'yyyy'}}
+      <th colspan="18" class="white">{{planningParams.currentDate | date: 'dd' }} {{planningParams.currentDate | date: 'MMMM'}} {{planningParams.currentDate | date: 'yyyy'}} - {{addDays(planningParams.currentDate,
+        18) | date: 'dd'}} {{addDays(planningParams.currentDate, 18) | date: 'MMMM'}} {{addDays(planningParams.currentDate, 18) | date: 'yyyy'}}
       </th>
     </tr>
     <tr class="tabHeader ">
@@ -20,6 +20,12 @@
       <th>{{addDays(planningParams.currentDate, 9) | date: 'EE'}}</th>
       <th>{{addDays(planningParams.currentDate, 10) | date: 'EE'}}</th>
       <th>{{addDays(planningParams.currentDate, 11) | date: 'EE'}}</th>
+      <th>WE</th>
+      <th>{{addDays(planningParams.currentDate, 14) | date: 'EE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 15) | date: 'EE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 16) | date: 'EE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 17) | date: 'EE'}}</th>
+      <th>{{addDays(planningParams.currentDate, 18) | date: 'EE'}}</th>
       <th>WE</th>
     </tr>
     <tr class="tabHeader" >
@@ -41,13 +47,19 @@
       <th>{{addDays(planningParams.currentDate, 10) | date: 'dd'}}</th>
       <th>{{addDays(planningParams.currentDate, 11) | date: 'dd'}}</th>
       <th></th>
+      <th>{{addDays(planningParams.currentDate, 14) | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 15) | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 16) | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 17) | date: 'dd'}}</th>
+      <th>{{addDays(planningParams.currentDate, 18) | date: 'dd'}}</th>
+      <th></th>
     </tr>
 
     <!-- Pour chaque tâche -->
     <tr *ngFor="let task of tasks">
       <td class="notColored">{{task.position}}</td>
-      <td class="notColored">{{task.resource}}</td>
-      <td class="notColored">{{task.project}}</td>
+      <td class="notColored">{{task.resourceTrigram}}</td>
+      <td class="notColored">{{task.projectName}}</td>
       <td class="notColored">{{task.name}}</td>
       <td class="notColored">{{task.workload}}</td>
       <td class="notColored">{{task.etc}}</td>
@@ -64,6 +76,12 @@
       <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 9)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 10)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 11)}}</td>
+      <td></td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 14)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 15)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 16)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 17)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 18)}}</td>
       <td></td>
     </tr>
 

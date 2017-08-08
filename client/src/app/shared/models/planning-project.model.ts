@@ -1,5 +1,5 @@
 export class PlanningProject {
-  id: number;
+  _id: number;
   name: string;
   description: string;
 }

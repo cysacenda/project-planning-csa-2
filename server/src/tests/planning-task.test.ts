@@ -12,9 +12,9 @@ import {ObjectID} from 'mongodb';
 import {Server} from '../server';
 
 // model
-import {PlanningParamsInterface} from '../interfaces/planning-params.interface';
-import {PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic} from '../models/planning-params.model';
-import {PlanningParamsSchema} from '../schemas/planning-params.schema';
+import {PlanningTaskInterface} from '../interfaces/planning-task.interface';
+import {PlanningTaskModelInterface, PlanningTaskModelInterfaceStatic} from '../models/planning-task.model';
+import {PlanningTaskSchema} from '../schemas/planning-task.schema';
 
 // mongoose
 import mongoose = require('mongoose');
@@ -39,10 +39,10 @@ class PlanningParamsTest {
   public static connection: mongoose.Connection;
 
   // planningParams model
-  public static planningParamsModel: PlanningParamsModelInterfaceStatic;
+  public static planningParamsModel: PlanningTaskModelInterfaceStatic;
 
   // planningParamsDocument document
-  public static planningParamsDocument: PlanningParamsModelInterface;
+  public static planningParamsDocument: PlanningTaskModelInterface;
 
   // the http server
   public static server: any;
@@ -54,7 +54,7 @@ class PlanningParamsTest {
     // connect to MongoDB
     // TODO : Variables env
     mongoose.connect('mongodb://localhost:27017/planning-csa-tests');
-    PlanningParamsTest.planningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningparams', PlanningParamsSchema);
+    PlanningParamsTest.planningParamsModel = mongoose.model<PlanningTaskModelInterface, PlanningTaskModelInterfaceStatic>('planningtasks', PlanningTaskSchema);
 
     // create http server
     const port = 8001;
@@ -79,9 +79,9 @@ class PlanningParamsTest {
   /**
    * Create a test planning-params
    */
-  public static CreatePlanningParams(): Promise<PlanningParamsModelInterface> {
+  public static CreatePlanningParams(): Promise<PlanningTaskModelInterface> {
     const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningParamsInterface = {
+    const data: PlanningTaskModelInterface = {
       currentDate: tmpDate
     };
     return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
@@ -94,7 +94,7 @@ class PlanningParamsTest {
   @test
   public delete() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningParamsInterface = {
+    const data: PlanningTaskModelInterface = {
       currentDate: tmpDate
     };
     return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
@@ -126,7 +126,7 @@ class PlanningParamsTest {
   // @@@Planningparams : OK
   public post() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningParamsInterface = {
+    const data: PlanningTaskModelInterface = {
       currentDate: tmpDate
     };
     return chai.request(PlanningParamsTest.server).post(PlanningParamsTest.BASE_URI)
@@ -143,7 +143,7 @@ class PlanningParamsTest {
   @test
   public put() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningParamsInterface = {
+    const data: PlanningTaskModelInterface = {
       currentDate: tmpDate
     }
     return chai.request(PlanningParamsTest.server).put(`${PlanningParamsTest.BASE_URI}/${PlanningParamsTest.planningParamsDocument._id}`)

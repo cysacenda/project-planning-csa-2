@@ -2,12 +2,12 @@
 import { NextFunction, Response, Request, Router } from 'express';
 
 // model
-import { PlanningParamsModel, PlanningParamsModelInterface } from '../models/planning-params.model';
+import { PlanningTaskModel, PlanningTaskModelInterface } from '../models/planning-task.model';
 
 /**
  * @class PlanningTaskApi
  */
-export class PlanningParamsApi {
+export class PlanningTaskApi {
 
   /**
    * Create the api.
@@ -15,26 +15,26 @@ export class PlanningParamsApi {
    */
   public static create(router: Router) {
     // DELETE
-    router.delete('/planning-params/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
-      new PlanningParamsApi().delete(req, res, next);
+    router.delete('/planning-tasks/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningTaskApi().delete(req, res, next);
     });
 
     // GET
-    router.get('/planning-params', (req: Request, res: Response, next: NextFunction) => {
-      new PlanningParamsApi().list(req, res, next);
+    router.get('/planning-tasks', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningTaskApi().list(req, res, next);
     });
-    router.get('/planning-params/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
-      new PlanningParamsApi().get(req, res, next);
+    router.get('/planning-tasks/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningTaskApi().get(req, res, next);
     });
 
     // POST
-    router.post('/planning-params', (req: Request, res: Response, next: NextFunction) => {
-      new PlanningParamsApi().create(req, res, next);
+    router.post('/planning-tasks', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningTaskApi().create(req, res, next);
     });
 
     // PUT
-    router.put('/planning-params/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
-      new PlanningParamsApi().update(req, res, next);
+    router.put('/planning-tasks/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningTaskApi().update(req, res, next);
     });
   }
 
@@ -46,9 +46,9 @@ export class PlanningParamsApi {
    */
   public create(req: Request, res: Response, next: NextFunction) {
     // create planning-params
-    const planningParam = new PlanningParamsModel(req.body);
-    planningParam.save().then(planningParams => {
-      res.json(planningParams.toObject());
+    const planningParam = new PlanningTaskModel(req.body);
+    planningParam.save().then(planningTask => {
+      res.json(planningTask.toObject());
       next();
     }).catch(next);
   }
@@ -71,17 +71,17 @@ export class PlanningParamsApi {
     // get id
     const id: string = req.params[PARAM_ID];
 
-      // get planningParamsDocument
-      PlanningParamsModel.findById(id).then(planningParams => {
+      // get planningTaskDocument
+      PlanningTaskModel.findById(id).then(planningTask => {
 
-      // verify planningParamsDocument exists
-      if (planningParams === null) {
+      // verify planningTaskDocument exists
+      if (planningTask === null) {
         res.sendStatus(404);
         next();
         return;
       }
 
-        planningParams.remove().then(() => {
+        planningTask.remove().then(() => {
         res.sendStatus(200);
         next();
       }).catch(next);
@@ -89,7 +89,7 @@ export class PlanningParamsApi {
   }
 
   /**
-   * Get a planningParamsDocument.
+   * Get a planningTaskDocument.
    * @param req {Request} The express request object.
    * @param res {Response} The express response object.
    * @param next {NextFunction} The next function to continue.
@@ -107,17 +107,17 @@ export class PlanningParamsApi {
     const id: string = req.params[PARAM_ID];
 
     // get planningParamsDocument
-      PlanningParamsModel.findById(id).then(planningParams => {
+      PlanningTaskModel.findById(id).then(planningTask => {
 
       // verify planningParamsDocument was found
-      if (planningParams === null) {
+      if (planningTask === null) {
         res.sendStatus(404);
         next();
         return;
       }
 
       // send json of planningParamsDocument object
-      res.json(planningParams.toObject());
+      res.json(planningTask.toObject());
       next();
     }).catch(next);
   }
@@ -130,14 +130,14 @@ export class PlanningParamsApi {
    */
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
-    PlanningParamsModel.find().then(planningParams => {
-      res.json(planningParams.map(planningParam => planningParam.toObject()));
+    PlanningTaskModel.find().then(planningTask => {
+      res.json(planningTask.map(planningParam => planningParam.toObject()));
       next();
     }).catch(next);
   }
 
   /**
-   * Update a planningParamsDocument.
+   * Update a planningTaskDocument.
    * @param req {Request} The express request object.
    * @param res {Response} The express response object.
    * @param next {NextFunction} The next function to continue.
@@ -155,19 +155,19 @@ export class PlanningParamsApi {
     // get id
     const id: string = req.params[PARAM_ID];
 
-    // get planningParamsDocument
-    PlanningParamsModel.findById(id).then(planningParams => {
+    // get planningTaskDocument
+    PlanningTaskModel.findById(id).then(planningTask => {
 
-      // verify planningParamsDocument was found
-      if (planningParams === null) {
+      // verify planningTaskDocument was found
+      if (planningTask === null) {
         res.sendStatus(404);
         next();
         return;
       }
 
-      // save planningParamsDocument
-      Object.assign(planningParams, req.body).save().then((planningParam: PlanningParamsModelInterface) => {
-        res.json(planningParam.toObject());
+      // save planningTaskDocument
+      Object.assign(planningTask, req.body).save().then((planningTsk: PlanningTaskModelInterface) => {
+        res.json(planningTsk.toObject());
         next();
       }).catch(next);
     }).catch(next);

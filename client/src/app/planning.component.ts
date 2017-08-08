@@ -33,7 +33,6 @@ export class ScheduleComponent implements OnInit {
       .then(planningParams => this.planningParams = planningParams);
   }
 
-  // TODO : A optimiser
   addDays(date: string, days: number): Date {
     const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + days);

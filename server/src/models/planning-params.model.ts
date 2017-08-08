@@ -7,4 +7,4 @@ export interface PlanningParamsModelInterface extends PlanningParamsInterface, D
 
 export interface PlanningParamsModelInterfaceStatic extends Model<PlanningParamsModelInterface> {}
 
-export const PlanningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('PlanningParams', PlanningParamsSchema);
+export const PlanningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningparams', PlanningParamsSchema);

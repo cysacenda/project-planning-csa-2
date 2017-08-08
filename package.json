@@ -11,6 +11,7 @@
     "build-server": "tsc -p ./server",
     "test-front": "ng test",
     "test-server": "mocha --reporter spec ./dist/server/tests/*.js",
+    "populate-db": "node populate-db.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

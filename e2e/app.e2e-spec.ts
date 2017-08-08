@@ -1,6 +1,6 @@
 import { ProjectPlanningCsaPage } from './app.po';
 
-describe('project-planning-csa App', () => {
+describe('projectName-planning-csa App', () => {
   let page: ProjectPlanningCsaPage;
 
   beforeEach(() => {
