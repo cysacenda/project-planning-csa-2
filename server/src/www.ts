@@ -7,7 +7,12 @@ let http = require('http');
 
 // create http server
 let httpPort = process.env.PORT || 3000;
-let app = server.Server.bootstrap().app;
+let serv = server.Server.bootstrap();
+let app = serv.app;
+
+// TODO : Fichier de config
+serv.openConnection('mongodb://localhost:27017/planning-csa');
+
 app.set('port', httpPort);
 let httpServer = http.createServer(app);
 

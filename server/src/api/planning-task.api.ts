@@ -4,15 +4,8 @@ import { NextFunction, Response, Request, Router } from 'express';
 // model
 import { PlanningTaskModel, PlanningTaskModelInterface } from '../models/planning-task.model';
 
-/**
- * @class PlanningTaskApi
- */
 export class PlanningTaskApi {
 
-  /**
-   * Create the api.
-   * @static
-   */
   public static create(router: Router) {
     // DELETE
     router.delete('/planning-tasks/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
@@ -37,13 +30,6 @@ export class PlanningTaskApi {
       new PlanningTaskApi().update(req, res, next);
     });
   }
-
-  /**
-   * Create a new planning-params.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public create(req: Request, res: Response, next: NextFunction) {
     // create planning-params
     const planningParam = new PlanningTaskModel(req.body);
@@ -52,13 +38,6 @@ export class PlanningTaskApi {
       next();
     }).catch(next);
   }
-
-  /**
-   * Delete a planning-params.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public delete(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
@@ -87,13 +66,6 @@ export class PlanningTaskApi {
       }).catch(next);
     }).catch(next);
   }
-
-  /**
-   * Get a planningTaskDocument.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public get(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
@@ -121,13 +93,6 @@ export class PlanningTaskApi {
       next();
     }).catch(next);
   }
-
-  /**
-   * List all heros.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
     PlanningTaskModel.find().then(planningTask => {
@@ -135,13 +100,6 @@ export class PlanningTaskApi {
       next();
     }).catch(next);
   }
-
-  /**
-   * Update a planningTaskDocument.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public update(req: Request, res: Response, next: NextFunction) {
     const PARAM_ID: string = 'id';
 
@@ -172,5 +130,4 @@ export class PlanningTaskApi {
       }).catch(next);
     }).catch(next);
   }
-
 }

@@ -4,15 +4,7 @@ import { NextFunction, Response, Request, Router } from 'express';
 // model
 import { PlanningParamsModel, PlanningParamsModelInterface } from '../models/planning-params.model';
 
-/**
- * @class PlanningTaskApi
- */
 export class PlanningParamsApi {
-
-  /**
-   * Create the api.
-   * @static
-   */
   public static create(router: Router) {
     // DELETE
     router.delete('/planning-params/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
@@ -37,13 +29,6 @@ export class PlanningParamsApi {
       new PlanningParamsApi().update(req, res, next);
     });
   }
-
-  /**
-   * Create a new planning-params.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public create(req: Request, res: Response, next: NextFunction) {
     // create planning-params
     const planningParam = new PlanningParamsModel(req.body);
@@ -52,13 +37,6 @@ export class PlanningParamsApi {
       next();
     }).catch(next);
   }
-
-  /**
-   * Delete a planning-params.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public delete(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
@@ -87,13 +65,6 @@ export class PlanningParamsApi {
       }).catch(next);
     }).catch(next);
   }
-
-  /**
-   * Get a planningParamsDocument.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public get(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
@@ -121,13 +92,6 @@ export class PlanningParamsApi {
       next();
     }).catch(next);
   }
-
-  /**
-   * List all heros.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
     PlanningParamsModel.find().then(planningParams => {
@@ -135,13 +99,6 @@ export class PlanningParamsApi {
       next();
     }).catch(next);
   }
-
-  /**
-   * Update a planningParamsDocument.
-   * @param req {Request} The express request object.
-   * @param res {Response} The express response object.
-   * @param next {NextFunction} The next function to continue.
-   */
   public update(req: Request, res: Response, next: NextFunction) {
     const PARAM_ID: string = 'id';
 
@@ -172,5 +129,4 @@ export class PlanningParamsApi {
       }).catch(next);
     }).catch(next);
   }
-
 }

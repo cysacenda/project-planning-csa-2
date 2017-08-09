@@ -30,19 +30,19 @@ chai.should();
 chai.use(require('chai-http'));
 
 @suite
-class PlanningParamsTest {
+class PlanningTaskTest {
 
   // constants
-  public static BASE_URI: string = '/api/planning-params';
+  public static BASE_URI: string = '/api/planning-tasks';
 
   // the mongooose connection
   public static connection: mongoose.Connection;
 
-  // planningParams model
-  public static planningParamsModel: PlanningTaskModelInterfaceStatic;
+  // planningTask model
+  public static planningTaskModel: PlanningTaskModelInterfaceStatic;
 
-  // planningParamsDocument document
-  public static planningParamsDocument: PlanningTaskModelInterface;
+  // planningTaskDocument document
+  public static planningTaskDocument: PlanningTaskModelInterface;
 
   // the http server
   public static server: any;
@@ -51,54 +51,62 @@ class PlanningParamsTest {
    * Before all hook
    */
   public static before() {
-    // connect to MongoDB
-    // TODO : Variables env
-    mongoose.connect('mongodb://localhost:27017/planning-csa-tests');
-    PlanningParamsTest.planningParamsModel = mongoose.model<PlanningTaskModelInterface, PlanningTaskModelInterfaceStatic>('planningtasks', PlanningTaskSchema);
 
     // create http server
-    const port = 8001;
-    const app = Server.bootstrap().app;
+    const port = 8002;
+    const serv = Server.bootstrap();
+    const app = serv.app;
     app.set('port', port);
-    PlanningParamsTest.server = http.createServer(app);
-    PlanningParamsTest.server.listen(port);
+    PlanningTaskTest.server = http.createServer(app);
+    PlanningTaskTest.server.listen(port);
+    serv.openConnection('mongodb://localhost:27017/planning-csa-tests');
 
-   return PlanningParamsTest.CreatePlanningParams();
+    PlanningTaskTest.planningTaskModel = mongoose.model<PlanningTaskModelInterface, PlanningTaskModelInterfaceStatic>('planningtasks', PlanningTaskSchema)
+    return PlanningTaskTest.CreateplanningTask();
   }
 
   /**
    * After all hook
    */
   public static after() {
-    return PlanningParamsTest.planningParamsDocument.remove()
-      .then(() => {
-        return mongoose.disconnect();
-      });
+    return PlanningTaskTest.planningTaskDocument.remove();
   }
 
   /**
    * Create a test planning-params
    */
-  public static CreatePlanningParams(): Promise<PlanningTaskModelInterface> {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningTaskModelInterface = {
-      currentDate: tmpDate
+  public static CreateplanningTask(): Promise<PlanningTaskModelInterface> {
+    const data: PlanningTaskInterface = {
+      name: 'Install API GW',
+      workload: 5,
+      etc: 2,
+      position: 1,
+      resource_id: 'XXr',
+      resourceTrigram: 'CSA',
+      project_id: 'idp',
+      projectName: 'App Mobile'
     };
-    return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
-      PlanningParamsTest.planningParamsDocument = planningParams;
-      return planningParams;
+    return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
+      PlanningTaskTest.planningTaskDocument = planningTask;
+      return planningTask;
     });
   }
 
   // Delete a PlanningParam
   @test
   public delete() {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningTaskModelInterface = {
-      currentDate: tmpDate
+    const data: PlanningTaskInterface = {
+      name: 'Install API GW',
+      workload: 5,
+      etc: 2,
+      position: 1,
+      resource_id: 'XXr',
+      resourceTrigram: 'CSA',
+      project_id: 'idp',
+      projectName: 'App Mobile'
     };
-    return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
-      return chai.request(PlanningParamsTest.server).del(`${PlanningParamsTest.BASE_URI}/${planningParams._id}`).then(response => {
+    return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
+      return chai.request(PlanningTaskTest.server).del(`${PlanningTaskTest.BASE_URI}/${planningTask._id}`).then(response => {
         response.should.have.status(200);
       });
     });
@@ -106,16 +114,21 @@ class PlanningParamsTest {
 
   @test
   public get () {
-    return chai.request(PlanningParamsTest.server).get(`${PlanningParamsTest.BASE_URI}/${PlanningParamsTest.planningParamsDocument._id}`).then(response => {
+    return chai.request(PlanningTaskTest.server).get(`${PlanningTaskTest.BASE_URI}/${PlanningTaskTest.planningTaskDocument._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
-      response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(PlanningParamsTest.planningParamsDocument.currentDate)));
+      response.body.should.have.property('etc').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.etc)));
+      response.body.should.have.property('name').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.name)));
+      response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
+      response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
+      response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
+      response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
     });
   }
 
   @test
   public list() {
-    return chai.request(PlanningParamsTest.server).get(PlanningParamsTest.BASE_URI).then(response => {
+    return chai.request(PlanningTaskTest.server).get(PlanningTaskTest.BASE_URI).then(response => {
       response.should.have.status(200);
       response.body.should.be.an('array');
       response.body.should.have.lengthOf(1);
@@ -123,36 +136,58 @@ class PlanningParamsTest {
   }
 
   @test
-  // @@@Planningparams : OK
+  // @@@planningTask : OK
   public post() {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningTaskModelInterface = {
-      currentDate: tmpDate
+    const data: PlanningTaskInterface = {
+      name: 'Install API GW',
+      workload: 5,
+      etc: 2,
+      position: 1,
+      resource_id: 'XXr',
+      resourceTrigram: 'CSA',
+      project_id: 'idp',
+      projectName: 'App Mobile',
     };
-    return chai.request(PlanningParamsTest.server).post(PlanningParamsTest.BASE_URI)
+    return chai.request(PlanningTaskTest.server).post(PlanningTaskTest.BASE_URI)
       .send(data)
       .then(response => {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(data.currentDate)));
-        return PlanningParamsTest.planningParamsModel.findByIdAndRemove(response.body._id).exec();
+        response.body.should.have.property('etc').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.etc)));
+        response.body.should.have.property('name').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.name)));
+        response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
+        response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
+        response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
+        response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
+        return PlanningTaskTest.planningTaskModel.findByIdAndRemove(response.body._id).exec();
       });
   }
 
   @test
   public put() {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
-    const data: PlanningTaskModelInterface = {
-      currentDate: tmpDate
+    const data: PlanningTaskInterface = {
+      name: 'Install API GW',
+      workload: 5,
+      etc: 2,
+      position: 1,
+      resource_id: 'XXr',
+      resourceTrigram: 'CSA',
+      project_id: 'idp',
+      projectName: 'App Mobile'
     }
-    return chai.request(PlanningParamsTest.server).put(`${PlanningParamsTest.BASE_URI}/${PlanningParamsTest.planningParamsDocument._id}`)
+    return chai.request(PlanningTaskTest.server).put(`${PlanningTaskTest.BASE_URI}/${PlanningTaskTest.planningTaskDocument._id}`)
       .send(data)
       .then(response => {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(data.currentDate)));
+        response.body.should.have.property('etc').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.etc)));
+        response.body.should.have.property('name').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.name)));
+        response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
+        response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
+        response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
+        response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
       });
   }
 

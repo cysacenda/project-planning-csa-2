@@ -7,7 +7,8 @@ import errorHandler = require('errorhandler');
 import mongoose = require('mongoose');
 
 // api
-import { PlanningParamsApi } from './api/planning-params.api';
+import {PlanningParamsApi} from './api/planning-params.api';
+import {PlanningTaskApi} from './api/planning-task.api';
 
 /**
  * The server.
@@ -62,12 +63,13 @@ export class Server {
 
     // root request
     router.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      res.json({ announcement: 'Welcome to our API.' });
+      res.json({announcement: 'Welcome to our API.'});
       next();
     });
 
     // create API routes
     PlanningParamsApi.create(router);
+    PlanningTaskApi.create(router);
 
     // wire up the REST API
     this.app.use('/api', router);
@@ -93,20 +95,22 @@ export class Server {
       extended: true
     }));
 
-    // connect to mongoose
-    // TODO : Store in config file
-    mongoose.connect('mongodb://localhost:27017/planning-csa');
-    mongoose.connection.on('error', error => {
-      console.error(error);
-    });
-
     // catch 404 and forward to error handler
-    this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        err.status = 404;
-        next(err);
+    this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+      err.status = 404;
+      next(err);
     });
 
     // error handling
     this.app.use(errorHandler());
   }
+
+  public openConnection(dbAdress: string) {
+    // connect to mongoose
+    mongoose.connect(dbAdress, {useMongoClient: true});
+    mongoose.connection.on('error', error => {
+      console.error(error);
+    });
+  }
 }
+

@@ -53,15 +53,16 @@ class PlanningParamsTest {
   public static before() {
     // connect to MongoDB
     // TODO : Variables env
-    mongoose.connect('mongodb://localhost:27017/planning-csa-tests');
     PlanningParamsTest.planningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningparams', PlanningParamsSchema);
 
     // create http server
     const port = 8001;
-    const app = Server.bootstrap().app;
+    const serv = Server.bootstrap();
+    const app = serv.app;
     app.set('port', port);
     PlanningParamsTest.server = http.createServer(app);
     PlanningParamsTest.server.listen(port);
+    serv.openConnection('mongodb://localhost:27017/planning-csa-tests');
 
    return PlanningParamsTest.CreatePlanningParams();
   }
@@ -71,9 +72,9 @@ class PlanningParamsTest {
    */
   public static after() {
     return PlanningParamsTest.planningParamsDocument.remove()
-      .then(() => {
+      /* .then(() => {
         return mongoose.disconnect();
-      });
+      }); */
   }
 
   /**
