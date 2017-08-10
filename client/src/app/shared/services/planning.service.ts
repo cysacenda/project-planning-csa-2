@@ -16,9 +16,9 @@ export class PlanningService {
   private basicURL: string = 'http://localhost:3000/api/'
 
   // URL to web api
-  private projectsUrl: string = 'app/projects';
-  private resourcesUrl: string = 'app/resources';
-  private planningTasksUrl: string = 'app/planningTasks';
+  private projectsUrl: string = this.basicURL + 'planning-projects';
+  private resourcesUrl: string = this.basicURL + 'planning-resources';
+  private planningTasksUrl: string = this.basicURL + 'planning-tasks';
 
   // private planningParamsUrl = 'app/planningParams';
   private planningParamsUrl: string = this.basicURL + 'planning-params';
@@ -31,7 +31,7 @@ export class PlanningService {
       .get(this.projectsUrl)
       .toPromise()
       .then((response) => {
-        return response.json().data as PlanningProject[];
+        return response.json() as PlanningProject[];
       })
       .catch(this.handleError);
   }
@@ -41,7 +41,7 @@ export class PlanningService {
       .get(this.resourcesUrl)
       .toPromise()
       .then((response) => {
-        return response.json().data as PlanningResource[];
+        return response.json() as PlanningResource[];
       })
       .catch(this.handleError);
   }
@@ -52,7 +52,7 @@ export class PlanningService {
         .toPromise()
         // .map((response: Response) => response.json()))
          .then((response) => {
-           return response.json().data as PlanningTask[];
+           return response.json() as PlanningTask[];
          })
         .catch(this.handleError);
   }

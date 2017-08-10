@@ -34,3 +34,12 @@ th.white, td.white {
 td.weekEnd, td.white {
   border: 0px;
 }
+
+#floating-button{
+  border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px #666;
+}

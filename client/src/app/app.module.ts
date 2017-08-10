@@ -26,17 +26,20 @@ import {
   MdGridListModule,
   MdCardModule,
   MdSelectModule,
-  MdOptionModule
+  MdOptionModule,
+  MdDialogModule,
 } from '@angular/material';
 import {ScheduleComponent} from './planning.component';
 import {PlanningService} from './shared/services/planning.service';
+import {ExampleDialogComponent} from './new-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ScheduleComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    ExampleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,11 +56,19 @@ import {PlanningService} from './shared/services/planning.service';
     MdCardModule,
     MdSelectModule,
     MdOptionModule,
+    MdDialogModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true,
-      /*delay: 100*/})
+      /*delay: 100*/
+    })
   ],
-  providers: [PlanningService],
+  entryComponents: [
+    ExampleDialogComponent
+  ],
+  exports: [
+    ExampleDialogComponent
+  ],
+  providers: [PlanningService, MdDialogModule],
   bootstrap: [
     AppComponent]
 })

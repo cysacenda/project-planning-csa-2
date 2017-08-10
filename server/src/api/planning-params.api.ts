@@ -1,8 +1,8 @@
 // express
-import { NextFunction, Response, Request, Router } from 'express';
+import {NextFunction, Response, Request, Router} from 'express';
 
 // model
-import { PlanningParamsModel, PlanningParamsModelInterface } from '../models/planning-params.model';
+import {PlanningParamsModel, PlanningParamsModelInterface} from '../models/planning-params.model';
 
 export class PlanningParamsApi {
   public static create(router: Router) {
@@ -29,6 +29,7 @@ export class PlanningParamsApi {
       new PlanningParamsApi().update(req, res, next);
     });
   }
+
   public create(req: Request, res: Response, next: NextFunction) {
     // create planning-params
     const planningParam = new PlanningParamsModel(req.body);
@@ -37,6 +38,7 @@ export class PlanningParamsApi {
       next();
     }).catch(next);
   }
+
   public delete(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
@@ -49,8 +51,8 @@ export class PlanningParamsApi {
     // get id
     const id: string = req.params[PARAM_ID];
 
-      // get planningParamsDocument
-      PlanningParamsModel.findById(id).then(planningParams => {
+    // get planningParamsDocument
+    PlanningParamsModel.findById(id).then(planningParams => {
 
       // verify planningParamsDocument exists
       if (planningParams === null) {
@@ -59,13 +61,14 @@ export class PlanningParamsApi {
         return;
       }
 
-        planningParams.remove().then(() => {
+      planningParams.remove().then(() => {
         res.sendStatus(200);
         next();
       }).catch(next);
     }).catch(next);
   }
-  public get(req: Request, res: Response, next: NextFunction) {
+
+  public get (req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
     if (req.params[PARAM_ID] === undefined) {
@@ -78,7 +81,7 @@ export class PlanningParamsApi {
     const id: string = req.params[PARAM_ID];
 
     // get planningParamsDocument
-      PlanningParamsModel.findById(id).then(planningParams => {
+    PlanningParamsModel.findById(id).then(planningParams => {
 
       // verify planningParamsDocument was found
       if (planningParams === null) {
@@ -92,6 +95,7 @@ export class PlanningParamsApi {
       next();
     }).catch(next);
   }
+
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
     PlanningParamsModel.find().then(planningParams => {
@@ -99,6 +103,7 @@ export class PlanningParamsApi {
       next();
     }).catch(next);
   }
+
   public update(req: Request, res: Response, next: NextFunction) {
     const PARAM_ID: string = 'id';
 

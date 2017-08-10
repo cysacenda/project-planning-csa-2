@@ -53,6 +53,7 @@
     "@types/mongoose": "^4.7.19",
     "@types/morgan": "^1.7.32",
     "@types/node": "^8.0.19",
+    "bluebird": "^3.5.0",
     "chai": "^4.1.0",
     "chai-http": "^3.0.0",
     "codelyzer": "~3.1.2",

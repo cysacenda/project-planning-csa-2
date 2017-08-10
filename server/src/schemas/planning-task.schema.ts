@@ -9,5 +9,9 @@ export let PlanningTaskSchema: Schema = new Schema({
   resource_id: String,
   resourceTrigram: String,
   project_id: String,
-  projectName: String
+  projectName: String,
+  daysMap: [{
+    key: String,
+    val: Number
+  }]
 })

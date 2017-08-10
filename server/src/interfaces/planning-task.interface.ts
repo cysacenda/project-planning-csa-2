@@ -7,4 +7,6 @@ export interface PlanningTaskInterface {
   resourceTrigram: string;
   project_id: string;
   projectName: string;
+  // daysMap: Map<Date, number>;
+  daysMap: any;
 }

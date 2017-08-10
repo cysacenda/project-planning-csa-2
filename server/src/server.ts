@@ -9,8 +9,8 @@ import mongoose = require('mongoose');
 // api
 import {PlanningParamsApi} from './api/planning-params.api';
 import {PlanningTaskApi} from './api/planning-task.api';
-import {PlanningResourceApi} from "./api/planning-resource.api";
-import {PlanningProjectApi} from "./api/planning-project.api";
+import {PlanningResourceApi} from './api/planning-resource.api';
+import {PlanningProjectApi} from './api/planning-project.api';
 
 /**
  * The server.
@@ -111,7 +111,13 @@ export class Server {
 
   public openConnection(dbAdress: string) {
     // connect to mongoose
-    mongoose.connect(dbAdress, {useMongoClient: true});
+    // mongoose.connect(dbAdress, {useMongoClient: true});
+    mongoose.Promise = require('bluebird');
+    mongoose.connect(dbAdress,
+      {
+        useMongoClient: true,
+      });
+
     mongoose.connection.on('error', error => {
       console.error(error);
     });

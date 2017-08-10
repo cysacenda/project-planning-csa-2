@@ -1,5 +1,7 @@
 process.env.NODE_ENV = 'test';
 
+// TODO : Ajouter tests relatifs à daysMap
+
 // mocha
 import 'mocha';
 import 'chai';
@@ -87,7 +89,8 @@ class PlanningTaskTest {
       resource_id: 'XXr',
       resourceTrigram: 'CSA',
       project_id: 'idp',
-      projectName: 'App Mobile'
+      projectName: 'App Mobile',
+      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     };
     return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
       PlanningTaskTest.planningTaskDocument = planningTask;
@@ -106,7 +109,8 @@ class PlanningTaskTest {
       resource_id: 'XXr',
       resourceTrigram: 'CSA',
       project_id: 'idp',
-      projectName: 'App Mobile'
+      projectName: 'App Mobile',
+      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     };
     return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
       return chai.request(PlanningTaskTest.server).del(`${PlanningTaskTest.BASE_URI}/${planningTask._id}`).then(response => {
@@ -126,6 +130,7 @@ class PlanningTaskTest {
       response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
       response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
       response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
+      response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
     });
   }
 
@@ -150,6 +155,7 @@ class PlanningTaskTest {
       resourceTrigram: 'CSA',
       project_id: 'idp',
       projectName: 'App Mobile',
+      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     };
     return chai.request(PlanningTaskTest.server).post(PlanningTaskTest.BASE_URI)
       .send(data)
@@ -163,6 +169,7 @@ class PlanningTaskTest {
         response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
         response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
+        response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
         return PlanningTaskTest.planningTaskModel.findByIdAndRemove(response.body._id).exec();
       });
   }
@@ -177,7 +184,8 @@ class PlanningTaskTest {
       resource_id: 'XXr',
       resourceTrigram: 'CSA',
       project_id: 'idp',
-      projectName: 'App Mobile'
+      projectName: 'App Mobile',
+      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     }
     return chai.request(PlanningTaskTest.server).put(`${PlanningTaskTest.BASE_URI}/${PlanningTaskTest.planningTaskDocument._id}`)
       .send(data)
@@ -191,6 +199,7 @@ class PlanningTaskTest {
         response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
         response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
+        response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
       });
   }
 
