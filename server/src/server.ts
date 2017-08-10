@@ -9,6 +9,8 @@ import mongoose = require('mongoose');
 // api
 import {PlanningParamsApi} from './api/planning-params.api';
 import {PlanningTaskApi} from './api/planning-task.api';
+import {PlanningResourceApi} from "./api/planning-resource.api";
+import {PlanningProjectApi} from "./api/planning-project.api";
 
 /**
  * The server.
@@ -70,6 +72,8 @@ export class Server {
     // create API routes
     PlanningParamsApi.create(router);
     PlanningTaskApi.create(router);
+    PlanningResourceApi.create(router);
+    PlanningProjectApi.create(router);
 
     // wire up the REST API
     this.app.use('/api', router);

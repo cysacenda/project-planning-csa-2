@@ -1,5 +1,4 @@
-export class PlanningResource {
-  _id: number;
+export interface PlanningResourceInterface {
   trigram: string;
   name: string;
   role: string;

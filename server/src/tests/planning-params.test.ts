@@ -51,10 +51,6 @@ class PlanningParamsTest {
    * Before all hook
    */
   public static before() {
-    // connect to MongoDB
-    // TODO : Variables env
-    PlanningParamsTest.planningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningparams', PlanningParamsSchema);
-
     // create http server
     const port = 8001;
     const serv = Server.bootstrap();
@@ -64,7 +60,8 @@ class PlanningParamsTest {
     PlanningParamsTest.server.listen(port);
     serv.openConnection('mongodb://localhost:27017/planning-csa-tests');
 
-   return PlanningParamsTest.CreatePlanningParams();
+    PlanningParamsTest.planningParamsModel = mongoose.model<PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic>('planningparams', PlanningParamsSchema);
+    return PlanningParamsTest.CreatePlanningParams();
   }
 
   /**
@@ -72,9 +69,9 @@ class PlanningParamsTest {
    */
   public static after() {
     return PlanningParamsTest.planningParamsDocument.remove()
-      /* .then(() => {
-        return mongoose.disconnect();
-      }); */
+    .then(() => {
+      return mongoose.disconnect();
+    });
   }
 
   /**

@@ -69,7 +69,10 @@ class PlanningTaskTest {
    * After all hook
    */
   public static after() {
-    return PlanningTaskTest.planningTaskDocument.remove();
+    return PlanningTaskTest.planningTaskDocument.remove()
+      .then(() => {
+        return mongoose.disconnect();
+      });
   }
 
   /**
