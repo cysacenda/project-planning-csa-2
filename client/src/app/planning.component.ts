@@ -4,8 +4,8 @@ import {PlanningProject} from './shared/models/planning-project.model';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 import {PlanningParams} from './shared/models/planning-params.model';
-import { MdDialog } from '@angular/material';
-import { ExampleDialogComponent } from './new-task.component';
+import {MdDialog} from '@angular/material'; // TODO : A supprimer ?
+import {ExampleDialogComponent} from './app-new-task.component';
 
 @Component({
   selector: 'app-schedule',
@@ -55,8 +55,8 @@ export class ScheduleComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(ExampleDialogComponent, {
-      height: '400px',
-      width: '600px'
+      /*height: '400px',
+      width: '600px'*/
     });
 
   }

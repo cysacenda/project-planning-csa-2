@@ -23,15 +23,14 @@ import {
   MdButtonModule,
   MdIconModule,
   MdSlideToggleModule,
-  MdGridListModule,
-  MdCardModule,
   MdSelectModule,
   MdOptionModule,
   MdDialogModule,
+  MdInputModule
 } from '@angular/material';
 import {ScheduleComponent} from './planning.component';
 import {PlanningService} from './shared/services/planning.service';
-import {ExampleDialogComponent} from './new-task.component';
+import {ExampleDialogComponent} from './app-new-task.component';
 
 @NgModule({
   declarations: [
@@ -52,11 +51,10 @@ import {ExampleDialogComponent} from './new-task.component';
     MdButtonModule,
     MdIconModule,
     MdSlideToggleModule,
-    MdGridListModule,
-    MdCardModule,
     MdSelectModule,
     MdOptionModule,
     MdDialogModule,
+    MdInputModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true,
       /*delay: 100*/
