@@ -1,7 +1,7 @@
-.example-form {
-  width: 100px;
+.container-full-width {
+  width: 100%;
 }
 
-.example-full-width {
-  width: 100%;
+tr {
+  height: 190px;
 }

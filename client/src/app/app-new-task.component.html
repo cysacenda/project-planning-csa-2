@@ -1,30 +1,48 @@
 <!-- https://material.angular.io/components/select/overview => md-input !!! -->
 <h1>New task</h1>
-<p>
-<md-input-container class="example-full-width">
-  <input mdInput placeholder="Name">
-</md-input-container>
-</p>
-<p>
-<md-input-container class="example-full-width">
-  <input mdInput placeholder="Project">
-</md-input-container>
-</p>
-<p>
-<md-input-container class="example-full-width">
-  <input mdInput placeholder="Resource">
-</md-input-container>
-</p>
-<p>
-<md-input-container class="example-full-width">
-  <input mdInput placeholder="Workload">
-</md-input-container>
-</p>
-<p>
-<md-input-container class="example-full-width">
-  <input mdInput placeholder="Etc">
-</md-input-container>
-</p>
-<p>
-  <button md-raised-button>Create</button>
-</p>
+<table>
+
+  <tr>
+    <md-input-container class="container-full-width">
+      <input name="taskName" mdInput placeholder="Name" [(ngModel)]="task.name">
+    </md-input-container>
+  </tr>
+
+  <tr>
+    <md-select placeholder="Project" [style.width]="'100%'" [(ngModel)]="task.projectName">
+      <md-option *ngFor="let project of projects" [value]="project.name">
+        {{ project.name }}
+      </md-option>
+    </md-select>
+  </tr>
+
+  <!-- TODO : A supprimer -->
+  <br>
+
+  <tr>
+    <md-select placeholder="Resource" [style.width]="'100%'" [(ngModel)]="task.resourceTrigram">
+      <md-option *ngFor="let resource of resources" [value]="resource.trigram">
+        {{ resource.trigram }}
+      </md-option>
+    </md-select>
+  </tr>
+
+  <!-- TODO : A supprimer -->
+  <br>
+
+  <tr>
+    <md-input-container class="container-full-width">
+      <input name="workload" mdInput placeholder="Workload" [(ngModel)]="task.workload">
+    </md-input-container>
+  </tr>
+
+  <tr>
+    <md-input-container class="container-full-width">
+      <input name="etc" mdInput placeholder="Etc" [(ngModel)]="task.etc">
+    </md-input-container>
+  </tr>
+
+  <tr>
+    <button md-raised-button (click)="createTask()">Create</button>
+  </tr>
+</table>

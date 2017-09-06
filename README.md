@@ -45,7 +45,9 @@ https://angular.io/docs/ts/latest/cli-quickstart.html
   * Mise en place : https://google.github.io/material-design-icons/
   
 ## Update dependencies npm-check-updates
-* ncu -u => Met à jour le package.json
+* npm i -g npm-check-updates
+* npm-check-updates -u
+* npm install
 
 ## Notes
 * Pb casts : 

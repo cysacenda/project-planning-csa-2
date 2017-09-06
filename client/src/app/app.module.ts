@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
@@ -30,7 +30,8 @@ import {
 } from '@angular/material';
 import {ScheduleComponent} from './planning.component';
 import {PlanningService} from './shared/services/planning.service';
-import {ExampleDialogComponent} from './app-new-task.component';
+import {AddTaskComponent} from './app-new-task.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,11 +39,13 @@ import {ExampleDialogComponent} from './app-new-task.component';
     HeaderComponent,
     ScheduleComponent,
     ResourcesComponent,
-    ExampleDialogComponent
+    AddTaskComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -61,10 +64,12 @@ import {ExampleDialogComponent} from './app-new-task.component';
     })
   ],
   entryComponents: [
-    ExampleDialogComponent
+    AddTaskComponent
   ],
   exports: [
-    ExampleDialogComponent
+    AddTaskComponent,
+    FormsModule, // TODO : Added for bug
+    ReactiveFormsModule // TODO : Added for bug
   ],
   providers: [PlanningService, MdDialogModule],
   bootstrap: [

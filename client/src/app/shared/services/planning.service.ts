@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, Response} from '@angular/http';
+import {Headers, Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -13,7 +13,8 @@ export class PlanningService {
 
   // Base URL to api
   // TODO : conf file
-  private basicURL: string = 'http://localhost:3000/api/'
+  // TODO : A dissocier en plusieurs services (1 par objet !)
+  private basicURL: string = 'http://localhost:3000/api/';
 
   // URL to web api
   private projectsUrl: string = this.basicURL + 'planning-projects';
@@ -64,6 +65,18 @@ export class PlanningService {
       .then((response) => {
          return (response.json() as PlanningParams[])[0];
       })
+      .catch(this.handleError);
+  }
+
+  createPlanningTask(planningTask: PlanningTask): Promise<PlanningTask> {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http
+      .post(this.planningTasksUrl, JSON.stringify(planningTask), { headers: headers })
+      .toPromise()
+      /*.then(res => res.json().data) */
       .catch(this.handleError);
   }
 
