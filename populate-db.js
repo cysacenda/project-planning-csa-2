@@ -40,34 +40,6 @@ monPlanningParamsModel.save(function (err) {
   console.log('planning-params créé !');
 });
 
-/// PlanningProject ///
-/// -------------- ///
-
-var planningProject = new Schema({
-  name: String,
-  description: String
-});
-
-// Compile model from schema
-var planningProjectModel = mongoose.model('planningprojects', planningProject);
-var monPlanningProjectModel = new planningProjectModel({
-  name: 'App Mobile',
-  description: 'Kikoulol le projet !!!'
-});
-
-// Empty Database
-planningProjectModel.remove({}, function (err) {
-  console.log('planning-projects supprimé')
-});
-
-//Create object
-monPlanningProjectModel.save(function (err) {
-  if (err) {
-    throw err;
-  }
-  console.log('planning-project créé !');
-});
-
 /// PlanningResource ///
 /// -------------- ///
 
@@ -120,9 +92,7 @@ var planningTask = new Schema({
   workload: Number,
   etc: Number,
   position: Number,
-  resource_id: String,
   resourceTrigram: String,
-  project_id: String,
   projectName: String,
   daysMap: [{
     key: String,
@@ -137,9 +107,7 @@ var monPlanningTaskModel1 = new planningTaskModel({
   workload: 5.5,
   etc: 2.25,
   position: 1,
-  resource_id: monPlanningResourceModel1._id,
   resourceTrigram: 'CSA',
-  project_id: monPlanningProjectModel._id,
   projectName: 'NOBC Mobile',
   daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
 });
@@ -149,9 +117,7 @@ var monPlanningTaskModel2 = new planningTaskModel({
   workload: 1.5,
   etc: 0.5,
   position: 2,
-  resource_id: monPlanningResourceModel1._id,
   resourceTrigram: 'CSA',
-  project_id: monPlanningProjectModel._id,
   projectName: 'NOBC Mobile',
   daysMap: [{key : '2017-06-14T00:00:00.000Z', val : 0.5}]
 });
@@ -161,9 +127,7 @@ var monPlanningTaskModel3 = new planningTaskModel({
   workload: 0.5,
   etc: 0.5,
   position: 3,
-  resource_id: monPlanningResourceModel2._id,
   resourceTrigram: 'MBO',
-  project_id: monPlanningProjectModel._id,
   projectName: 'NOBC Mobile',
   daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 0.5}]
 });
@@ -173,9 +137,7 @@ var monPlanningTaskModel4 = new planningTaskModel({
   workload: 5,
   etc: 3,
   position: 4,
-  resource_id: monPlanningResourceModel2._id,
   resourceTrigram: 'MBO',
-  project_id: monPlanningProjectModel._id,
   projectName: 'NOBC Mobile',
   daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 0.5}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 1}, {key : '2017-06-15T00:00:00.000Z', val : 0.5}]
 });

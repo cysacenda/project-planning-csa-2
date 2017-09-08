@@ -10,8 +10,8 @@
 
   <tr>
     <md-select placeholder="Project" [style.width]="'100%'" [(ngModel)]="task.projectName">
-      <md-option *ngFor="let project of projects" [value]="project.name">
-        {{ project.name }}
+      <md-option *ngFor="let project of projects" [value]="project">
+        {{ project }}
       </md-option>
     </md-select>
   </tr>

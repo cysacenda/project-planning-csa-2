@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PlanningService} from './shared/services/planning.service';
-import {PlanningProject} from './shared/models/planning-project.model';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 
@@ -13,7 +12,7 @@ export class AddTaskComponent implements OnInit {
   @Output() close = new EventEmitter();
   navigated = false; // true if navigated here
 
-  projects: PlanningProject[] = [];
+  projects: String[] = [];
   resources: PlanningResource[] = [];
 
   // selectedProject: string;

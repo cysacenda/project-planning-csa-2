@@ -86,9 +86,7 @@ class PlanningTaskTest {
       workload: 5,
       etc: 2,
       position: 1,
-      resource_id: 'XXr',
-      resourceTrigram: 'CSA',
-      project_id: 'idp',
+      resourceTrigram: 'XXr',
       projectName: 'App Mobile',
       daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     };
@@ -106,9 +104,7 @@ class PlanningTaskTest {
       workload: 5,
       etc: 2,
       position: 1,
-      resource_id: 'XXr',
-      resourceTrigram: 'CSA',
-      project_id: 'idp',
+      resourceTrigram: 'XXr',
       projectName: 'App Mobile',
       daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     };
@@ -127,8 +123,7 @@ class PlanningTaskTest {
       response.body.should.have.property('etc').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.etc)));
       response.body.should.have.property('name').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.name)));
       response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
-      response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
-      response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
+      response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
       response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
       response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
     });
@@ -151,9 +146,7 @@ class PlanningTaskTest {
       workload: 5,
       etc: 2,
       position: 1,
-      resource_id: 'XXr',
-      resourceTrigram: 'CSA',
-      project_id: 'idp',
+      resourceTrigram: 'XXr',
       projectName: 'App Mobile',
       daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     };
@@ -166,8 +159,7 @@ class PlanningTaskTest {
         response.body.should.have.property('etc').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.etc)));
         response.body.should.have.property('name').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.name)));
         response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
-        response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
-        response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
+        response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
         response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
         return PlanningTaskTest.planningTaskModel.findByIdAndRemove(response.body._id).exec();
@@ -181,9 +173,7 @@ class PlanningTaskTest {
       workload: 5,
       etc: 2,
       position: 1,
-      resource_id: 'XXr',
-      resourceTrigram: 'CSA',
-      project_id: 'idp',
+      resourceTrigram: 'XXr',
       projectName: 'App Mobile',
       daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
     }
@@ -196,8 +186,7 @@ class PlanningTaskTest {
         response.body.should.have.property('etc').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.etc)));
         response.body.should.have.property('name').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.name)));
         response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
-        response.body.should.have.property('project_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.project_id)));
-        response.body.should.have.property('resource_id').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resource_id)));
+        response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
         response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
       });

@@ -1,8 +1,8 @@
 // express
-import { NextFunction, Response, Request, Router } from 'express';
+import {NextFunction, Response, Request, Router} from 'express';
 
 // model
-import { PlanningTaskModel, PlanningTaskModelInterface } from '../models/planning-task.model';
+import {PlanningTaskModel, PlanningTaskModelInterface} from '../models/planning-task.model';
 
 export class PlanningTaskApi {
 
@@ -30,14 +30,28 @@ export class PlanningTaskApi {
       new PlanningTaskApi().update(req, res, next);
     });
   }
+
   public create(req: Request, res: Response, next: NextFunction) {
-    // create planning-task
-    const planningTask = new PlanningTaskModel(req.body);
-    planningTask.save().then(planningTaskObj => {
-      res.json(planningTaskObj.toObject());
-      next();
+    PlanningTaskModel.find().sort({position: -1}).limit(1).then(planningtask => {
+      // Get last task position + 1
+      let position: number = 1;
+      if (planningtask === null) {
+
+      } else {
+        position = planningtask[0].position + 1;
+      }
+
+      // Create new task
+      const planningTask = new PlanningTaskModel(req.body);
+      planningTask.set({position: position});
+      planningTask.save().then(planningTaskObj => {
+        res.json(planningTaskObj.toObject());
+        next();
+      }).catch(next);
+
     }).catch(next);
   }
+
   public delete(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
@@ -50,8 +64,8 @@ export class PlanningTaskApi {
     // get id
     const id: string = req.params[PARAM_ID];
 
-      // get planningTaskDocument
-      PlanningTaskModel.findById(id).then(planningTask => {
+    // get planningTaskDocument
+    PlanningTaskModel.findById(id).then(planningTask => {
 
       // verify planningTaskDocument exists
       if (planningTask === null) {
@@ -60,13 +74,16 @@ export class PlanningTaskApi {
         return;
       }
 
-        planningTask.remove().then(() => {
+      planningTask.remove().then(() => {
         res.sendStatus(200);
         next();
       }).catch(next);
     }).catch(next);
   }
-  public get(req: Request, res: Response, next: NextFunction) {
+
+  public
+
+  get(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
     if (req.params[PARAM_ID] === undefined) {
@@ -79,7 +96,7 @@ export class PlanningTaskApi {
     const id: string = req.params[PARAM_ID];
 
     // get planningTaskDocument
-      PlanningTaskModel.findById(id).then(planningTask => {
+    PlanningTaskModel.findById(id).then(planningTask => {
 
       // verify planningTaskDocument was found
       if (planningTask === null) {
@@ -93,6 +110,7 @@ export class PlanningTaskApi {
       next();
     }).catch(next);
   }
+
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
     PlanningTaskModel.find().then(planningTask => {
@@ -100,6 +118,7 @@ export class PlanningTaskApi {
       next();
     }).catch(next);
   }
+
   public update(req: Request, res: Response, next: NextFunction) {
     const PARAM_ID: string = 'id';
 

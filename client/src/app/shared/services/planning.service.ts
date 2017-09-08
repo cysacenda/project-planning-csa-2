@@ -3,7 +3,6 @@ import {Headers, Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {PlanningProject} from '../models/planning-project.model';
 import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
 import {PlanningParams} from '../models/planning-params.model';
@@ -27,12 +26,12 @@ export class PlanningService {
   constructor(private http: Http) {
   }
 
-  getProjects(): Promise<Array<PlanningProject>> {
+  getProjects(): Promise<Array<String>> {
     return this.http
       .get(this.projectsUrl)
       .toPromise()
       .then((response) => {
-        return response.json() as PlanningProject[];
+        return response.json() as String[];
       })
       .catch(this.handleError);
   }

@@ -5,10 +5,8 @@ export class PlanningTask {
   etc: number; // Estimate to complete / RAE
   position: number;
 
-  resource_id: string;
   resourceTrigram: string;
 
-  project_id: string;
   projectName: string;
 
   // TODO : Pourri car récupère Array
