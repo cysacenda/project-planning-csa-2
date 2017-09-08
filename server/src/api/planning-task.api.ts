@@ -3,6 +3,7 @@ import {NextFunction, Response, Request, Router} from 'express';
 
 // model
 import {PlanningTaskModel, PlanningTaskModelInterface} from '../models/planning-task.model';
+import {ThreadManagement} from '../algo/thread-management';
 
 export class PlanningTaskApi {
 
@@ -50,6 +51,9 @@ export class PlanningTaskApi {
       }).catch(next);
 
     }).catch(next);
+
+    // Test calcul planning async
+    ThreadManagement.StartThread();
   }
 
   public delete(req: Request, res: Response, next: NextFunction) {
@@ -81,9 +85,7 @@ export class PlanningTaskApi {
     }).catch(next);
   }
 
-  public
-
-  get(req: Request, res: Response, next: NextFunction) {
+  public get(req: Request, res: Response, next: NextFunction) {
     // verify the id parameter exists
     const PARAM_ID: string = 'id';
     if (req.params[PARAM_ID] === undefined) {

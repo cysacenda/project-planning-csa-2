@@ -176,6 +176,38 @@ monPlanningTaskModel4.save(function (err) {
   console.log('planning-task créé !');
 });
 
+/// PlanningVacations ///
+/// -------------- ///
+
+
+var planningVacations = new Schema({
+  val: Date
+});
+
+// Compile model from schema
+var planningVacationsModel = mongoose.model('planningvacations', planningVacations);
+var monplanningVacationsModel1 = new planningVacationsModel({val: '2017-06-12T00:00:00.000Z'});
+var monplanningVacationsModel2 = new planningVacationsModel({val: '2017-06-13T00:00:00.000Z'});
+
+// Empty Database
+planningVacationsModel.remove({}, function (err) {
+  console.log('planning-vacations supprimé')
+});
+
+//Create object
+monplanningVacationsModel1.save(function (err) {
+  if (err) {
+    throw err;
+  }
+  console.log('planning-vacations créé !');
+});
+monplanningVacationsModel2.save(function (err) {
+  if (err) {
+    throw err;
+  }
+  console.log('planning-vacations créé !');
+});
+
 ///       End      ///
 /// -------------- ///
 
