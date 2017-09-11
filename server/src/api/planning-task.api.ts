@@ -48,12 +48,11 @@ export class PlanningTaskApi {
       planningTask.save().then(planningTaskObj => {
         res.json(planningTaskObj.toObject());
         next();
+
+        // Lancement du traitement asynchrone de calcul de planning
+        ThreadManagement.StartThreadResource(planningTaskObj.resourceTrigram);
       }).catch(next);
-
     }).catch(next);
-
-    // Test calcul planning async
-    ThreadManagement.StartThread();
   }
 
   public delete(req: Request, res: Response, next: NextFunction) {

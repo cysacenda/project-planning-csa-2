@@ -4,7 +4,7 @@ export class PlanningAlgo {
     console.log('GOOD CalculFullPlanning !');
   }
 
-  public static CalculPlanningForResource() {
+  public static CalculPlanningForResource(resourceTrigram: string) {
     console.log('GOOD CalculPlanningForResource !');
   }
 }
