@@ -1,5 +1,6 @@
 export class ThreadManagement {
 
+  // TODO : Gérer threads comme il faut => Quand un appel arrive alors que l'autre n'est pas terminé ?
   public static StartThreadFull(): void {
     const {execFile} = require('child_process');
     // TODO : Config

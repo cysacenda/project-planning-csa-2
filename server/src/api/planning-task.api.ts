@@ -114,7 +114,7 @@ export class PlanningTaskApi {
 
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
-    PlanningTaskModel.find().then(planningTask => {
+    PlanningTaskModel.find().sort( { position: 1 } ).then(planningTask => {
       res.json(planningTask.map(planningTaskObj => planningTaskObj.toObject()));
       next();
     }).catch(next);

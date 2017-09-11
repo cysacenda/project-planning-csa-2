@@ -41,7 +41,10 @@ export class ScheduleComponent implements OnInit {
   }
 
   getWorkloadForDate(taskMap: any, date: string, days: number): string {
+    // TODO : Moche
     const tmpDate: string = JSON.parse(JSON.stringify(this.addDays(date, days)));
+
+    // TODO : Pas optimisé, ne pas faire à chaque fois, devrait être fait à la création de l'objet
     let taskDays: Map<string, number>;
     taskDays = new Map(taskMap.map((i) => [i.key, parseFloat(i.val)]));
 
