@@ -1,6 +1,5 @@
 // express
-import {NextFunction, Response, Request, Router} from 'express';
-
+import {NextFunction, Request, Response, Router} from 'express';
 // model
 import {PlanningTaskModel, PlanningTaskModelInterface} from '../models/planning-task.model';
 import {ThreadManagement} from '../algo/thread-management';
@@ -32,9 +31,12 @@ export class PlanningTaskApi {
     });
   }
 
+  // TODO : Refactorer avec du .then() ou await / async
+  // http://www.summa.com/blog/avoiding-callback-hell-while-using-mongoose
   public create(req: Request, res: Response, next: NextFunction) {
     PlanningTaskModel.find().sort({position: -1}).limit(1).then(planningtask => {
       // Get last task position + 1
+      // TODO : Dangereux !
       let position: number = 1;
       if (planningtask === null) {
 

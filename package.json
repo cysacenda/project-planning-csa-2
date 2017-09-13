@@ -1,7 +1,7 @@
 {
   "name": "project-planning-csa",
   "version": "0.0.1",
-  "main": "server/app.js",
+  "main": "www/app.js",
   "license": "Cyril SACENDA",
   "scripts": {
     "ng": "ng",

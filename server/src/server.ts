@@ -2,15 +2,14 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as morgan from 'morgan';
-import * as path from 'path';
-import errorHandler = require('errorhandler');
-import mongoose = require('mongoose');
-
 // api
 import {PlanningParamsApi} from './api/planning-params.api';
 import {PlanningTaskApi} from './api/planning-task.api';
 import {PlanningResourceApi} from './api/planning-resource.api';
 import {PlanningProjectApi} from './api/planning-project.api';
+import {PlanningVacationApi} from './api/planning-vacation.api';
+import errorHandler = require('errorhandler');
+import mongoose = require('mongoose');
 
 /**
  * The server.
@@ -75,6 +74,7 @@ export class Server {
     PlanningTaskApi.create(router);
     PlanningResourceApi.create(router);
     PlanningProjectApi.create(router);
+    PlanningVacationApi.create(router);
 
     // wire up the REST API
     this.app.use('/api', router);

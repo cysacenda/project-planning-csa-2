@@ -1,25 +1,19 @@
 process.env.NODE_ENV = 'test';
-
 // TODO : Ajouter tests relatifs à daysMap
-
 // mocha
 import 'mocha';
 import 'chai';
 import {suite, test} from 'mocha-typescript';
-
 // mongodb
-import {ObjectID} from 'mongodb';
-
 // server
 import {Server} from '../server';
-
 // model
 import {PlanningTaskInterface} from '../interfaces/planning-task.interface';
 import {PlanningTaskModelInterface, PlanningTaskModelInterfaceStatic} from '../models/planning-task.model';
 import {PlanningTaskSchema} from '../schemas/planning-task.schema';
-
 // mongoose
 import mongoose = require('mongoose');
+
 
 // require http server
 const http = require('http');
@@ -88,7 +82,10 @@ class PlanningTaskTest {
       position: 1,
       resourceTrigram: 'XXr',
       projectName: 'App Mobile',
-      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
+      daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
     };
     return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
       PlanningTaskTest.planningTaskDocument = planningTask;
@@ -106,7 +103,10 @@ class PlanningTaskTest {
       position: 1,
       resourceTrigram: 'XXr',
       projectName: 'App Mobile',
-      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
+      daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
     };
     return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
       return chai.request(PlanningTaskTest.server).del(`${PlanningTaskTest.BASE_URI}/${planningTask._id}`).then(response => {
@@ -116,7 +116,7 @@ class PlanningTaskTest {
   }
 
   @test
-  public get () {
+  public get() {
     return chai.request(PlanningTaskTest.server).get(`${PlanningTaskTest.BASE_URI}/${PlanningTaskTest.planningTaskDocument._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
@@ -144,11 +144,14 @@ class PlanningTaskTest {
     const data: PlanningTaskInterface = {
       name: 'Install API GW',
       workload: 5,
-      etc: 2,
       position: 1,
+      etc: 2,
       resourceTrigram: 'XXr',
       projectName: 'App Mobile',
-      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
+      daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
     };
     return chai.request(PlanningTaskTest.server).post(PlanningTaskTest.BASE_URI)
       .send(data)
@@ -158,7 +161,7 @@ class PlanningTaskTest {
         response.body.should.have.a.property('_id');
         response.body.should.have.property('etc').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.etc)));
         response.body.should.have.property('name').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.name)));
-        response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
+        response.body.should.have.property('position');
         response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
         response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
@@ -175,7 +178,10 @@ class PlanningTaskTest {
       position: 1,
       resourceTrigram: 'XXr',
       projectName: 'App Mobile',
-      daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
+      daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
     }
     return chai.request(PlanningTaskTest.server).put(`${PlanningTaskTest.BASE_URI}/${PlanningTaskTest.planningTaskDocument._id}`)
       .send(data)

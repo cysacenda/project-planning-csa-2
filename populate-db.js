@@ -109,7 +109,10 @@ var monPlanningTaskModel1 = new planningTaskModel({
   position: 1,
   resourceTrigram: 'CSA',
   projectName: 'NOBC Mobile',
-  daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 1}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 0.25}]
+  daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
+    key: '2017-06-13T00:00:00.000Z',
+    val: 1
+  }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
 });
 
 var monPlanningTaskModel2 = new planningTaskModel({
@@ -119,7 +122,7 @@ var monPlanningTaskModel2 = new planningTaskModel({
   position: 2,
   resourceTrigram: 'CSA',
   projectName: 'NOBC Mobile',
-  daysMap: [{key : '2017-06-14T00:00:00.000Z', val : 0.5}]
+  daysMap: [{key: '2017-06-14T00:00:00.000Z', val: 0.5}]
 });
 
 var monPlanningTaskModel3 = new planningTaskModel({
@@ -129,7 +132,7 @@ var monPlanningTaskModel3 = new planningTaskModel({
   position: 3,
   resourceTrigram: 'MBO',
   projectName: 'NOBC Mobile',
-  daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 0.5}]
+  daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 0.5}]
 });
 
 var monPlanningTaskModel4 = new planningTaskModel({
@@ -139,7 +142,10 @@ var monPlanningTaskModel4 = new planningTaskModel({
   position: 4,
   resourceTrigram: 'MBO',
   projectName: 'NOBC Mobile',
-  daysMap: [{key : '2017-06-12T00:00:00.000Z', val : 0.5}, {key : '2017-06-13T00:00:00.000Z', val : 1}, {key : '2017-06-14T00:00:00.000Z', val : 1}, {key : '2017-06-15T00:00:00.000Z', val : 0.5}]
+  daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 0.5}, {
+    key: '2017-06-13T00:00:00.000Z',
+    val: 1
+  }, {key: '2017-06-14T00:00:00.000Z', val: 1}, {key: '2017-06-15T00:00:00.000Z', val: 0.5}]
 });
 
 // Empty Database
@@ -181,13 +187,22 @@ monPlanningTaskModel4.save(function (err) {
 
 
 var planningVacations = new Schema({
-  val: Date
+  val: Date,
+  resourceTrigram: String
 });
 
 // Compile model from schema
 var planningVacationsModel = mongoose.model('planningvacations', planningVacations);
-var monplanningVacationsModel1 = new planningVacationsModel({val: '2017-06-12T00:00:00.000Z'});
-var monplanningVacationsModel2 = new planningVacationsModel({val: '2017-06-13T00:00:00.000Z'});
+var monplanningVacationsModel1 = new planningVacationsModel(
+  {
+    val: '2017-06-12T00:00:00.000Z',
+    resourceTrigram: 'MBO'
+  });
+var monplanningVacationsModel2 = new planningVacationsModel(
+  {
+    val: '2017-08-15T00:00:00.000Z',
+    resourceTrigram: 'ALL'
+  });
 
 // Empty Database
 planningVacationsModel.remove({}, function (err) {

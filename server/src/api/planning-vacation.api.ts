@@ -1,39 +1,38 @@
 // express
-import {NextFunction, Response, Request, Router} from 'express';
-
+import {NextFunction, Request, Response, Router} from 'express';
 // model
 import {PlanningVacationModel, PlanningVacationModelInterface} from '../models/planning-vacation.model';
 
 export class PlanningVacationApi {
   public static create(router: Router) {
     // DELETE
-    router.delete('/planning-vacation/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+    router.delete('/planning-vacations/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
       new PlanningVacationApi().delete(req, res, next);
     });
 
     // GET
-    router.get('/planning-vacation', (req: Request, res: Response, next: NextFunction) => {
+    router.get('/planning-vacations', (req: Request, res: Response, next: NextFunction) => {
       new PlanningVacationApi().list(req, res, next);
     });
-    router.get('/planning-vacation/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+    router.get('/planning-vacations/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
       new PlanningVacationApi().get(req, res, next);
     });
 
     // POST
-    router.post('/planning-vacation', (req: Request, res: Response, next: NextFunction) => {
+    router.post('/planning-vacations', (req: Request, res: Response, next: NextFunction) => {
       new PlanningVacationApi().create(req, res, next);
     });
 
     // PUT
-    router.put('/planning-vacation/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
+    router.put('/planning-vacations/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
       new PlanningVacationApi().update(req, res, next);
     });
   }
 
   public create(req: Request, res: Response, next: NextFunction) {
     // create planning-vacation
-    const planningParam = new PlanningVacationModel(req.body);
-    planningParam.save().then(planningVacation => {
+    const planningVacationObj = new PlanningVacationModel(req.body);
+    planningVacationObj.save().then(planningVacation => {
       res.json(planningVacation.toObject());
       next();
     }).catch(next);
@@ -99,7 +98,7 @@ export class PlanningVacationApi {
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
     PlanningVacationModel.find().then(planningVacation => {
-      res.json(planningVacation.map(planningParam => planningParam.toObject()));
+      res.json(planningVacation.map(planningVacationObj => planningVacationObj.toObject()));
       next();
     }).catch(next);
   }
@@ -128,8 +127,8 @@ export class PlanningVacationApi {
       }
 
       // save planningVacationDocument
-      Object.assign(planningVacation, req.body).save().then((planningParam: PlanningVacationModelInterface) => {
-        res.json(planningParam.toObject());
+      Object.assign(planningVacation, req.body).save().then((planningVacationObj: PlanningVacationModelInterface) => {
+        res.json(planningVacationObj.toObject());
         next();
       }).catch(next);
     }).catch(next);

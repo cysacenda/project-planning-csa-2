@@ -1,23 +1,18 @@
 process.env.NODE_ENV = 'test';
-
 // mocha
 import 'mocha';
 import 'chai';
 import {suite, test} from 'mocha-typescript';
-
 // mongodb
-import {ObjectID} from 'mongodb';
-
 // server
 import {Server} from '../server';
-
 // model
 import {PlanningVacationInterface} from '../interfaces/planning-vacation.interface';
 import {PlanningVacationModelInterface, PlanningVacationModelInterfaceStatic} from '../models/planning-vacation.model';
 import {PlanningVacationSchema} from '../schemas/planning-vacation.schema';
-
 // mongoose
 import mongoose = require('mongoose');
+
 
 // require http server
 const http = require('http');
@@ -33,7 +28,7 @@ chai.use(require('chai-http'));
 class PlanningVacationTest {
 
   // constants
-  public static BASE_URI: string = '/api/planning-vacation';
+  public static BASE_URI: string = '/api/planning-vacations';
 
   // the mongooose connection
   public static connection: mongoose.Connection;
@@ -60,7 +55,8 @@ class PlanningVacationTest {
     PlanningVacationTest.server.listen(port);
     serv.openConnection('mongodb://localhost:27017/planning-csa-tests');
 
-    PlanningVacationTest.planningVacationModel = mongoose.model<PlanningVacationModelInterface, PlanningVacationModelInterfaceStatic>('planningvacation', PlanningVacationSchema);
+    // PlanningVacationTest.planningVacationModel = PlanningVacationModel;
+    PlanningVacationTest.planningVacationModel = mongoose.model<PlanningVacationModelInterface, PlanningVacationModelInterfaceStatic>('planningvacations', PlanningVacationSchema);
     return PlanningVacationTest.CreatePlanningVacation();
   }
 
@@ -68,10 +64,10 @@ class PlanningVacationTest {
    * After all hook
    */
   public static after() {
-    return PlanningVacationTest.planningVacationDocument.remove()
-    .then(() => {
-      return mongoose.disconnect();
-    });
+    /*return PlanningVacationTest.planningVacationDocument.remove()
+      .then(() => {
+        return mongoose.disconnect();
+      });*/
   }
 
   /**
@@ -80,7 +76,8 @@ class PlanningVacationTest {
   public static CreatePlanningVacation(): Promise<PlanningVacationModelInterface> {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate
+      val: tmpDate,
+      resourceTrigram: 'MBO'
     };
     return new PlanningVacationTest.planningVacationModel(data).save().then(planningVacation => {
       PlanningVacationTest.planningVacationDocument = planningVacation;
@@ -88,12 +85,13 @@ class PlanningVacationTest {
     });
   }
 
-  // Delete a PlanningParam
+  // Delete a PlanningVacation
   @test
   public delete() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate
+      val: tmpDate,
+      resourceTrigram: 'MBO'
     };
     return new PlanningVacationTest.planningVacationModel(data).save().then(planningVacation => {
       return chai.request(PlanningVacationTest.server).del(`${PlanningVacationTest.BASE_URI}/${planningVacation._id}`).then(response => {
@@ -103,11 +101,12 @@ class PlanningVacationTest {
   }
 
   @test
-  public get () {
+  public get() {
     return chai.request(PlanningVacationTest.server).get(`${PlanningVacationTest.BASE_URI}/${PlanningVacationTest.planningVacationDocument._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
       response.body.should.have.property('val').eql(JSON.parse(JSON.stringify(PlanningVacationTest.planningVacationDocument.val)));
+      response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningVacationTest.planningVacationDocument.resourceTrigram)));
     });
   }
 
@@ -117,7 +116,9 @@ class PlanningVacationTest {
       response.should.have.status(200);
       response.body.should.be.an('array');
       response.body.should.have.lengthOf(1);
-    });
+    }).catch(function (error) {
+      console.log(error);
+    })
   }
 
   @test
@@ -125,7 +126,8 @@ class PlanningVacationTest {
   public post() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate
+      val: tmpDate,
+      resourceTrigram: 'MBO'
     };
     return chai.request(PlanningVacationTest.server).post(PlanningVacationTest.BASE_URI)
       .send(data)
@@ -134,6 +136,7 @@ class PlanningVacationTest {
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
         response.body.should.have.property('val').eql(JSON.parse(JSON.stringify(data.val)));
+        response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(data.resourceTrigram)));
         return PlanningVacationTest.planningVacationModel.findByIdAndRemove(response.body._id).exec();
       });
   }
@@ -142,7 +145,8 @@ class PlanningVacationTest {
   public put() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate
+      val: tmpDate,
+      resourceTrigram: 'MBO'
     }
     return chai.request(PlanningVacationTest.server).put(`${PlanningVacationTest.BASE_URI}/${PlanningVacationTest.planningVacationDocument._id}`)
       .send(data)
@@ -150,7 +154,8 @@ class PlanningVacationTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(data.val)));
+        response.body.should.have.property('val').eql(JSON.parse(JSON.stringify(data.val)));
+        response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(data.resourceTrigram)));
       });
   }
 
