@@ -3,8 +3,9 @@
 import {PlanningAlgo} from './planning-algorithm';
 
 
-console.log(process.argv[2]);
-
 // Build partial planning
 const algo = new PlanningAlgo();
-algo.CalculPlanningForResource(process.argv[2]);
+algo.CalculPlanningForResource(process.argv[2])
+  .catch(
+    error => console.log(error.stack)
+  );

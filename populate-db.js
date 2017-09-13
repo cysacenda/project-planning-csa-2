@@ -203,6 +203,11 @@ var monplanningVacationsModel2 = new planningVacationsModel(
     val: '2017-08-15T00:00:00.000Z',
     resourceTrigram: 'ALL'
   });
+var monplanningVacationsModel3 = new planningVacationsModel(
+  {
+    val: '2017-06-13T00:00:00.000Z',
+    resourceTrigram: 'CSA'
+  });
 
 // Empty Database
 planningVacationsModel.remove({}, function (err) {
@@ -217,6 +222,12 @@ monplanningVacationsModel1.save(function (err) {
   console.log('planning-vacations créé !');
 });
 monplanningVacationsModel2.save(function (err) {
+  if (err) {
+    throw err;
+  }
+  console.log('planning-vacations créé !');
+});
+monplanningVacationsModel3.save(function (err) {
   if (err) {
     throw err;
   }
