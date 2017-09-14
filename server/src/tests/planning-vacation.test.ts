@@ -144,7 +144,7 @@ class PlanningVacationTest {
         response.body.should.have.property('value').eql(JSON.parse(JSON.stringify(data.value)));
         return PlanningVacationTest.planningVacationModel.findByIdAndRemove(response.body._id).exec();
       });
-  }
+  } 
 
   @test
   public put() {
