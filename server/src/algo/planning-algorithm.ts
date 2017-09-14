@@ -1,5 +1,6 @@
 import {PlanningTaskModel} from '../models/planning-task.model';
 import {PlanningVacationModel} from '../models/planning-vacation.model';
+import {PlanningParamsModel} from '../models/planning-params.model';
 import mongoose = require('mongoose');
 
 export class PlanningAlgo {
@@ -17,17 +18,19 @@ export class PlanningAlgo {
 
   public async CalculPlanningForResource(resourceTrigram: string, closeConnection?: boolean) {
     await this.OpenConnection();
-    // Récupérer date en cours
-    // Tant que RAE tâche > 0, en fct dispo collab, alimente tableau de dates
+
+    // Récupération paramètres du planning
+    const planningParams = await PlanningParamsModel.findOne();
+    const currentDate = planningParams.currentDate;
 
     // let taskDays: Map<string, number>;
-    // taskDays = new Map(taskArray.map((i) => [i.key, parseFloat(i.val)]));
+    // taskDays = new Map(taskArray.map((i) => [i.key, parseFloat(i.vacationDate)]));
 
     // Récupérer toutes les taches d'une resource, non terminées (etc <> 0) triées par position
-    const planningTasks = await PlanningTaskModel.find({
+    const planningTasksCursor = await PlanningTaskModel.find({
       resourceTrigram: resourceTrigram,
       etc: {'$ne': 0}
-    }).sort({position: 1});
+    }).sort({position: 1}).cursor();
 
     // Récupérer jours fériés applicables à toutes les ressources (ALL) et les congés de la ressource triées par date asc
     const planningVacations = await PlanningVacationModel.find(
@@ -37,15 +40,17 @@ export class PlanningAlgo {
           {resourceTrigram: 'ALL'}
         ]
       }).sort({val: 1});
-    console.log(planningTasks);
-    console.log(planningVacations);
-    /* for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
-      // Prints "Val" followed by "Varun"
-      console.log(doc.name); */
 
-    if (typeof(closeConnection) === 'boolean' && closeConnection) {
-      this.CloseConnection();
+    // Tant que RAE tâche > 0, en fct dispo collab, alimente tableau de dates
+    for (let doc = await planningTasksCursor.next(); doc != null; doc = await planningTasksCursor.next()) {
+
+      console.log(doc.workload);
     }
+
+
+    /* if (typeof(closeConnection) === 'boolean' && closeConnection) {
+      this.CloseConnection();
+    } */
   }
 
   private OpenConnection() {

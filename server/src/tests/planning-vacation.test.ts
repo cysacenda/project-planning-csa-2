@@ -76,8 +76,9 @@ class PlanningVacationTest {
   public static CreatePlanningVacation(): Promise<PlanningVacationModelInterface> {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate,
-      resourceTrigram: 'MBO'
+      vacationDate: tmpDate,
+      resourceTrigram: 'MBO',
+      value: 1
     };
     return new PlanningVacationTest.planningVacationModel(data).save().then(planningVacation => {
       PlanningVacationTest.planningVacationDocument = planningVacation;
@@ -90,8 +91,9 @@ class PlanningVacationTest {
   public delete() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate,
-      resourceTrigram: 'MBO'
+      vacationDate: tmpDate,
+      resourceTrigram: 'MBO',
+      value: 1
     };
     return new PlanningVacationTest.planningVacationModel(data).save().then(planningVacation => {
       return chai.request(PlanningVacationTest.server).del(`${PlanningVacationTest.BASE_URI}/${planningVacation._id}`).then(response => {
@@ -105,8 +107,9 @@ class PlanningVacationTest {
     return chai.request(PlanningVacationTest.server).get(`${PlanningVacationTest.BASE_URI}/${PlanningVacationTest.planningVacationDocument._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
-      response.body.should.have.property('val').eql(JSON.parse(JSON.stringify(PlanningVacationTest.planningVacationDocument.val)));
+      response.body.should.have.property('vacationDate').eql(JSON.parse(JSON.stringify(PlanningVacationTest.planningVacationDocument.vacationDate)));
       response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningVacationTest.planningVacationDocument.resourceTrigram)));
+      response.body.should.have.property('value').eql(JSON.parse(JSON.stringify(PlanningVacationTest.planningVacationDocument.value)));
     });
   }
 
@@ -126,8 +129,9 @@ class PlanningVacationTest {
   public post() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate,
-      resourceTrigram: 'MBO'
+      vacationDate: tmpDate,
+      resourceTrigram: 'MBO',
+      value: 1
     };
     return chai.request(PlanningVacationTest.server).post(PlanningVacationTest.BASE_URI)
       .send(data)
@@ -135,8 +139,9 @@ class PlanningVacationTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('val').eql(JSON.parse(JSON.stringify(data.val)));
+        response.body.should.have.property('vacationDate').eql(JSON.parse(JSON.stringify(data.vacationDate)));
         response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(data.resourceTrigram)));
+        response.body.should.have.property('value').eql(JSON.parse(JSON.stringify(data.value)));
         return PlanningVacationTest.planningVacationModel.findByIdAndRemove(response.body._id).exec();
       });
   }
@@ -145,8 +150,9 @@ class PlanningVacationTest {
   public put() {
     const tmpDate: Date = new Date('11/20/2014 04:11');
     const data: PlanningVacationInterface = {
-      val: tmpDate,
-      resourceTrigram: 'MBO'
+      vacationDate: tmpDate,
+      resourceTrigram: 'MBO',
+      value: 1
     }
     return chai.request(PlanningVacationTest.server).put(`${PlanningVacationTest.BASE_URI}/${PlanningVacationTest.planningVacationDocument._id}`)
       .send(data)
@@ -154,8 +160,9 @@ class PlanningVacationTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('val').eql(JSON.parse(JSON.stringify(data.val)));
+        response.body.should.have.property('vacationDate').eql(JSON.parse(JSON.stringify(data.vacationDate)));
         response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(data.resourceTrigram)));
+        response.body.should.have.property('value').eql(JSON.parse(JSON.stringify(data.value)));
       });
   }
 

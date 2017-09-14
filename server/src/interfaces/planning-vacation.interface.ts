@@ -1,4 +1,5 @@
 export interface PlanningVacationInterface {
-  val: Date;
+  vacationDate: Date;
+  value: number,
   resourceTrigram: string;
 }

@@ -187,26 +187,30 @@ monPlanningTaskModel4.save(function (err) {
 
 
 var planningVacations = new Schema({
-  val: Date,
-  resourceTrigram: String
+  vacationDate: Date,
+  resourceTrigram: String,
+  value: Number
 });
 
 // Compile model from schema
 var planningVacationsModel = mongoose.model('planningvacations', planningVacations);
 var monplanningVacationsModel1 = new planningVacationsModel(
   {
-    val: '2017-06-12T00:00:00.000Z',
-    resourceTrigram: 'MBO'
+    vacationDate: '2017-06-12T00:00:00.000Z',
+    resourceTrigram: 'MBO',
+    value: 1
   });
 var monplanningVacationsModel2 = new planningVacationsModel(
   {
-    val: '2017-08-15T00:00:00.000Z',
-    resourceTrigram: 'ALL'
+    vacationDate: '2017-08-15T00:00:00.000Z',
+    resourceTrigram: 'ALL',
+    value: 1
   });
 var monplanningVacationsModel3 = new planningVacationsModel(
   {
-    val: '2017-06-13T00:00:00.000Z',
-    resourceTrigram: 'CSA'
+    vacationDate: '2017-06-13T00:00:00.000Z',
+    resourceTrigram: 'CSA',
+    value: 0.5
   });
 
 // Empty Database
