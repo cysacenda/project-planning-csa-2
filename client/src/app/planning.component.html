@@ -1,33 +1,33 @@
-<div class="app-content" *ngIf="planningParams!= null">
+<div class="app-content" *ngIf="currentDate!= null">
 
   <table class="mat-elevation-z8">
     <tr class="tabHeader">
       <th colspan="6" class="white"></th>
-      <th colspan="18" class="white">{{planningParams.currentDate | date: 'dd' }} {{planningParams.currentDate | date:
-        'MMMM'}} {{planningParams.currentDate | date: 'yyyy'}} - {{addDays(planningParams.currentDate,
-        18) | date: 'dd'}} {{addDays(planningParams.currentDate, 18) | date: 'MMMM'}}
-        {{addDays(planningParams.currentDate, 18) | date: 'yyyy'}}
+      <th colspan="18" class="white">{{currentDate | date: 'dd' }} {{currentDate | date:
+        'MMMM'}} {{currentDate | date: 'yyyy'}} - {{addDays(currentDate,
+        18) | date: 'dd'}} {{addDays(currentDate, 18) | date: 'MMMM'}}
+        {{addDays(currentDate, 18) | date: 'yyyy'}}
       </th>
     </tr>
     <tr class="tabHeader ">
       <th colspan="6"></th>
-      <th>{{planningParams.currentDate | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 1) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 2) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 3) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 4) | date: 'EE'}}</th>
+      <th>{{currentDate | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 1) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 2) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 3) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 4) | date: 'EE'}}</th>
       <th>WE</th>
-      <th>{{addDays(planningParams.currentDate, 7) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 8) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 9) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 10) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 11) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 7) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 8) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 9) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 10) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 11) | date: 'EE'}}</th>
       <th>WE</th>
-      <th>{{addDays(planningParams.currentDate, 14) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 15) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 16) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 17) | date: 'EE'}}</th>
-      <th>{{addDays(planningParams.currentDate, 18) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 14) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 15) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 16) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 17) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 18) | date: 'EE'}}</th>
       <th>WE</th>
     </tr>
     <tr class="tabHeader">
@@ -37,23 +37,23 @@
       <th>Task</th>
       <th>Workload</th>
       <th>Etc</th>
-      <th>{{planningParams.currentDate | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 1) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 2) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 3) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 4) | date: 'dd'}}</th>
+      <th>{{currentDate | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 1) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 2) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 3) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 4) | date: 'dd'}}</th>
       <th></th>
-      <th>{{addDays(planningParams.currentDate, 7) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 8) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 9) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 10) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 11) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 7) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 8) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 9) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 10) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 11) | date: 'dd'}}</th>
       <th></th>
-      <th>{{addDays(planningParams.currentDate, 14) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 15) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 16) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 17) | date: 'dd'}}</th>
-      <th>{{addDays(planningParams.currentDate, 18) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 14) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 15) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 16) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 17) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 18) | date: 'dd'}}</th>
       <th></th>
     </tr>
 
@@ -67,23 +67,23 @@
       <td class="notColored">{{task.etc}}</td>
 
       <!-- TODO : Boucle ? -->
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 0)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 1)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 2)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 3)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 4)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 0)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 1)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 2)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 3)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 4)}}</td>
       <td></td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 7)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 8)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 9)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 10)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 11)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 7)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 8)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 9)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 10)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 11)}}</td>
       <td></td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 14)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 15)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 16)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 17)}}</td>
-      <td>{{getWorkloadForDate(task.daysMap, planningParams.currentDate, 18)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 14)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 15)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 16)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 17)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 18)}}</td>
       <td></td>
     </tr>
 

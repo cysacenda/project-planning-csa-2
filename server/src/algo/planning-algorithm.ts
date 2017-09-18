@@ -34,27 +34,32 @@ export class PlanningAlgo {
     tmpVacationsArray = planningVacationsObj;
     const planningVacationMap = await new Map<string, number>(tmpVacationsArray.map((i) => [i.vacationDate.toJSON(), i.value]));
 
+    let alreadyPlannedOnLastTask: number = 0;
+
     // Tant que RAE tâche > 0, en fct dispo collab, alimente tableau de dates
     for (let doc = await planningTasksCursor.next(); doc != null; doc = await planningTasksCursor.next()) {
-      // Créer un tableau de dates avec structure [{key: XX, val: XX},{key: XX, val: XX}]
       const datesValuesMap = new Array();
       let etcToPlannify = doc.etc;
+
       while (etcToPlannify > 0) {
-        // Pour la date en cours, récupérer dans planningVacations la charge
-        // Prendre plus petit entre 1-planningVacations ET etc
+        console.log('DEBUT WHILE');
+        let incrementDate: Boolean = true;
         let availableAfterVacation: number = 1;
+
         if (planningVacationMap.has(currentDate.toJSON())) {
           availableAfterVacation = 1 - planningVacationMap.get(currentDate.toJSON());
         }
-        const nbDaysToPlannify = Math.min(availableAfterVacation, etcToPlannify);
-        if (nbDaysToPlannify > 0) {
-          datesValuesMap.push({key: JSON.stringify(currentDate), val: nbDaysToPlannify});
-          etcToPlannify = etcToPlannify - nbDaysToPlannify;
+
+        // Si on a déjà planifié de la charge pour une autre tâche sur cette date
+        if (alreadyPlannedOnLastTask > 0) {
+          availableAfterVacation -= alreadyPlannedOnLastTask;
+          alreadyPlannedOnLastTask = 0;
         }
 
-        // Si il ne reste plus de charge planifiable sur la date
-        if (nbDaysToPlannify + availableAfterVacation >= 1) {
-          currentDate = this.getNextOpenDay(currentDate);
+        const nbDaysToPlannify = Math.min(availableAfterVacation, etcToPlannify);
+        if (nbDaysToPlannify > 0) {
+          datesValuesMap.push({key: currentDate.toJSON(), val: nbDaysToPlannify});
+          etcToPlannify = etcToPlannify - nbDaysToPlannify;
         }
 
         // Si dernière itération
@@ -63,12 +68,25 @@ export class PlanningAlgo {
           console.log(datesValuesMap);
           doc.daysMap = datesValuesMap;
           doc.save();
+
+          // Si la charge planifiée est inférieure à la charge dispo ce jour-ci
+          if (availableAfterVacation - nbDaysToPlannify > 0) {
+            incrementDate = false;
+            alreadyPlannedOnLastTask = nbDaysToPlannify;
+          }
         }
+
+        if (incrementDate) {
+          currentDate = this.getNextOpenDay(currentDate);
+        }
+
+        console.log('FIN WHILE');
       }
     }
-    /* if (typeof(closeConnection) === 'boolean' && closeConnection) {
+
+    if (typeof(closeConnection) === 'boolean' && closeConnection) {
       this.CloseConnection();
-    } */
+    }
   }
 
   private OpenConnection() {

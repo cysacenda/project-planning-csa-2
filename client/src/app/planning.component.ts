@@ -1,23 +1,33 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PlanningService} from './shared/services/planning.service';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 import {PlanningParams} from './shared/models/planning-params.model';
 import {MdDialog} from '@angular/material'; // TODO : A supprimer ?
 import {AddTaskComponent} from './app-new-task.component';
+import {HeaderService} from './shared/services/header.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.css']
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, OnDestroy {
   projects: String[] = [];
   resources: PlanningResource[] = [];
   tasks: PlanningTask[] = [];
   planningParams: PlanningParams = null;
+  currentDate: Date = null;
 
-  constructor(private planningService: PlanningService, public dialog: MdDialog) {
+  subscription: Subscription;
+
+  constructor(private planningService: PlanningService, private headerService: HeaderService, public dialog: MdDialog) {
+    this.subscription = headerService.missionAnnounced$.subscribe(
+      () => {
+        this.updateCurrentDateAdd3weeks();
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -31,18 +41,43 @@ export class ScheduleComponent implements OnInit {
       .then(tasks => this.tasks = tasks);
 
     this.planningService.getPlanningParams()
-      .then(planningParams => this.planningParams = planningParams);
+      .then(planningParams => this.planningParams = planningParams)
+      .then(() => this.currentDate = new Date(this.planningParams.currentDate))
+    ;
   }
 
-  addDays(date: string, days: number): Date {
+  public updateCurrentDateAdd3weeks() {
+    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), 21));
+  }
+
+  public updateCurrentDateMinus3weeks() {
+    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), -21));
+  }
+
+  public openDialog() {
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      /* height: '400px',
+      width: '600px' */
+    });
+  }
+
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
+  }
+
+  private updateCurrentDate(newDate: Date) {
+    this.currentDate = newDate;
+  }
+
+  private addDays(date: string, days: number): Date {
     const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + days);
     return newDate;
   }
 
-  getWorkloadForDate(taskMap: any, date: string, days: number): string {
-    // TODO : Moche
-    const tmpDate: string = JSON.parse(JSON.stringify(this.addDays(date, days)));
+  private getWorkloadForDate(taskMap: any, date: string, days: number): string {
+    const tmpDate: string = this.addDays(date, days).toJSON();
 
     // TODO : Pas optimisé, ne pas faire à chaque fois, devrait être fait à la création de l'objet
     let taskDays: Map<string, number>;
@@ -53,12 +88,5 @@ export class ScheduleComponent implements OnInit {
     } else {
       return '';
     }
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-      /* height: '400px',
-      width: '600px' */
-    });
   }
 }

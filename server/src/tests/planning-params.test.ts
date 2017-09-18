@@ -1,23 +1,18 @@
 process.env.NODE_ENV = 'test';
-
 // mocha
 import 'mocha';
 import 'chai';
 import {suite, test} from 'mocha-typescript';
-
 // mongodb
-import {ObjectID} from 'mongodb';
-
 // server
 import {Server} from '../server';
-
 // model
 import {PlanningParamsInterface} from '../interfaces/planning-params.interface';
 import {PlanningParamsModelInterface, PlanningParamsModelInterfaceStatic} from '../models/planning-params.model';
 import {PlanningParamsSchema} from '../schemas/planning-params.schema';
-
 // mongoose
 import mongoose = require('mongoose');
+
 
 // require http server
 const http = require('http');
@@ -107,7 +102,7 @@ class PlanningParamsTest {
     return chai.request(PlanningParamsTest.server).get(`${PlanningParamsTest.BASE_URI}/${PlanningParamsTest.planningParamsDocument._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
-      response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(PlanningParamsTest.planningParamsDocument.currentDate)));
+      response.body.should.have.property('currentDate').eql(PlanningParamsTest.planningParamsDocument.currentDate.toJSON());
     });
   }
 
@@ -133,7 +128,7 @@ class PlanningParamsTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(data.currentDate)));
+        response.body.should.have.property('currentDate').eql(data.currentDate.toJSON());
         return PlanningParamsTest.planningParamsModel.findByIdAndRemove(response.body._id).exec();
       });
   }
@@ -150,7 +145,7 @@ class PlanningParamsTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(JSON.parse(JSON.stringify(data.currentDate)));
+        response.body.should.have.property('currentDate').eql(data.currentDate.toJSON());
       });
   }
 
