@@ -5,7 +5,7 @@ import {PlanningTask} from './shared/models/planning-task.model';
 import {PlanningParams} from './shared/models/planning-params.model';
 import {MdDialog} from '@angular/material'; // TODO : A supprimer ?
 import {AddTaskComponent} from './app-new-task.component';
-import {HeaderService} from './shared/services/header.service';
+import {HeaderService, HeaderServiceAction} from './shared/services/header.service';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -23,9 +23,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private planningService: PlanningService, private headerService: HeaderService, public dialog: MdDialog) {
-    this.subscription = headerService.missionAnnounced$.subscribe(
-      () => {
-        this.updateCurrentDateAdd3weeks();
+    this.subscription = headerService.actionTriggered$.subscribe(
+      action => {
+        if (action === HeaderServiceAction.Previous) {
+          this.updateCurrentDateMinus3weeks();
+        } else if (action === HeaderServiceAction.Next) {
+          this.updateCurrentDateAdd3weeks();
+        }
       }
     )
   }

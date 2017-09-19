@@ -5,13 +5,18 @@ import {Subject} from 'rxjs/Subject';
 export class HeaderService {
 
   // Observable string sources
-  private missionAnnouncedSource = new Subject<string>();
+  private actionTriggeredSource = new Subject<HeaderServiceAction>();
 
   // Observable string streams
-  missionAnnounced$ = this.missionAnnouncedSource.asObservable();
+  actionTriggered$ = this.actionTriggeredSource.asObservable();
 
   // Service message commands
-  announceMission(mission: string) {
-    this.missionAnnouncedSource.next(mission);
+  actionTriggered(action: HeaderServiceAction) {
+    this.actionTriggeredSource.next(action);
   }
+}
+
+export enum HeaderServiceAction {
+  Previous,
+  Next
 }

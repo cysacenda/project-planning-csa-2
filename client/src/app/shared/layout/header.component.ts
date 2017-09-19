@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HeaderService} from '../services/header.service';
+import {HeaderService, HeaderServiceAction} from '../services/header.service';
 
 @Component({
   selector: 'app-layout-header',
@@ -14,12 +14,10 @@ export class HeaderComponent {
   }
 
   private next() {
-    this.headerService.announceMission('TOTO');
+    this.headerService.actionTriggered(HeaderServiceAction.Next);
   }
 
   private previous() {
-    this.headerService.announceMission('TOTO');
+    this.headerService.actionTriggered(HeaderServiceAction.Previous);
   }
-
-  // TODO : Function appelée par HMTL qui appelle une fonction du service this.headerService
 }

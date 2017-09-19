@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map'
 
 import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
@@ -47,14 +48,13 @@ export class PlanningService {
   }
 
   getPlanningTasks(): Promise<Array<PlanningTask>> {
-      return this.http
-        .get(this.planningTasksUrl)
-        .toPromise()
-        // .map((response: Response) => response.json()))
-         .then((response) => {
-           return response.json() as PlanningTask[];
-         })
-        .catch(this.handleError);
+    return this.http
+      .get(this.planningTasksUrl)
+      .toPromise()
+      .then((response) => {
+        return response.json() as PlanningTask[];
+      })
+      .catch(this.handleError);
   }
 
   getPlanningParams(): Promise<PlanningParams> {
@@ -62,7 +62,7 @@ export class PlanningService {
       .get(this.planningParamsUrl)
       .toPromise()
       .then((response) => {
-         return (response.json() as PlanningParams[])[0];
+        return (response.json() as PlanningParams[])[0];
       })
       .catch(this.handleError);
   }
@@ -73,7 +73,7 @@ export class PlanningService {
     });
 
     return this.http
-      .post(this.planningTasksUrl, JSON.stringify(planningTask), { headers: headers })
+      .post(this.planningTasksUrl, JSON.stringify(planningTask), {headers: headers})
       .toPromise()
       /*.then(res => res.json().data) */
       .catch(this.handleError);
