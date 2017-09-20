@@ -26,9 +26,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.subscription = headerService.actionTriggered$.subscribe(
       action => {
         if (action === HeaderServiceAction.Previous) {
-          this.updateCurrentDateMinus3weeks();
+          this.updateCurrentDateMinus4weeks();
         } else if (action === HeaderServiceAction.Next) {
-          this.updateCurrentDateAdd3weeks();
+          this.updateCurrentDateAdd4weeks();
         }
       }
     )
@@ -50,12 +50,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     ;
   }
 
-  public updateCurrentDateAdd3weeks() {
-    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), 21));
+  public updateCurrentDateAdd4weeks() {
+    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), 28));
   }
 
-  public updateCurrentDateMinus3weeks() {
-    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), -21));
+  public updateCurrentDateMinus4weeks() {
+    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), -28));
   }
 
   public openDialog() {

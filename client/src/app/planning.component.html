@@ -3,12 +3,13 @@
   <table class="mat-elevation-z8">
     <tr class="tabHeader">
       <th colspan="6" class="white"></th>
-      <th colspan="18" class="white">{{currentDate | date: 'dd' }} {{currentDate | date:
+      <th colspan="25" class="white">{{currentDate | date: 'dd' }} {{currentDate | date:
         'MMMM'}} {{currentDate | date: 'yyyy'}} - {{addDays(currentDate,
-        18) | date: 'dd'}} {{addDays(currentDate, 18) | date: 'MMMM'}}
-        {{addDays(currentDate, 18) | date: 'yyyy'}}
+        25) | date: 'dd'}} {{addDays(currentDate, 25) | date: 'MMMM'}}
+        {{addDays(currentDate, 25) | date: 'yyyy'}}
       </th>
     </tr>
+    <!-- TODO : A OPTIMISER / rendre plus beau-->
     <tr class="tabHeader ">
       <th colspan="6"></th>
       <th>{{currentDate | date: 'EE'}}</th>
@@ -28,6 +29,12 @@
       <th>{{addDays(currentDate, 16) | date: 'EE'}}</th>
       <th>{{addDays(currentDate, 17) | date: 'EE'}}</th>
       <th>{{addDays(currentDate, 18) | date: 'EE'}}</th>
+      <th>WE</th>
+      <th>{{addDays(currentDate, 21) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 22) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 23) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 24) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 25) | date: 'EE'}}</th>
       <th>WE</th>
     </tr>
     <tr class="tabHeader">
@@ -54,6 +61,12 @@
       <th>{{addDays(currentDate, 16) | date: 'dd'}}</th>
       <th>{{addDays(currentDate, 17) | date: 'dd'}}</th>
       <th>{{addDays(currentDate, 18) | date: 'dd'}}</th>
+      <th></th>
+      <th>{{addDays(currentDate, 21) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 22) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 23) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 24) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 25) | date: 'dd'}}</th>
       <th></th>
     </tr>
 
@@ -84,6 +97,12 @@
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 16)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 17)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 18)}}</td>
+      <td></td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 21)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 22)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 23)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 24)}}</td>
+      <td>{{getWorkloadForDate(task.daysMap, currentDate, 25)}}</td>
       <td></td>
     </tr>
 
