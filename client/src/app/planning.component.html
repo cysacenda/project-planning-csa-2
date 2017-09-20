@@ -71,7 +71,7 @@
     </tr>
 
     <!-- Pour chaque tâche -->
-    <tbody class='container' [dragula]='"first-bag"' [dragulaModel]='tasks'>
+    <tbody class='container' [dragula]='"planningRows"' [dragulaModel]='tasks'>
     <tr *ngFor="let task of tasks">
       <td class="notColored">{{task.position}}</td>
       <td class="notColored">{{task.resourceTrigram}}</td>

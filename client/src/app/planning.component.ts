@@ -7,6 +7,7 @@ import {MdDialog} from '@angular/material'; // TODO : A supprimer ?
 import {AddTaskComponent} from './app-new-task.component';
 import {HeaderService, HeaderServiceAction} from './shared/services/header.service';
 import {Subscription} from 'rxjs/Subscription';
+import {DragulaService} from 'ng2-dragula';
 
 @Component({
   selector: 'app-schedule',
@@ -22,7 +23,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private planningService: PlanningService, private headerService: HeaderService, public dialog: MdDialog) {
+  constructor(private planningService: PlanningService, private headerService: HeaderService,
+              private dragulaService: DragulaService, public dialog: MdDialog) {
     this.subscription = headerService.actionTriggered$.subscribe(
       action => {
         if (action === HeaderServiceAction.Previous) {
@@ -32,8 +34,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         }
       }
     )
+
+    // Subscribe to drag & drop events
+    dragulaService.drop.subscribe((value) => {
+      this.onDrop();
+    });
   }
 
+  // region Init / Destroy component
   ngOnInit(): void {
     this.planningService.getProjects()
       .then(projects => this.projects = projects);
@@ -50,13 +58,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     ;
   }
 
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
+  }
+
+  //endregion co
+
+// region Dates
   public updateCurrentDateAdd4weeks() {
     this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), 28));
   }
 
-  public updateCurrentDateMinus4weeks() {
-    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), -28));
-  }
 
   public openDialog() {
     const dialogRef = this.dialog.open(AddTaskComponent, {
@@ -65,9 +78,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    // prevent memory leak when component destroyed
-    this.subscription.unsubscribe();
+  public updateCurrentDateMinus4weeks() {
+    this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), -28));
+  }
+
+  private onDrop() {
+    // Create informations for bull update of positions
+    const tab = this.tasks.map((task, index) => {
+      return {key: task._id, val: index + 1};
+    })
+
+    // TODO, récupérer id de la tache modifée ?
+    this.planningService.updateTasksBulk(tab);
   }
 
   private updateCurrentDate(newDate: Date) {
@@ -93,4 +115,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       return '';
     }
   }
+
+// endregion
 }

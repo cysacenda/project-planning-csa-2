@@ -75,7 +75,17 @@ export class PlanningService {
     return this.http
       .post(this.planningTasksUrl, JSON.stringify(planningTask), {headers: headers})
       .toPromise()
-      /*.then(res => res.json().data) */
+      .catch(this.handleError);
+  }
+
+  updateTasksBulk(tasksList: any) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http
+      .patch(this.planningTasksUrl, JSON.stringify(tasksList), {headers: headers})
+      .toPromise()
       .catch(this.handleError);
   }
 

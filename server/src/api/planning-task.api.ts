@@ -29,6 +29,11 @@ export class PlanningTaskApi {
     router.put('/planning-tasks/:id([0-9a-f]{24})', (req: Request, res: Response, next: NextFunction) => {
       new PlanningTaskApi().update(req, res, next);
     });
+
+    // PUT
+    router.patch('/planning-tasks/', (req: Request, res: Response, next: NextFunction) => {
+      new PlanningTaskApi().bulkUpdate(req, res, next);
+    });
   }
 
   // TODO : Refactorer avec du .then() ou await / async
@@ -116,7 +121,7 @@ export class PlanningTaskApi {
 
   public list(req: Request, res: Response, next: NextFunction) {
     // get heros
-    PlanningTaskModel.find().sort( { position: 1 } ).then(planningTask => {
+    PlanningTaskModel.find().sort({position: 1}).then(planningTask => {
       res.json(planningTask.map(planningTaskObj => planningTaskObj.toObject()));
       next();
     }).catch(next);
@@ -151,5 +156,23 @@ export class PlanningTaskApi {
         next();
       }).catch(next);
     }).catch(next);
+  }
+
+  public bulkUpdate(req: Request, res: Response, next: NextFunction) {
+    /* const bulk = PlanningTaskModel.collection.initializeOrderedBulkOp();
+    for (var i = 0, len = req.body.length; i < len; i++) {
+      bulk.find({'_id': req.body[i].key}).updateOne({$set: {position: req.body[i].val}});
+      console.log('key ' + req.body[i].key);
+      console.log('val ' + req.body[i].val);
+    }
+
+    bulk.execute(function (error, result) {
+      console.log('KO');
+    }); */
+    for (var i = 0, len = req.body.length; i < len; i++) {
+      PlanningTaskModel.findByIdAndUpdate(req.body[i].key, {$set: {position: req.body[i].val}}, (err, tank) => {
+        }
+      );
+    }
   }
 }
