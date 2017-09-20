@@ -71,6 +71,7 @@
     </tr>
 
     <!-- Pour chaque tâche -->
+    <tbody class='container' [dragula]='"first-bag"' [dragulaModel]='tasks'>
     <tr *ngFor="let task of tasks">
       <td class="notColored">{{task.position}}</td>
       <td class="notColored">{{task.resourceTrigram}}</td>
@@ -105,6 +106,7 @@
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 25)}}</td>
       <td></td>
     </tr>
+    </tbody>
 
   </table>
 

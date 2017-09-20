@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
@@ -11,27 +11,27 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import {AppRoutingModule} from './app-routing.module';
-
 /* TODO : A suprimer quand vraie données depuis API */
 import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {InMemoryDataService} from './shared/services/in-memory-data.service';
 
-// Material design modules
-import {
-  MdToolbarModule,
-  MdMenuModule,
-  MdButtonModule,
-  MdIconModule,
-  MdSlideToggleModule,
-  MdSelectModule,
-  MdOptionModule,
-  MdDialogModule,
-  MdInputModule
-} from '@angular/material';
 import {ScheduleComponent} from './planning.component';
 import {PlanningService} from './shared/services/planning.service';
 import {AddTaskComponent} from './app-new-task.component';
 import {CommonModule} from '@angular/common';
+import {DragulaModule} from 'ng2-dragula';
+// Material design modules
+import {
+  MdButtonModule,
+  MdDialogModule,
+  MdIconModule,
+  MdInputModule,
+  MdMenuModule,
+  MdOptionModule,
+  MdSelectModule,
+  MdSlideToggleModule,
+  MdToolbarModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -58,6 +58,7 @@ import {CommonModule} from '@angular/common';
     MdOptionModule,
     MdDialogModule,
     MdInputModule,
+    DragulaModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true,
       /*delay: 100*/
