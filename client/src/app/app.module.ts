@@ -23,6 +23,7 @@ import {DragulaModule} from 'ng2-dragula';
 // Material design modules
 import {
   MdButtonModule,
+  MdCheckboxModule,
   MdDialogModule,
   MdIconModule,
   MdInputModule,
@@ -58,6 +59,7 @@ import {
     MdOptionModule,
     MdDialogModule,
     MdInputModule,
+    MdCheckboxModule,
     DragulaModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true,
