@@ -31,6 +31,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
           this.updateCurrentDateMinus4weeks();
         } else if (action === HeaderServiceAction.Next) {
           this.updateCurrentDateAdd4weeks();
+        } else if (action === HeaderServiceAction.Today) {
+          this.resetCurrentDate();
         }
       }
     )
@@ -38,6 +40,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     // Subscribe to drag & drop events
     dragulaService.drop.subscribe((value) => {
       this.onDrop();
+    });
+  }
+
+  public openDialog() {
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      /* height: '400px',
+      width: '600px' */
     });
   }
 
@@ -63,32 +72,28 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  //endregion co
+  // endregion
 
-// region Dates
+  // region Dates
   public updateCurrentDateAdd4weeks() {
     this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), 28));
-  }
-
-
-  public openDialog() {
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-      /* height: '400px',
-      width: '600px' */
-    });
   }
 
   public updateCurrentDateMinus4weeks() {
     this.updateCurrentDate(this.addDays(this.currentDate.toJSON(), -28));
   }
 
+  public resetCurrentDate() {
+    this.updateCurrentDate(new Date(this.planningParams.currentDate));
+  }
+
   private onDrop() {
-    // Create informations for bull update of positions
+    // Create informations for bulk update of positions
     const tab = this.tasks.map((task, index) => {
       return {key: task._id, val: index + 1};
     })
 
-    // TODO, récupérer id de la tache modifée ?
+    // TODO : récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
     this.planningService.updateTasksBulk(tab);
   }
 

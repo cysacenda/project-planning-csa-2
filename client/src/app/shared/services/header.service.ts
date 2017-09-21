@@ -18,5 +18,6 @@ export class HeaderService {
 
 export enum HeaderServiceAction {
   Previous,
-  Next
+  Next,
+  Today
 }

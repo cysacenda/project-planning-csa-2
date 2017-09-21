@@ -13,6 +13,10 @@ export class HeaderComponent {
   constructor(private headerService: HeaderService) {
   }
 
+  private today() {
+    this.headerService.actionTriggered(HeaderServiceAction.Today);
+  }
+
   private next() {
     this.headerService.actionTriggered(HeaderServiceAction.Next);
   }

@@ -31,8 +31,10 @@ th.white, td.white {
   border: 0px;
 }
 
-td.weekEnd, td.white {
-  border: 0px;
+td.weekEnd {
+  background-color: darkgray;
+  border-width: 1px;
+  border-color: darkgray;
 }
 
 #floating-button{

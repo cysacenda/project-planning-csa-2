@@ -1,14 +1,29 @@
 import {PlanningTaskModel} from '../models/planning-task.model';
 import {PlanningVacationModel} from '../models/planning-vacation.model';
 import {PlanningParamsModel} from '../models/planning-params.model';
+import {PlanningResourceModel} from '../models/planning-resource.model';
 import mongoose = require('mongoose');
 
 export class PlanningAlgo {
   // TODO : Config file
   private dbAdress: string = 'mongodb://localhost:27017/planning-csa';
 
-  public async CalculPlanningForResource(resourceTrigram: string, closeConnection?: boolean) {
+  public async CalculFullPlanning() {
     await this.OpenConnection();
+
+    const planningResourcesCursor = await PlanningResourceModel.find().cursor();
+    for (let doc = await planningResourcesCursor.next(); doc != null; doc = await planningResourcesCursor.next()) {
+      await this.CalculPlanningForResource(doc.trigram, false);
+    }
+
+    this.CloseConnection();
+  }
+
+  public async CalculPlanningForResource(resourceTrigram: string, useConnection?: boolean) {
+
+    if (typeof(useConnection) === 'boolean' && useConnection) {
+      await this.OpenConnection();
+    }
 
     // Récupération paramètres du planning
     const planningParams = await PlanningParamsModel.findOne();
@@ -84,7 +99,7 @@ export class PlanningAlgo {
       }
     }
 
-    if (typeof(closeConnection) === 'boolean' && closeConnection) {
+    if (typeof(useConnection) === 'boolean' && useConnection) {
       this.CloseConnection();
     }
   }
@@ -99,15 +114,6 @@ export class PlanningAlgo {
     mongoose.connection.on('error', error => {
       console.error(error);
     });
-  }
-
-  public CalculFullPlanning() {
-    this.OpenConnection();
-
-    // Récupérer resources
-    // Pour chaque resource, appeler CalculPlanningForResource
-
-    this.CloseConnection();
   }
 
   private CloseConnection() {

@@ -3,8 +3,11 @@
 import {PlanningAlgo} from './planning-algorithm';
 
 
-console.log('OK OK !!!');
-
 // Build full planning
 const algo = new PlanningAlgo();
-algo.CalculFullPlanning();
+algo.CalculFullPlanning()
+  .catch(
+    error => console.log(error.stack)
+  )
+  .then(() =>
+    process.exit());

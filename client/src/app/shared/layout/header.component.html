@@ -28,7 +28,7 @@
   <span>
     <md-nav-list>
       <md-list-item>
-        <a md-line href="/schedule">Today</a>
+        <button md-icon-button (click)="today()">Today</button>
       </md-list-item>
       <md-list-item>
         <button md-icon-button (click)="previous()">
@@ -36,14 +36,13 @@
         </button>
       </md-list-item>
       <md-list-item>
-        <!-- <a md-line class="material-icons" (click)="next()" href="#">keyboard_arrow_right</a> -->
         <button md-icon-button (click)="next()">
           <md-icon>keyboard_arrow_right</md-icon>
         </button>
       </md-list-item>
 
       <!-- TODO : Replace with DatePicker -->
-      <md-list-item>
+      <!-- <md-list-item>
         <a md-line href="https://www.google.fr">2017<i class="material-icons">keyboard_arrow_down</i></a>
       </md-list-item>
       <md-list-item *ngFor="let monthName of monthNames">
@@ -51,7 +50,7 @@
       </md-list-item>
       <md-list-item>
        - <md-slide-toggle></md-slide-toggle> +
-      </md-list-item>
+      </md-list-item> -->
     </md-nav-list>
 
   </span>

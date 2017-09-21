@@ -30,7 +30,7 @@ export class PlanningTaskApi {
       new PlanningTaskApi().update(req, res, next);
     });
 
-    // PUT
+    // PATCH
     router.patch('/planning-tasks/', (req: Request, res: Response, next: NextFunction) => {
       new PlanningTaskApi().bulkUpdate(req, res, next);
     });
@@ -159,6 +159,17 @@ export class PlanningTaskApi {
   }
 
   public bulkUpdate(req: Request, res: Response, next: NextFunction) {
+    for (let i = 0, len = req.body.length; i < len; i++) {
+      PlanningTaskModel.findByIdAndUpdate(req.body[i].key, {$set: {position: req.body[i].val}}, (err, tank) => {
+        }
+      );
+    }
+
+    // Lancement du traitement asynchrone de calcul de planning global
+    // TODO : A faire uniquement pour la ressource pour laquelle on a déplacé une tâche
+    ThreadManagement.StartThreadFull();
+
+    // region Bulk update code KO
     /* const bulk = PlanningTaskModel.collection.initializeOrderedBulkOp();
     for (var i = 0, len = req.body.length; i < len; i++) {
       bulk.find({'_id': req.body[i].key}).updateOne({$set: {position: req.body[i].val}});
@@ -169,10 +180,6 @@ export class PlanningTaskApi {
     bulk.execute(function (error, result) {
       console.log('KO');
     }); */
-    for (var i = 0, len = req.body.length; i < len; i++) {
-      PlanningTaskModel.findByIdAndUpdate(req.body[i].key, {$set: {position: req.body[i].val}}, (err, tank) => {
-        }
-      );
-    }
+    // endregion
   }
 }

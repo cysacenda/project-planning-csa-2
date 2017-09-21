@@ -2,7 +2,7 @@
 
   <table class="mat-elevation-z8">
     <tr class="tabHeader">
-      <th colspan="6" class="white"></th>
+      <th colspan="5" class="white"></th>
       <th colspan="25" class="white">{{currentDate | date: 'dd' }} {{currentDate | date:
         'MMMM'}} {{currentDate | date: 'yyyy'}} - {{addDays(currentDate,
         25) | date: 'dd'}} {{addDays(currentDate, 25) | date: 'MMMM'}}
@@ -11,7 +11,7 @@
     </tr>
     <!-- TODO : A OPTIMISER / rendre plus beau-->
     <tr class="tabHeader ">
-      <th colspan="6"></th>
+      <th colspan="5"></th>
       <th>{{currentDate | date: 'EE'}}</th>
       <th>{{addDays(currentDate, 1) | date: 'EE'}}</th>
       <th>{{addDays(currentDate, 2) | date: 'EE'}}</th>
@@ -38,10 +38,9 @@
       <th>WE</th>
     </tr>
     <tr class="tabHeader">
-      <th>Position</th>
-      <th>Resource</th>
-      <th>Project</th>
       <th>Task</th>
+      <th>Project</th>
+      <th>Resource</th>
       <th>Workload</th>
       <th>Etc</th>
       <th>{{currentDate | date: 'dd'}}</th>
@@ -73,10 +72,9 @@
     <!-- Pour chaque tâche -->
     <tbody class='container' [dragula]='"planningRows"' [dragulaModel]='tasks'>
     <tr *ngFor="let task of tasks">
-      <td class="notColored">{{task.position}}</td>
-      <td class="notColored">{{task.resourceTrigram}}</td>
-      <td class="notColored">{{task.projectName}}</td>
       <td class="notColored">{{task.name}}</td>
+      <td class="notColored">{{task.projectName}}</td>
+      <td class="notColored">{{task.resourceTrigram}}</td>
       <td class="notColored">{{task.workload}}</td>
       <td class="notColored">{{task.etc}}</td>
 
@@ -86,25 +84,25 @@
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 2)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 3)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 4)}}</td>
-      <td></td>
+      <td class="weekEnd"></td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 7)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 8)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 9)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 10)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 11)}}</td>
-      <td></td>
+      <td class="weekEnd"></td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 14)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 15)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 16)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 17)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 18)}}</td>
-      <td></td>
+      <td class="weekEnd"></td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 21)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 22)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 23)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 24)}}</td>
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 25)}}</td>
-      <td></td>
+      <td class="weekEnd"></td>
     </tr>
     </tbody>
 
