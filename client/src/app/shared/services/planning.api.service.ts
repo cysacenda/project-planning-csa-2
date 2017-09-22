@@ -9,7 +9,7 @@ import {PlanningTask} from '../models/planning-task.model';
 import {PlanningParams} from '../models/planning-params.model';
 
 @Injectable()
-export class PlanningService {
+export class PlanningApiService {
 
   // Base URL to api
   // TODO : conf file
@@ -20,8 +20,6 @@ export class PlanningService {
   private projectsUrl: string = this.basicURL + 'planning-projects';
   private resourcesUrl: string = this.basicURL + 'planning-resources';
   private planningTasksUrl: string = this.basicURL + 'planning-tasks';
-
-  // private planningParamsUrl = 'app/planningParams';
   private planningParamsUrl: string = this.basicURL + 'planning-params';
 
   constructor(private http: Http) {
@@ -74,6 +72,14 @@ export class PlanningService {
 
     return this.http
       .post(this.planningTasksUrl, JSON.stringify(planningTask), {headers: headers})
+      .map(response => response.json())
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  deletePlanningTask(planningTaskId: string) {
+    return this.http
+      .delete(this.planningTasksUrl + '/' + planningTaskId)
       .toPromise()
       .catch(this.handleError);
   }

@@ -74,7 +74,7 @@
     <tbody class='container' [dragula]='"planningRows"' [dragulaModel]='tasks'>
     <tr *ngFor="let task of tasks">
       <td class="notColored">
-        <md-checkbox></md-checkbox>
+        <md-checkbox (click)="taskSelected($event, task._id)"></md-checkbox>
       </td>
       <td class="notColored">{{task.name}}</td>
       <td class="notColored">{{task.projectName}}</td>
@@ -119,13 +119,17 @@
       <td class="weekEnd"></td>
     </tr>
     </tbody>
-
   </table>
 
-  <!-- TODO : Classe toto ? -->
-  <div id="floating-button">
-    <a md-fab class="toto" (click)="openDialog()">
+  <div id="floating-button-area">
+    <a md-fab (click)="openDialog()" *ngIf="selectedTasksIds.length === 0">
       <md-icon>add</md-icon>
+    </a>
+    <a md-fab (click)="openDialog()" *ngIf="selectedTasksIds.length === 1">
+      <md-icon>create</md-icon>
+    </a>
+    <a md-fab (click)="deleteSelectedTasksAsync()" *ngIf="selectedTasksIds.length > 0">
+      <md-icon>delete</md-icon>
     </a>
   </div>
 

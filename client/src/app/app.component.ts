@@ -1,14 +1,13 @@
 import {Component} from '@angular/core';
-import {HeaderService} from './shared/services/header.service';
+import {UIActionsService} from './shared/services/ui.actions.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HeaderService]
 })
 
 export class AppComponent {
-  constructor(private headerService: HeaderService) {
+  constructor(private uiActionsService: UIActionsService) {
   }
 }

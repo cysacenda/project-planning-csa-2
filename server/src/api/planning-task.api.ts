@@ -54,10 +54,11 @@ export class PlanningTaskApi {
       planningTask.set({position: position});
       planningTask.save().then(planningTaskObj => {
         res.json(planningTaskObj.toObject());
-        next();
 
         // Lancement du traitement asynchrone de calcul de planning
         ThreadManagement.StartThreadResource(planningTaskObj.resourceTrigram);
+
+        next();
       }).catch(next);
     }).catch(next);
   }
@@ -86,6 +87,10 @@ export class PlanningTaskApi {
 
       planningTask.remove().then(() => {
         res.sendStatus(200);
+
+        // Lancement du traitement asynchrone de calcul de planning global
+        ThreadManagement.StartThreadFull();
+
         next();
       }).catch(next);
     }).catch(next);
@@ -153,6 +158,10 @@ export class PlanningTaskApi {
       // save planningTaskDocument
       Object.assign(planningTask, req.body).save().then((planningTaskObj: PlanningTaskModelInterface) => {
         res.json(planningTaskObj.toObject());
+
+        // Lancement du traitement asynchrone de calcul de planning pour la ressource concernée
+        ThreadManagement.StartThreadResource(planningTaskObj.resourceTrigram);
+
         next();
       }).catch(next);
     }).catch(next);

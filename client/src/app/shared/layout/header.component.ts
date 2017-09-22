@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HeaderService, HeaderServiceAction} from '../services/header.service';
+import {HeaderAction, UIActionsService} from '../services/ui.actions.service';
 
 @Component({
   selector: 'app-layout-header',
@@ -10,18 +10,18 @@ export class HeaderComponent {
   monthNames: any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  constructor(private headerService: HeaderService) {
+  constructor(private uiActionsService: UIActionsService) {
   }
 
   private today() {
-    this.headerService.actionTriggered(HeaderServiceAction.Today);
+    this.uiActionsService.actionTriggered(HeaderAction.Today);
   }
 
   private next() {
-    this.headerService.actionTriggered(HeaderServiceAction.Next);
+    this.uiActionsService.actionTriggered(HeaderAction.Next);
   }
 
   private previous() {
-    this.headerService.actionTriggered(HeaderServiceAction.Previous);
+    this.uiActionsService.actionTriggered(HeaderAction.Previous);
   }
 }

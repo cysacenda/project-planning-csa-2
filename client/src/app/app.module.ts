@@ -16,7 +16,7 @@ import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {InMemoryDataService} from './shared/services/in-memory-data.service';
 
 import {ScheduleComponent} from './planning.component';
-import {PlanningService} from './shared/services/planning.service';
+import {PlanningApiService} from './shared/services/planning.api.service';
 import {AddTaskComponent} from './app-new-task.component';
 import {CommonModule} from '@angular/common';
 import {DragulaModule} from 'ng2-dragula';
@@ -33,6 +33,7 @@ import {
   MdSlideToggleModule,
   MdToolbarModule
 } from '@angular/material';
+import {UIActionsService} from './shared/services/ui.actions.service';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,7 @@ import {
     FormsModule, // TODO : Added for bug
     ReactiveFormsModule // TODO : Added for bug
   ],
-  providers: [PlanningService, MdDialogModule],
+  providers: [PlanningApiService, UIActionsService, MdDialogModule],
   bootstrap: [
     AppComponent]
 })

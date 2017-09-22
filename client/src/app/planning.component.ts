@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PlanningService} from './shared/services/planning.service';
+import {PlanningApiService} from './shared/services/planning.api.service';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 import {PlanningParams} from './shared/models/planning-params.model';
 import {MdDialog} from '@angular/material'; // TODO : A supprimer ?
 import {AddTaskComponent} from './app-new-task.component';
-import {HeaderService, HeaderServiceAction} from './shared/services/header.service';
+import {HeaderAction, UIActionsService} from './shared/services/ui.actions.service';
 import {Subscription} from 'rxjs/Subscription';
 import {DragulaService} from 'ng2-dragula';
 
@@ -20,19 +20,31 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   tasks: PlanningTask[] = [];
   planningParams: PlanningParams = null;
   currentDate: Date = null;
+  selectedTasksIds = [];
 
-  subscription: Subscription;
+  HeaderSubscription: Subscription;
+  DialogSubscription: Subscription;
 
-  constructor(private planningService: PlanningService, private headerService: HeaderService,
+  constructor(private planningService: PlanningApiService, private uiActionsService: UIActionsService,
               private dragulaService: DragulaService, public dialog: MdDialog) {
-    this.subscription = headerService.actionTriggered$.subscribe(
+    this.HeaderSubscription = uiActionsService.actionTriggered$.subscribe(
       action => {
-        if (action === HeaderServiceAction.Previous) {
+        if (action === HeaderAction.Previous) {
           this.updateCurrentDateMinus4weeks();
-        } else if (action === HeaderServiceAction.Next) {
+        } else if (action === HeaderAction.Next) {
           this.updateCurrentDateAdd4weeks();
-        } else if (action === HeaderServiceAction.Today) {
+        } else if (action === HeaderAction.Today) {
           this.resetCurrentDate();
+        }
+      }
+    )
+
+    this.DialogSubscription = uiActionsService.dialogActionTriggered$.subscribe(
+      task => {
+        if (this.tasks.indexOf(task) === -1) {
+          this.tasks.push(task);
+        } else {
+          // TODO : Trouver tache et ajoute (attention find marche ptete pas)
         }
       }
     )
@@ -43,12 +55,44 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.HeaderSubscription.unsubscribe();
+  }
+
   public openDialog() {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       /* height: '400px',
       width: '600px' */
     });
   }
+
+  // region Events
+  private onDrop() {
+    // Create informations for bulk update of positions
+    const tab = this.tasks.map((task, index) => {
+      return {key: task._id, val: index + 1};
+    })
+
+    // TODO : récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
+    this.planningService.updateTasksBulk(tab);
+  }
+
+  private taskSelected(event, taskId: number) {
+    const index = this.selectedTasksIds.indexOf(taskId);
+    if (index === -1) {
+      this.selectedTasksIds.push(taskId);
+    } else {
+      this.selectedTasksIds.splice(index, 1);
+    }
+  }
+
+  private async deleteSelectedTasksAsync() {
+    await this.deleteSelectedTasks();
+    this.selectedTasksIds.length = 0;
+  }
+
+  // endregion
 
   // region Init / Destroy component
   ngOnInit(): void {
@@ -67,9 +111,16 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     ;
   }
 
-  ngOnDestroy() {
-    // prevent memory leak when component destroyed
-    this.subscription.unsubscribe();
+  private async deleteSelectedTasks() {
+    for (let i = 0; i < this.selectedTasksIds.length; i++) {
+      this.planningService.deletePlanningTask(this.selectedTasksIds[i]).then(() => {
+        const index = this.tasks.indexOf(this.tasks.find(task => task._id === this.selectedTasksIds[i]));
+        if (index !== -1) {
+          this.tasks.splice(index, 1);
+        }
+      })
+        .catch((error) => console.log(error));
+    }
   }
 
   // endregion
@@ -85,16 +136,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   public resetCurrentDate() {
     this.updateCurrentDate(new Date(this.planningParams.currentDate));
-  }
-
-  private onDrop() {
-    // Create informations for bulk update of positions
-    const tab = this.tasks.map((task, index) => {
-      return {key: task._id, val: index + 1};
-    })
-
-    // TODO : récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
-    this.planningService.updateTasksBulk(tab);
   }
 
   private updateCurrentDate(newDate: Date) {

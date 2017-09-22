@@ -198,4 +198,17 @@ class PlanningTaskTest {
       });
   }
 
+  @test
+  public patch() {
+    const data = [{
+      key: PlanningTaskTest.planningTaskDocument._id, val: 18
+    }]
+    return chai.request(PlanningTaskTest.server).patch(`${PlanningTaskTest.BASE_URI}/`)
+      .send(data)
+      .then(response => {
+        response.should.have.status(200);
+        // TODO : A finir
+      });
+  }
+
 }

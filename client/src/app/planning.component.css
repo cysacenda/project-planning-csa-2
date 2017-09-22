@@ -38,13 +38,12 @@ td.weekEnd {
   border-color: darkgray;
 }
 
-#floating-button {
+#floating-button-area {
   border-radius: 50%;
   position: fixed;
   bottom: 30px;
   right: 30px;
   cursor: pointer;
-  box-shadow: 0px 2px 5px #666;
 }
 
 /*
