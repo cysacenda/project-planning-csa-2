@@ -5,6 +5,5 @@ export interface PlanningTaskInterface {
   position: number;
   resourceTrigram: string;
   projectName: string;
-  // daysArray: Map<Date, number>;
   daysMap: any;
 }

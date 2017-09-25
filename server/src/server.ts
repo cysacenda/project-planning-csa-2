@@ -108,6 +108,10 @@ export class Server {
 
     // error handling
     this.app.use(errorHandler());
+
+    /* this.app.use(function (req, res, next) {
+      setTimeout(next, 1);
+    }); */
   }
 
   public openConnection(dbAdress: string) {

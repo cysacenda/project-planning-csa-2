@@ -21,31 +21,31 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   planningParams: PlanningParams = null;
   currentDate: Date = null;
   selectedTasksIds = [];
+  showAddButton: boolean = true;
+  showModifyButton: boolean = false;
+  showDeleteButton: boolean = false;
 
   HeaderSubscription: Subscription;
-  DialogSubscription: Subscription;
+  DialogCreateSubscription: Subscription;
+  DialogUpdateSubscription: Subscription;
 
   constructor(private planningService: PlanningApiService, private uiActionsService: UIActionsService,
               private dragulaService: DragulaService, public dialog: MdDialog) {
     this.HeaderSubscription = uiActionsService.actionTriggered$.subscribe(
       action => {
-        if (action === HeaderAction.Previous) {
-          this.updateCurrentDateMinus4weeks();
-        } else if (action === HeaderAction.Next) {
-          this.updateCurrentDateAdd4weeks();
-        } else if (action === HeaderAction.Today) {
-          this.resetCurrentDate();
-        }
+        this.headerAction(action);
       }
     )
 
-    this.DialogSubscription = uiActionsService.dialogActionTriggered$.subscribe(
+    this.DialogCreateSubscription = uiActionsService.dialogActionCreateTriggered$.subscribe(
       task => {
-        if (this.tasks.indexOf(task) === -1) {
-          this.tasks.push(task);
-        } else {
-          // TODO : Trouver tache et ajoute (attention find marche ptete pas)
-        }
+        this.dialogCreateAction(task);
+      }
+    )
+
+    this.DialogUpdateSubscription = uiActionsService.dialogActionUpdateTriggered$.subscribe(
+      task => {
+        this.dialogUpdateAction(task);
       }
     )
 
@@ -55,15 +55,59 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
+  headerAction(action) {
+    if (action === HeaderAction.Previous) {
+      this.updateCurrentDateMinus4weeks();
+    } else if (action === HeaderAction.Next) {
+      this.updateCurrentDateAdd4weeks();
+    } else if (action === HeaderAction.Today) {
+      this.resetCurrentDate();
+    }
+  }
+
+  dialogCreateAction(task) {
+    this.tasks.push(task);
+  }
+
+  dialogUpdateAction(task) {
+    task.selected = false;
+    console.log(task);
+  }
+
+  // region Init / Destroy component
+  ngOnInit(): void {
+    this.planningService.getProjects()
+      .then(projects => this.projects = projects);
+
+    this.planningService.getResources()
+      .then(resources => this.resources = resources);
+
+    this.planningService.getPlanningTasks()
+      .then(tasks => this.tasks = tasks);
+
+    this.planningService.getPlanningParams()
+      .then(planningParams => this.planningParams = planningParams)
+      .then(() => this.currentDate = new Date(this.planningParams.currentDate))
+    ;
+  }
+
   ngOnDestroy() {
     // prevent memory leak when component destroyed
     this.HeaderSubscription.unsubscribe();
   }
 
-  public openDialog() {
+  // endregion
+
+  public openDialogCreate() {
+    const dialogRef = this.dialog.open(AddTaskComponent);
+  }
+
+  public openDialogModify() {
+    const index = this.tasks.indexOf(this.tasks.find(task => task._id === this.selectedTasksIds[0]));
     const dialogRef = this.dialog.open(AddTaskComponent, {
-      /* height: '400px',
-      width: '600px' */
+      data: {
+        selectedTask: this.tasks[index] // TODO : Envoyer la bonne tâche
+      }
     });
   }
 
@@ -85,45 +129,35 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       this.selectedTasksIds.splice(index, 1);
     }
+    this.updateButtonsStatus();
   }
 
-  private async deleteSelectedTasksAsync() {
-    await this.deleteSelectedTasks();
-    this.selectedTasksIds.length = 0;
+  private updateButtonsStatus() {
+    this.showAddButton = this.selectedTasksIds.length === 0;
+    this.showModifyButton = this.selectedTasksIds.length === 1;
+    this.showDeleteButton = this.selectedTasksIds.length >= 1;
   }
 
   // endregion
 
-  // region Init / Destroy component
-  ngOnInit(): void {
-    this.planningService.getProjects()
-      .then(projects => this.projects = projects);
-
-    this.planningService.getResources()
-      .then(resources => this.resources = resources);
-
-    this.planningService.getPlanningTasks()
-      .then(tasks => this.tasks = tasks);
-
-    this.planningService.getPlanningParams()
-      .then(planningParams => this.planningParams = planningParams)
-      .then(() => this.currentDate = new Date(this.planningParams.currentDate))
-    ;
+  private async deleteSelectedTasksAsync() {
+    await this.deleteSelectedTasks();
+    this.selectedTasksIds.length = 0;
+    this.updateButtonsStatus();
   }
 
   private async deleteSelectedTasks() {
     for (let i = 0; i < this.selectedTasksIds.length; i++) {
       this.planningService.deletePlanningTask(this.selectedTasksIds[i]).then(() => {
-        const index = this.tasks.indexOf(this.tasks.find(task => task._id === this.selectedTasksIds[i]));
-        if (index !== -1) {
-          this.tasks.splice(index, 1);
-        }
       })
         .catch((error) => console.log(error));
+
+      const index = this.tasks.indexOf(this.tasks.find(task => task._id === this.selectedTasksIds[i]));
+      if (index !== -1) {
+        this.tasks.splice(index, 1);
+      }
     }
   }
-
-  // endregion
 
   // region Dates
   public updateCurrentDateAdd4weeks() {
@@ -151,16 +185,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   private getWorkloadForDate(taskMap: any, date: string, days: number): string {
     const tmpDate: string = this.addDays(date, days).toJSON();
 
-    // TODO : Pas optimisé, ne pas faire à chaque fois, devrait être fait à la création de l'objet
-    let taskDays: Map<string, number>;
-    taskDays = new Map(taskMap.map((i) => [i.key, parseFloat(i.val)]));
+    if (taskMap != null) {
+      // TODO : Pas optimisé, ne pas faire à chaque fois, devrait être fait à la création de l'objet
+      let taskDays: Map<string, number>;
+      taskDays = new Map(taskMap.map((i) => [i.key, parseFloat(i.val)]));
 
-    if (taskDays.has(tmpDate)) {
-      return taskDays.get(tmpDate).toString();
-    } else {
+      if (taskDays.has(tmpDate)) {
+        return taskDays.get(tmpDate).toString();
+
+      }
       return '';
     }
-  }
 
 // endregion
+  }
 }

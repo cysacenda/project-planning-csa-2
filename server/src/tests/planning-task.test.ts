@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test';
-// TODO : Ajouter tests relatifs à daysArray
+// TODO : Ajouter tests relatifs à daysMap
 // mocha
 import 'mocha';
 import 'chai';
@@ -125,7 +125,7 @@ class PlanningTaskTest {
       response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
       response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
       response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
-      response.body.should.have.property('daysArray').to.be.an('array').to.have.a.lengthOf(3);
+      response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
     });
   }
 
@@ -164,7 +164,7 @@ class PlanningTaskTest {
         response.body.should.have.property('position');
         response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
-        response.body.should.have.property('daysArray').to.be.an('array').to.have.a.lengthOf(3);
+        response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
         return PlanningTaskTest.planningTaskModel.findByIdAndRemove(response.body._id).exec();
       });
   }
@@ -194,7 +194,7 @@ class PlanningTaskTest {
         response.body.should.have.property('position').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.position)));
         response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
-        response.body.should.have.property('daysArray').to.be.an('array').to.have.a.lengthOf(3);
+        response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
       });
   }
 
@@ -204,8 +204,7 @@ class PlanningTaskTest {
       key: PlanningTaskTest.planningTaskDocument._id, val: 18
     }]
     return chai.request(PlanningTaskTest.server).patch(`${PlanningTaskTest.BASE_URI}/`)
-      .send(data)
-      .then(response => {
+      .send(data).then(response => {
         response.should.have.status(200);
         // TODO : A finir
       });

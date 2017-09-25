@@ -1,8 +1,9 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {PlanningApiService} from './shared/services/planning.api.service';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
-import {DialogAction, UIActionsService} from './shared/services/ui.actions.service';
+import {UIActionsService} from './shared/services/ui.actions.service';
+import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-example-dialog',
@@ -10,13 +11,16 @@ import {DialogAction, UIActionsService} from './shared/services/ui.actions.servi
 })
 export class AddTaskComponent implements OnInit {
   task: PlanningTask;
-  close = new EventEmitter();
 
   projects: String[] = [];
   resources: PlanningResource[] = [];
 
+  isCreate: boolean;
+
   constructor(private planningService: PlanningApiService,
-              private uiActionsService: UIActionsService) {
+              private uiActionsService: UIActionsService,
+              @Inject(MD_DIALOG_DATA) private data: { selectedTask: PlanningTask },
+              private mdDialogRef: MdDialogRef<AddTaskComponent>) {
   }
 
   ngOnInit(): void {
@@ -26,25 +30,34 @@ export class AddTaskComponent implements OnInit {
     this.planningService.getResources()
       .then(resources => this.resources = resources);
 
-    this.task = new PlanningTask();
+    if (this.data === null) {
+      this.task = new PlanningTask();
+      this.isCreate = true;
+    } else {
+      this.task = this.data.selectedTask;
+      this.isCreate = false;
+    }
   }
 
   createTask(): void {
     this.planningService
       .createPlanningTask(this.task)
       .then(task => {
-        this.task = new PlanningTask();
-        this.uiActionsService.dialogActionTriggered(task, DialogAction.Create);
-        // this.goBack(task);
+
       })
     // .catch(error => this.error = error); // TODO: Display error message
+    this.uiActionsService.dialogActionCreateTriggered(this.task);
+    this.task = new PlanningTask();
   }
 
-  // TODO : ?
-  /* goBack(savedTask: PlanningTask = null): void {
-    this.close.emit(savedTask);
-    if (this.navigated) {
-      window.history.back();
-    }
-  } */
+  modifyTask(): void {
+    this.planningService
+      .updatePlanningTask(this.task)
+      .then(task => {
+
+      });
+    this.uiActionsService.dialogActionUpdateTriggered(this.task);
+    this.mdDialogRef.close();
+    // .catch(error => this.error = error); // TODO: Display error message
+  }
 }

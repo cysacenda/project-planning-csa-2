@@ -9,5 +9,3 @@ algo.CalculFullPlanning()
   .catch(
     error => console.log(error.stack)
   )
-  .then(() =>
-    process.exit());

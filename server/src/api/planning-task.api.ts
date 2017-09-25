@@ -32,7 +32,7 @@ export class PlanningTaskApi {
 
     // PATCH
     router.patch('/planning-tasks/', (req: Request, res: Response, next: NextFunction) => {
-      new PlanningTaskApi().bulkUpdate(req, res, next);
+      new PlanningTaskApi().bulkUpdateAsync(req, res, next);
     });
   }
 
@@ -89,6 +89,7 @@ export class PlanningTaskApi {
         res.sendStatus(200);
 
         // Lancement du traitement asynchrone de calcul de planning global
+        //TODO : A faire pour une ressource uniquement
         ThreadManagement.StartThreadFull();
 
         next();
@@ -167,16 +168,20 @@ export class PlanningTaskApi {
     }).catch(next);
   }
 
+  public async bulkUpdateAsync(req: Request, res: Response, next: NextFunction) {
+    await this.bulkUpdate(req, res, next);
+
+    // Lancement du traitement asynchrone de calcul de planning global
+    // TODO : A faire uniquement pour la ressource pour laquelle on a déplacé une tâche
+    ThreadManagement.StartThreadFull();
+  }
+
   public bulkUpdate(req: Request, res: Response, next: NextFunction) {
     for (let i = 0, len = req.body.length; i < len; i++) {
       PlanningTaskModel.findByIdAndUpdate(req.body[i].key, {$set: {position: req.body[i].val}}, (err, tank) => {
         }
       );
     }
-
-    // Lancement du traitement asynchrone de calcul de planning global
-    // TODO : A faire uniquement pour la ressource pour laquelle on a déplacé une tâche
-    ThreadManagement.StartThreadFull();
 
     // region Bulk update code KO
     /* const bulk = PlanningTaskModel.collection.initializeOrderedBulkOp();

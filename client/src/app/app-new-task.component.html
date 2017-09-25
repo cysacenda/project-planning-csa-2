@@ -43,6 +43,7 @@
   </tr>
 
   <tr>
-    <button md-raised-button (click)="createTask()">Create</button>
+    <button md-raised-button (click)="createTask()" *ngIf="isCreate">Create</button>
+    <button md-raised-button (click)="modifyTask()" *ngIf="!isCreate">Modify</button>
   </tr>
 </table>

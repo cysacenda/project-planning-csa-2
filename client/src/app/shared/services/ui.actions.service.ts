@@ -7,19 +7,25 @@ export class UIActionsService {
 
   // Observable string sources
   private actionTriggeredSource = new Subject<HeaderAction>();
-  private dialogActionTriggeredSource = new Subject<PlanningTask>();
+  private dialogActionCreateTriggeredSource = new Subject<PlanningTask>();
+  dialogActionCreateTriggered$ = this.dialogActionCreateTriggeredSource.asObservable();
 
   // Observable string streams
   actionTriggered$ = this.actionTriggeredSource.asObservable();
-  dialogActionTriggered$ = this.dialogActionTriggeredSource.asObservable();
+  private dialogActionUpdateTriggeredSource = new Subject<PlanningTask>();
+  dialogActionUpdateTriggered$ = this.dialogActionUpdateTriggeredSource.asObservable();
 
   // Service message commands
   actionTriggered(action: HeaderAction) {
     this.actionTriggeredSource.next(action);
   }
 
-  dialogActionTriggered(task: PlanningTask, action: DialogAction) {
-    this.dialogActionTriggeredSource.next(task);
+  dialogActionCreateTriggered(task: PlanningTask) {
+    this.dialogActionCreateTriggeredSource.next(task);
+  }
+
+  dialogActionUpdateTriggered(task: PlanningTask) {
+    this.dialogActionUpdateTriggeredSource.next(task);
   }
 }
 
@@ -27,9 +33,4 @@ export enum HeaderAction {
   Previous,
   Next,
   Today
-}
-
-export enum DialogAction {
-  Create,
-  Update
 }

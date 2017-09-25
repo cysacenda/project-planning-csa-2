@@ -77,6 +77,18 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
+  updatePlanningTask(planningTask: PlanningTask): Promise<PlanningTask> {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http
+      .put(this.planningTasksUrl + '/' + planningTask._id, JSON.stringify(planningTask), {headers: headers})
+      .map(response => response.json())
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   deletePlanningTask(planningTaskId: string) {
     return this.http
       .delete(this.planningTasksUrl + '/' + planningTaskId)

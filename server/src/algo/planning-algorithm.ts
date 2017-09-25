@@ -20,7 +20,6 @@ export class PlanningAlgo {
   }
 
   public async CalculPlanningForResource(resourceTrigram: string, useConnection?: boolean) {
-
     if (typeof(useConnection) === 'boolean' && useConnection) {
       await this.OpenConnection();
     }
@@ -57,7 +56,6 @@ export class PlanningAlgo {
       let etcToPlannify = doc.etc;
 
       while (etcToPlannify > 0) {
-        console.log('DEBUT WHILE');
         let incrementDate: Boolean = true;
         let availableAfterVacation: number = 1;
 
@@ -94,8 +92,6 @@ export class PlanningAlgo {
         if (incrementDate) {
           currentDate = this.getNextOpenDay(currentDate);
         }
-
-        console.log('FIN WHILE');
       }
     }
 
