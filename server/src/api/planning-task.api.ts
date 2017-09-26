@@ -89,7 +89,7 @@ export class PlanningTaskApi {
         res.sendStatus(200);
 
         // Lancement du traitement asynchrone de calcul de planning global
-        //TODO : A faire pour une ressource uniquement
+        // TODO : A faire pour une ressource uniquement
         ThreadManagement.StartThreadFull();
 
         next();
@@ -157,6 +157,9 @@ export class PlanningTaskApi {
       }
 
       // save planningTaskDocument
+      // console.log('planningtask : ' + planningTask);
+      // console.log('-------------------------------');
+      // console.log('req.body : ' + req.body);
       Object.assign(planningTask, req.body).save().then((planningTaskObj: PlanningTaskModelInterface) => {
         res.json(planningTaskObj.toObject());
 

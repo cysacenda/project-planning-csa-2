@@ -43,7 +43,7 @@ export class AddTaskComponent implements OnInit {
     this.planningService
       .createPlanningTask(this.task)
       .then(task => {
-
+        this.uiActionsService.dialogActionCreateTriggered(task);
       })
     // .catch(error => this.error = error); // TODO: Display error message
     this.uiActionsService.dialogActionCreateTriggered(this.task);

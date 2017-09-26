@@ -65,13 +65,20 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
   }
 
-  dialogCreateAction(task) {
-    this.tasks.push(task);
+  dialogCreateAction(createdTask: PlanningTask) {
+    // Tâche non créée côté Back-end
+    if (createdTask._id == null) {
+      this.tasks.push(createdTask);
+    } else {
+      const index = this.tasks.indexOf(this.tasks.find(task => task.name === createdTask.name && task._id == null));
+      this.tasks[index] = createdTask;
+    }
   }
 
   dialogUpdateAction(task) {
     task.selected = false;
-    console.log(task);
+    this.selectedTasksIds.length = 0;
+    this.updateButtonsStatus();
   }
 
   // region Init / Destroy component
