@@ -1,5 +1,4 @@
 import {PlanningTaskModel} from '../models/planning-task.model';
-import {PlanningVacationModel} from '../models/planning-vacation.model';
 import {PlanningParamsModel} from '../models/planning-params.model';
 import {PlanningResourceModel} from '../models/planning-resource.model';
 import mongoose = require('mongoose');
@@ -34,19 +33,13 @@ export class PlanningAlgo {
       etc: {'$ne': 0}
     }).sort({position: 1}).cursor();
 
-    // Récupérer jours fériés applicables à toutes les ressources (ALL) et les congés de la ressource triées par date asc
-    const planningVacations = await PlanningVacationModel.find(
-      {
-        $or: [
-          {resourceTrigram: resourceTrigram},
-          {resourceTrigram: 'ALL'}
-        ]
-      }).sort({val: 1});
+    const planningResource = await PlanningResourceModel.findOne({trigram: resourceTrigram});
+
     // Récupération d'un tableau d'objets
-    const planningVacationsObj = await planningVacations.map(vacation => vacation.toObject());
-    let tmpVacationsArray: any;
-    tmpVacationsArray = planningVacationsObj;
-    const planningVacationMap = await new Map<string, number>(tmpVacationsArray.map((i) => [i.vacationDate.toJSON(), i.value]));
+    const planningResourceVacationsObj = await planningResource.vacationMap.map(vacation => vacation.toObject());
+    let tmpResourceVacationsArray: any;
+    tmpResourceVacationsArray = planningResourceVacationsObj;
+    const planningResourceVacationMap = await new Map<string, number>(tmpResourceVacationsArray.map((i) => [i.key, i.value]));
 
     let alreadyPlannedOnLastTask: number = 0;
 
@@ -59,8 +52,8 @@ export class PlanningAlgo {
         let incrementDate: Boolean = true;
         let availableAfterVacation: number = 1;
 
-        if (planningVacationMap.has(currentDate.toJSON())) {
-          availableAfterVacation = 1 - planningVacationMap.get(currentDate.toJSON());
+        if (planningResourceVacationMap.has(currentDate.toJSON())) {
+          availableAfterVacation = 1 - planningResourceVacationMap.get(currentDate.toJSON());
         }
 
         // Si on a déjà planifié de la charge pour une autre tâche sur cette date

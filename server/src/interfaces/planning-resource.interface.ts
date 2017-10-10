@@ -3,4 +3,5 @@ export interface PlanningResourceInterface {
   name: string;
   role: string;
   description: string;
+  vacationMap: any;
 }

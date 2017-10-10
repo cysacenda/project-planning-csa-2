@@ -4,5 +4,9 @@ export let PlanningResourceSchema: Schema = new Schema({
   trigram: String,
   name: String,
   role: String,
-  description: String
+  description: String,
+  vacationMap: [{
+    key: String,
+    val: Number
+  }]
 })

@@ -1,1 +1,125 @@
-<p>TODO : Resources</p>
+<div class="app-content" *ngIf="currentDate!= null">
+
+  <table class="mat-elevation-z8">
+    <tr class="tabHeader">
+      <th colspan="5" class="white"></th>
+      <th colspan="25" class="white">{{currentDate | date: 'dd' }} {{currentDate | date:
+        'MMMM'}} {{currentDate | date: 'yyyy'}} - {{addDays(currentDate,
+        25) | date: 'dd'}} {{addDays(currentDate, 25) | date: 'MMMM'}}
+        {{addDays(currentDate, 25) | date: 'yyyy'}}
+      </th>
+    </tr>
+    <!-- TODO : A OPTIMISER / rendre plus beau-->
+    <tr class="tabHeader ">
+      <th colspan="5"></th>
+      <th>{{currentDate | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 1) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 2) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 3) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 4) | date: 'EE'}}</th>
+      <th>WE</th>
+      <th>{{addDays(currentDate, 7) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 8) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 9) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 10) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 11) | date: 'EE'}}</th>
+      <th>WE</th>
+      <th>{{addDays(currentDate, 14) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 15) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 16) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 17) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 18) | date: 'EE'}}</th>
+      <th>WE</th>
+      <th>{{addDays(currentDate, 21) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 22) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 23) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 24) | date: 'EE'}}</th>
+      <th>{{addDays(currentDate, 25) | date: 'EE'}}</th>
+      <th>WE</th>
+    </tr>
+    <tr class="tabHeader">
+      <th></th>
+      <th>Name</th>
+      <th>Trigram</th>
+      <th>Role</th>
+      <th>Description</th>
+      <th>{{currentDate | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 1) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 2) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 3) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 4) | date: 'dd'}}</th>
+      <th></th>
+      <th>{{addDays(currentDate, 7) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 8) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 9) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 10) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 11) | date: 'dd'}}</th>
+      <th></th>
+      <th>{{addDays(currentDate, 14) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 15) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 16) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 17) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 18) | date: 'dd'}}</th>
+      <th></th>
+      <th>{{addDays(currentDate, 21) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 22) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 23) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 24) | date: 'dd'}}</th>
+      <th>{{addDays(currentDate, 25) | date: 'dd'}}</th>
+      <th></th>
+    </tr>
+
+    <!-- Pour chaque ressource -->
+
+    <tbody class='container'>
+
+    <tr *ngFor="let resource of resources">
+      <td class="notColored">
+        <md-checkbox (click)="resourceSelected($event, resource._id)" [(ngModel)]="resource.selected"></md-checkbox>
+      </td>
+      <td class="notColored">{{resource.name}}</td>
+      <td class="notColored">{{resource.trigram}}</td>
+      <td class="notColored">{{resource.role}}</td>
+      <td class="notColored">{{resource.description}}</td>
+
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 0)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 1)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 2)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 3)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 4)}}</td>
+      <td class="weekEnd"></td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 7)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 8)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 9)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 10)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 11)}}</td>
+      <td class="weekEnd"></td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 14)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 15)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 16)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 17)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 18)}}</td>
+      <td class="weekEnd"></td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 21)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 22)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 23)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 24)}}</td>
+      <td>{{getWorkloadForDate(resource.vacationMap, currentDate, 25)}}</td>
+      <td class="weekEnd"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div id="floating-button-area">
+    <a md-fab (click)="openDialogCreate()" *ngIf="showAddButton">
+      <md-icon>add</md-icon>
+    </a>
+    <a md-fab (click)="openDialogModify()" *ngIf="showModifyButton">
+      <md-icon>create</md-icon>
+    </a>
+    <a md-fab (click)="deleteSelectedResourcesAsync()" *ngIf="showDeleteButton">
+      <md-icon>delete</md-icon>
+    </a>
+  </div>
+
+</div>

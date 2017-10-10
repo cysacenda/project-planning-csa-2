@@ -1,23 +1,18 @@
 process.env.NODE_ENV = 'test';
-
 // mocha
 import 'mocha';
 import 'chai';
 import {suite, test} from 'mocha-typescript';
-
 // mongodb
-import {ObjectID} from 'mongodb';
-
 // server
 import {Server} from '../server';
-
 // model
 import {PlanningResourceInterface} from '../interfaces/planning-resource.interface';
 import {PlanningResourceModelInterface, PlanningResourceModelInterfaceStatic} from '../models/planning-resource.model';
 import {PlanningResourceSchema} from '../schemas/planning-resource.schema';
-
 // mongoose
 import mongoose = require('mongoose');
+
 
 // require http server
 const http = require('http');
@@ -83,7 +78,11 @@ class PlanningResourceTest {
       trigram: 'CSA',
       name: 'Cyril SACENDA',
       role: 'CP',
-      description: 'le relou de service'
+      description: 'le relou de service',
+      vacationMap: [{key: '2017-06-15T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-16T00:00:00.000Z', val: 0.25}]
     };
     return new PlanningResourceTest.planningResourceModel(data).save().then(planningResource => {
       PlanningResourceTest.planningResourceDocument = planningResource;
@@ -98,7 +97,11 @@ class PlanningResourceTest {
       trigram: 'CSA',
       name: 'Cyril SACENDA',
       role: 'CP',
-      description: 'le relou de service'
+      description: 'le relou de service',
+      vacationMap: [{key: '2017-06-15T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-16T00:00:00.000Z', val: 0.25}]
     };
     return new PlanningResourceTest.planningResourceModel(data).save().then(planningResource => {
       return chai.request(PlanningResourceTest.server).del(`${PlanningResourceTest.BASE_URI}/${planningResource._id}`).then(response => {
@@ -135,7 +138,11 @@ class PlanningResourceTest {
       trigram: 'CSA',
       name: 'Cyril SACENDA',
       role: 'CP',
-      description: 'le relou de service'
+      description: 'le relou de service',
+      vacationMap: [{key: '2017-06-15T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-16T00:00:00.000Z', val: 0.25}]
     };
     return chai.request(PlanningResourceTest.server).post(PlanningResourceTest.BASE_URI)
       .send(data)
@@ -157,7 +164,11 @@ class PlanningResourceTest {
       trigram: 'CSA',
       name: 'Cyril SACENDA',
       role: 'CP',
-      description: 'le relou de service'
+      description: 'le relou de service',
+      vacationMap: [{key: '2017-06-15T00:00:00.000Z', val: 1}, {
+        key: '2017-06-13T00:00:00.000Z',
+        val: 1
+      }, {key: '2017-06-16T00:00:00.000Z', val: 0.25}]
     }
     return chai.request(PlanningResourceTest.server).put(`${PlanningResourceTest.BASE_URI}/${PlanningResourceTest.planningResourceDocument._id}`)
       .send(data)

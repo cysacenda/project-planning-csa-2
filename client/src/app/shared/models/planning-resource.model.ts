@@ -4,4 +4,9 @@ export class PlanningResource {
   name: string;
   role: string;
   description: string;
+
+  // TODO : Pourri car récupère Array
+  vacationMap: Map<Date, number>; // Days off
+
+  selected: boolean;
 }

@@ -8,6 +8,7 @@ import {AddTaskComponent} from './app-new-task.component';
 import {HeaderAction, UIActionsService} from './shared/services/ui.actions.service';
 import {Subscription} from 'rxjs/Subscription';
 import {DragulaService} from 'ng2-dragula';
+import {DateUtils} from "./shared/utils/dateUtils";
 
 @Component({
   selector: 'app-schedule',
@@ -37,13 +38,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       }
     )
 
-    this.DialogCreateSubscription = uiActionsService.dialogActionCreateTriggered$.subscribe(
+    this.DialogCreateSubscription = uiActionsService.dialogTaskActionCreateTriggered$.subscribe(
       task => {
         this.dialogCreateAction(task);
       }
     )
 
-    this.DialogUpdateSubscription = uiActionsService.dialogActionUpdateTriggered$.subscribe(
+    this.DialogUpdateSubscription = uiActionsService.dialogTaskActionUpdateTriggered$.subscribe(
       task => {
         this.dialogUpdateAction(task);
       }
@@ -113,7 +114,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     const index = this.tasks.indexOf(this.tasks.find(task => task._id === this.selectedTasksIds[0]));
     const dialogRef = this.dialog.open(AddTaskComponent, {
       data: {
-        selectedTask: this.tasks[index] // TODO : Envoyer la bonne tâche
+        selectedTask: this.tasks[index]
       }
     });
   }
@@ -184,26 +185,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   private addDays(date: string, days: number): Date {
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() + days);
-    return newDate;
+    return DateUtils.addDays(date, days);
   }
 
   private getWorkloadForDate(taskMap: any, date: string, days: number): string {
-    const tmpDate: string = this.addDays(date, days).toJSON();
-
-    if (taskMap != null) {
-      // TODO : Pas optimisé, ne pas faire à chaque fois, devrait être fait à la création de l'objet
-      let taskDays: Map<string, number>;
-      taskDays = new Map(taskMap.map((i) => [i.key, parseFloat(i.val)]));
-
-      if (taskDays.has(tmpDate)) {
-        return taskDays.get(tmpDate).toString();
-
-      }
-      return '';
-    }
-
-// endregion
+    return DateUtils.getWorkloadForDate(taskMap, date, days);
   }
+
+  // endregion
 }

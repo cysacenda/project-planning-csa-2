@@ -47,7 +47,11 @@ var planningResource = new Schema({
   trigram: String,
   name: String,
   role: String,
-  description: String
+  description: String,
+  vacationMap: [{
+    key: String,
+    val: Number
+  }]
 });
 
 // Compile model from schema
@@ -56,13 +60,22 @@ var monPlanningResourceModel1 = new planningResourceModel({
   trigram: 'CSA',
   name: 'Cyril SACENDA',
   role: 'CP',
-  description: 'lol le CP'
+  description: 'lol le CP',
+  vacationMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
+    key: '2017-06-13T00:00:00.000Z',
+    val: 1
+  }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
+
 });
 var monPlanningResourceModel2 = new planningResourceModel({
   trigram: 'MBO',
   name: 'Mohamed BOUHAMYD',
   role: 'Dev',
-  description: 'lol le Dev'
+  description: 'lol le Dev',
+  vacationMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
+    key: '2017-06-13T00:00:00.000Z',
+    val: 1
+  }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
 });
 
 // Empty Database
