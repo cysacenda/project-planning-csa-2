@@ -39,7 +39,7 @@ export class PlanningAlgo {
     const planningResourceVacationsObj = await planningResource.vacationMap.map(vacation => vacation.toObject());
     let tmpResourceVacationsArray: any;
     tmpResourceVacationsArray = planningResourceVacationsObj;
-    const planningResourceVacationMap = await new Map<string, number>(tmpResourceVacationsArray.map((i) => [i.key, i.value]));
+    const planningResourceVacationMap: Map<string, number> = await new Map<string, number>(tmpResourceVacationsArray.map((i) => [i.key, i.val]));
 
     let alreadyPlannedOnLastTask: number = 0;
 
