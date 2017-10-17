@@ -6,6 +6,7 @@ import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningParams} from './shared/models/planning-params.model';
 import {DateUtils} from './shared/utils/dateUtils';
 import {Subscription} from 'rxjs/Subscription';
+import {AddResourceComponent} from './app-new-resource.component';
 
 // TODO : Mutualiser ce qui est mutualisable avec planning.component ???
 
@@ -59,19 +60,19 @@ export class ResourcesComponent implements OnInit, OnDestroy {
   }
 
   dialogCreateAction(createdResource: PlanningResource) {
-    /* // Tâche non créée côté Back-end
-    if (createdTask._id == null) {
-      this.tasks.push(createdTask);
+    // Tâche non créée côté Back-end
+    if (createdResource._id == null) {
+      this.resources.push(createdResource);
     } else {
-      const index = this.tasks.indexOf(this.tasks.find(task => task.name === createdTask.name && task._id == null));
-      this.tasks[index] = createdTask;
-    } */
+      const index = this.resources.indexOf(this.resources.find(resource => resource.name === createdResource.name && resource._id == null));
+      this.resources[index] = createdResource;
+    }
   }
 
   dialogUpdateAction(resource) {
-    /* task.selected = false;
-    this.selectedTasksIds.length = 0;
-    this.updateButtonsStatus(); */
+    resource.selected = false;
+    this.selectedResourcesIds.length = 0;
+    this.updateButtonsStatus();
   }
 
   ngOnInit(): void {
@@ -87,21 +88,20 @@ export class ResourcesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // prevent memory leak when component destroyed
-    // this.HeaderSubscription.unsubscribe();
+    this.HeaderSubscription.unsubscribe();
   }
 
   public openDialogCreate() {
-    // const dialogRef = this.dialog.open(AddTaskComponent);
+    const dialogRef = this.dialog.open(AddResourceComponent);
   }
 
   public openDialogModify() {
-    /* const index = this.tasks.indexOf(this.tasks.find(task => task._id === this.selectedTasksIds[0]));
-    const dialogRef = this.dialog.open(AddTaskComponent, {
+    const index = this.resources.indexOf(this.resources.find(resource => resource._id === this.selectedResourcesIds[0]));
+    const dialogRef = this.dialog.open(AddResourceComponent, {
       data: {
-        selectedTask: this.tasks[index]
+        selectedResource: this.resources[index]
       }
     });
-    */
   }
 
   // region Dates
@@ -118,13 +118,13 @@ export class ResourcesComponent implements OnInit, OnDestroy {
   }
 
   private resourceSelected(event, resourceId: number) {
-    /* const index = this.selectedTasksIds.indexOf(taskId);
+    const index = this.selectedResourcesIds.indexOf(resourceId);
     if (index === -1) {
-      this.selectedTasksIds.push(taskId);
+      this.selectedResourcesIds.push(resourceId);
     } else {
-      this.selectedTasksIds.splice(index, 1);
+      this.selectedResourcesIds.splice(index, 1);
     }
-    this.updateButtonsStatus(); */
+    this.updateButtonsStatus();
   }
 
   private updateButtonsStatus() {
@@ -134,22 +134,23 @@ export class ResourcesComponent implements OnInit, OnDestroy {
   }
 
   private async deleteSelectedResourcesAsync() {
-    /* await this.deleteSelectedTasks();
-    this.selectedTasksIds.length = 0;
-    this.updateButtonsStatus(); */
+    // TODO : Gérer si la ressource supprimée est associée à des tâches...
+    await this.deleteSelectedResources();
+    this.selectedResourcesIds.length = 0;
+    this.updateButtonsStatus();
   }
 
   private async deleteSelectedResources() {
-    /* for (let i = 0; i < this.selectedTasksIds.length; i++) {
-      this.planningService.deletePlanningTask(this.selectedTasksIds[i]).then(() => {
+    for (let i = 0; i < this.selectedResourcesIds.length; i++) {
+      this.planningService.deletePlanningResource(this.selectedResourcesIds[i]).then(() => {
       })
         .catch((error) => console.log(error));
 
-      const index = this.tasks.indexOf(this.tasks.find(task => task._id === this.selectedTasksIds[i]));
+      const index = this.resources.indexOf(this.resources.find(resource => resource._id === this.selectedResourcesIds[i]));
       if (index !== -1) {
-        this.tasks.splice(index, 1);
+        this.resources.splice(index, 1);
       }
-    } */
+    }
   }
 
   private updateCurrentDate(newDate: Date) {

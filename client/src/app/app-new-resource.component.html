@@ -1,49 +1,33 @@
-<!-- https://material.angular.io/components/select/overview => md-input !!! -->
-<h1>New task</h1>
+<h1 *ngIf="isCreate">New resource</h1>
+<h1 *ngIf="!isCreate">Modify resource</h1>
 <table>
 
   <tr>
     <md-input-container class="container-full-width">
-      <input name="taskName" mdInput placeholder="Name" [(ngModel)]="task.name">
-    </md-input-container>
-  </tr>
-
-  <tr>
-    <md-select placeholder="Project" [style.width]="'100%'" [(ngModel)]="task.projectName">
-      <md-option *ngFor="let project of projects" [value]="project">
-        {{ project }}
-      </md-option>
-    </md-select>
-  </tr>
-
-  <!-- TODO : A supprimer -->
-  <br>
-
-  <tr>
-    <md-select placeholder="Resource" [style.width]="'100%'" [(ngModel)]="task.resourceTrigram">
-      <md-option *ngFor="let resource of resources" [value]="resource.trigram">
-        {{ resource.trigram }}
-      </md-option>
-    </md-select>
-  </tr>
-
-  <!-- TODO : A supprimer -->
-  <br>
-
-  <tr>
-    <md-input-container class="container-full-width">
-      <input name="workload" mdInput placeholder="Workload" [(ngModel)]="task.workload">
+      <input name="resourceName" mdInput placeholder="Name" [(ngModel)]="resource.name">
     </md-input-container>
   </tr>
 
   <tr>
     <md-input-container class="container-full-width">
-      <input name="etc" mdInput placeholder="Etc" [(ngModel)]="task.etc">
+      <input name="resourceTrigram" mdInput placeholder="Trigram" [(ngModel)]="resource.trigram">
     </md-input-container>
   </tr>
 
   <tr>
-    <button md-raised-button (click)="createTask()" *ngIf="isCreate">Create</button>
-    <button md-raised-button (click)="modifyTask()" *ngIf="!isCreate">Modify</button>
+    <md-input-container class="container-full-width">
+      <input name="role" mdInput placeholder="Role" [(ngModel)]="resource.role">
+    </md-input-container>
+  </tr>
+
+  <tr>
+    <md-input-container class="container-full-width">
+      <input name="description" mdInput placeholder="Description" [(ngModel)]="resource.description">
+    </md-input-container>
+  </tr>
+
+  <tr>
+    <button md-raised-button (click)="createResource()" *ngIf="isCreate">Create</button>
+    <button md-raised-button (click)="modifyResource()" *ngIf="!isCreate">Modify</button>
   </tr>
 </table>

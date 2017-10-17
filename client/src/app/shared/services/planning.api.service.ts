@@ -19,8 +19,8 @@ export class PlanningApiService {
   // URL to web api
   private projectsUrl: string = this.basicURL + 'planning-projects';
   private resourcesUrl: string = this.basicURL + 'planning-resources';
-  private planningTasksUrl: string = this.basicURL + 'planning-tasks';
-  private planningParamsUrl: string = this.basicURL + 'planning-params';
+  private tasksUrl: string = this.basicURL + 'planning-tasks';
+  private paramsUrl: string = this.basicURL + 'planning-params';
 
   constructor(private http: Http) {
   }
@@ -47,7 +47,7 @@ export class PlanningApiService {
 
   getPlanningTasks(): Promise<Array<PlanningTask>> {
     return this.http
-      .get(this.planningTasksUrl)
+      .get(this.tasksUrl)
       .toPromise()
       .then((response) => {
         return response.json() as PlanningTask[];
@@ -57,7 +57,7 @@ export class PlanningApiService {
 
   getPlanningParams(): Promise<PlanningParams> {
     return this.http
-      .get(this.planningParamsUrl)
+      .get(this.paramsUrl)
       .toPromise()
       .then((response) => {
         return (response.json() as PlanningParams[])[0];
@@ -71,7 +71,7 @@ export class PlanningApiService {
     });
 
     return this.http
-      .post(this.planningTasksUrl, JSON.stringify(planningTask), {headers: headers})
+      .post(this.tasksUrl, JSON.stringify(planningTask), {headers: headers})
       .map(response => response.json())
       .toPromise()
       .catch(this.handleError);
@@ -83,7 +83,7 @@ export class PlanningApiService {
     });
 
     return this.http
-      .put(this.planningTasksUrl + '/' + planningTask._id, JSON.stringify(planningTask), {headers: headers})
+      .put(this.tasksUrl + '/' + planningTask._id, JSON.stringify(planningTask), {headers: headers})
       .map(response => response.json())
       .toPromise()
       .catch(this.handleError);
@@ -91,7 +91,7 @@ export class PlanningApiService {
 
   deletePlanningTask(planningTaskId: string) {
     return this.http
-      .delete(this.planningTasksUrl + '/' + planningTaskId)
+      .delete(this.tasksUrl + '/' + planningTaskId)
       .toPromise()
       .catch(this.handleError);
   }
@@ -102,7 +102,38 @@ export class PlanningApiService {
     });
 
     return this.http
-      .patch(this.planningTasksUrl, JSON.stringify(tasksList), {headers: headers})
+      .patch(this.tasksUrl, JSON.stringify(tasksList), {headers: headers})
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  deletePlanningResource(planningResourceId: string) {
+    return this.http
+      .delete(this.resourcesUrl + '/' + planningResourceId)
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  createPlanningResource(planningResource: PlanningResource): Promise<PlanningResource> {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http
+      .post(this.resourcesUrl, JSON.stringify(planningResource), {headers: headers})
+      .map(response => response.json())
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  updatePlanningResource(planningResource: PlanningResource): Promise<PlanningResource> {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http
+      .put(this.resourcesUrl + '/' + planningResource._id, JSON.stringify(planningResource), {headers: headers})
+      .map(response => response.json())
       .toPromise()
       .catch(this.handleError);
   }

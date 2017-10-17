@@ -18,8 +18,10 @@ import {InMemoryDataService} from './shared/services/in-memory-data.service';
 import {ScheduleComponent} from './planning.component';
 import {PlanningApiService} from './shared/services/planning.api.service';
 import {AddTaskComponent} from './app-new-task.component';
+import {AddResourceComponent} from './app-new-resource.component';
 import {CommonModule} from '@angular/common';
 import {DragulaModule} from 'ng2-dragula';
+import {UIActionsService} from './shared/services/ui.actions.service';
 // Material design modules
 import {
   MdButtonModule,
@@ -33,7 +35,6 @@ import {
   MdSlideToggleModule,
   MdToolbarModule
 } from '@angular/material';
-import {UIActionsService} from './shared/services/ui.actions.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {UIActionsService} from './shared/services/ui.actions.service';
     HeaderComponent,
     ScheduleComponent,
     ResourcesComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    AddResourceComponent
   ],
   imports: [
     CommonModule,
@@ -68,10 +70,12 @@ import {UIActionsService} from './shared/services/ui.actions.service';
     })
   ],
   entryComponents: [
-    AddTaskComponent
+    AddTaskComponent,
+    AddResourceComponent
   ],
   exports: [
     AddTaskComponent,
+    AddResourceComponent,
     FormsModule, // TODO : Added for bug
     ReactiveFormsModule // TODO : Added for bug
   ],

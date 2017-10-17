@@ -1,62 +1,55 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {PlanningApiService} from './shared/services/planning.api.service';
 import {PlanningResource} from './shared/models/planning-resource.model';
-import {PlanningTask} from './shared/models/planning-task.model';
 import {UIActionsService} from './shared/services/ui.actions.service';
 import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-example-dialog',
-  templateUrl: './app-new-task.component.html'
+  templateUrl: './app-new-resource.component.html'
 })
-export class AddTaskComponent implements OnInit {
-  task: PlanningTask;
-
-  projects: String[] = [];
+export class AddResourceComponent implements OnInit {
+  resource: PlanningResource;
   resources: PlanningResource[] = [];
-
   isCreate: boolean;
 
   constructor(private planningService: PlanningApiService,
               private uiActionsService: UIActionsService,
-              @Inject(MD_DIALOG_DATA) private data: { selectedTask: PlanningTask },
-              private mdDialogRef: MdDialogRef<AddTaskComponent>) {
+              @Inject(MD_DIALOG_DATA) private data: { selectedResource: PlanningResource },
+              private mdDialogRef: MdDialogRef<AddResourceComponent>) {
   }
 
   ngOnInit(): void {
-    this.planningService.getProjects()
-      .then(projects => this.projects = projects);
-
     this.planningService.getResources()
       .then(resources => this.resources = resources);
 
     if (this.data === null) {
-      this.task = new PlanningTask();
+      this.resource = new PlanningResource();
       this.isCreate = true;
     } else {
-      this.task = this.data.selectedTask;
+      this.resource = this.data.selectedResource;
       this.isCreate = false;
     }
   }
 
-  createTask(): void {
+  createResource(): void {
     this.planningService
-      .createPlanningTask(this.task)
-      .then(task => {
-        this.uiActionsService.dialogTaskActionCreateTriggered(task);
+      .createPlanningResource(this.resource)
+      .then(resource => {
+        this.uiActionsService.dialogResourceActionCreateTriggered(resource);
       })
     // .catch(error => this.error = error); // TODO: Display error message
-    this.uiActionsService.dialogTaskActionCreateTriggered(this.task);
-    this.task = new PlanningTask();
+    this.uiActionsService.dialogResourceActionCreateTriggered(this.resource);
+    this.resource = new PlanningResource();
   }
 
-  modifyTask(): void {
+  modifyResource(): void {
     this.planningService
-      .updatePlanningTask(this.task)
+      .updatePlanningResource(this.resource)
       .then(task => {
 
       });
-    this.uiActionsService.dialogTaskActionUpdateTriggered(this.task);
+    this.uiActionsService.dialogResourceActionUpdateTriggered(this.resource);
     this.mdDialogRef.close();
     // .catch(error => this.error = error); // TODO: Display error message
   }

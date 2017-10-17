@@ -1,5 +1,5 @@
-<!-- https://material.angular.io/components/select/overview => md-input !!! -->
-<h1>New task</h1>
+<h1 *ngIf="isCreate">New task</h1>
+<h1 *ngIf="!isCreate">Modify task</h1>
 <table>
 
   <tr>
