@@ -1,65 +1,65 @@
-<md-toolbar color="primary" class="mat-elevation-z5">
+<mat-toolbar color="primary" class="mat-elevation-z5">
   <span>
-    <md-menu #appMenu="mdMenu">
-      <button routerLink="/schedule" md-menu-item>
+    <mat-menu #appMenu="matMenu">
+      <button routerLink="/schedule" mat-menu-item>
         <i class="material-icons">schedule</i>
         Schedule </button>
-      <button routerLink="/resources" md-menu-item>
+      <button routerLink="/resources" mat-menu-item>
         <i class="material-icons">people</i>
         Resources </button>
-      <button md-menu-item>
+      <button mat-menu-item>
         <i class="material-icons">poll</i>
         Reports </button>
-      <button md-menu-item>
+      <button mat-menu-item>
         <i class="material-icons">settings</i>
         Settings </button>
-      <button md-menu-item>
+      <button mat-menu-item>
         <i class="material-icons">help</i>
         Help </button>
-    </md-menu>
+    </mat-menu>
   </span>
   <span>
-    <button md-icon-button [mdMenuTriggerFor]="appMenu">
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
        <i class="material-icons">menu</i>
     </button>
   </span>
 
   <!-- TODO : Modifier liens -->
   <span>
-    <md-nav-list>
-      <md-list-item>
-        <button md-icon-button (click)="today()">Today</button>
-      </md-list-item>
-      <md-list-item>
-        <button md-icon-button (click)="previous()">
-          <md-icon>keyboard_arrow_left</md-icon>
+    <mat-nav-list>
+      <mat-list-item>
+        <button mat-icon-button (click)="today()">Today</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-icon-button (click)="previous()">
+          <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-      </md-list-item>
-      <md-list-item>
-        <button md-icon-button (click)="next()">
-          <md-icon>keyboard_arrow_right</md-icon>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-icon-button (click)="next()">
+          <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
-      </md-list-item>
+      </mat-list-item>
 
       <!-- TODO : Replace with DatePicker -->
-      <!-- <md-list-item>
-        <a md-line href="https://www.google.fr">2017<i class="material-icons">keyboard_arrow_down</i></a>
-      </md-list-item>
-      <md-list-item *ngFor="let monthName of monthNames">
-       <a md-line href="test">{{ monthName }}</a>
-      </md-list-item>
-      <md-list-item>
-       - <md-slide-toggle></md-slide-toggle> +
-      </md-list-item> -->
-    </md-nav-list>
+      <!-- <mat-list-item>
+        <a mat-line href="https://www.google.fr">2017<i class="material-icons">keyboard_arrow_down</i></a>
+      </mat-list-item>
+      <mat-list-item *ngFor="let monthName of monthNames">
+       <a mat-line href="test">{{ monthName }}</a>
+      </mat-list-item>
+      <mat-list-item>
+       - <mat-slide-toggle></mat-slide-toggle> +
+      </mat-list-item> -->
+    </mat-nav-list>
 
   </span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="app-toolbar-filler"></span>
 
-  <span><button md-button>
+  <span><button mat-button>
        <i class="material-icons">error_outline</i>
     n Alerts
     </button></span>
-</md-toolbar>
+</mat-toolbar>

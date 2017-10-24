@@ -75,7 +75,7 @@
 
     <tr *ngFor="let resource of resources">
       <td class="notColored">
-        <md-checkbox (click)="resourceSelected($event, resource._id)" [(ngModel)]="resource.selected"></md-checkbox>
+        <mat-checkbox (click)="resourceSelected($event, resource._id)" [(ngModel)]="resource.selected"></mat-checkbox>
       </td>
       <td class="notColored">{{resource.name}}</td>
       <td class="notColored">{{resource.trigram}}</td>
@@ -111,14 +111,14 @@
   </table>
 
   <div id="floating-button-area">
-    <a md-fab (click)="openDialogCreate()" *ngIf="showAddButton">
-      <md-icon>add</md-icon>
+    <a mat-fab (click)="openDialogCreate()" *ngIf="showAddButton">
+      <mat-icon>add</mat-icon>
     </a>
-    <a md-fab (click)="openDialogModify()" *ngIf="showModifyButton">
-      <md-icon>create</md-icon>
+    <a mat-fab (click)="openDialogModify()" *ngIf="showModifyButton">
+      <mat-icon>create</mat-icon>
     </a>
-    <a md-fab (click)="deleteSelectedResourcesAsync()" *ngIf="showDeleteButton">
-      <md-icon>delete</md-icon>
+    <a mat-fab (click)="deleteSelectedResourcesAsync()" *ngIf="showDeleteButton">
+      <mat-icon>delete</mat-icon>
     </a>
   </div>
 

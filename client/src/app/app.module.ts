@@ -24,17 +24,17 @@ import {DragulaModule} from 'ng2-dragula';
 import {UIActionsService} from './shared/services/ui.actions.service';
 // Material design modules
 import {
-  MdButtonModule,
-  MdCheckboxModule,
-  MdDialogModule,
-  MdIconModule,
-  MdInputModule,
-  MdMenuModule,
-  MdOptionModule,
-  MdSelectModule,
-  MdSlideToggleModule,
-  MdToolbarModule
-} from '@angular/material';
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatSlideToggleModule,
+  MatToolbarModule
+} from '@angular/material/';
 
 @NgModule({
   declarations: [
@@ -53,16 +53,16 @@ import {
     HttpModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MdToolbarModule,
-    MdMenuModule,
-    MdButtonModule,
-    MdIconModule,
-    MdSlideToggleModule,
-    MdSelectModule,
-    MdOptionModule,
-    MdDialogModule,
-    MdInputModule,
-    MdCheckboxModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
     DragulaModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true,
@@ -77,9 +77,9 @@ import {
     AddTaskComponent,
     AddResourceComponent,
     FormsModule, // TODO : Added for bug
-    ReactiveFormsModule // TODO : Added for bug
+    ReactiveFormsModule, // TODO : Added for bug
   ],
-  providers: [PlanningApiService, UIActionsService, MdDialogModule],
+  providers: [PlanningApiService, UIActionsService, MatDialogModule],
   bootstrap: [
     AppComponent]
 })

@@ -3,31 +3,31 @@
 <table>
 
   <tr>
-    <md-input-container class="container-full-width">
-      <input name="resourceName" mdInput placeholder="Name" [(ngModel)]="resource.name">
-    </md-input-container>
+    <mat-input-container class="container-full-width">
+      <input name="resourceName" matInput placeholder="Name" [(ngModel)]="resource.name">
+    </mat-input-container>
   </tr>
 
   <tr>
-    <md-input-container class="container-full-width">
-      <input name="resourceTrigram" mdInput placeholder="Trigram" [(ngModel)]="resource.trigram">
-    </md-input-container>
+    <mat-input-container class="container-full-width">
+      <input name="resourceTrigram" matInput placeholder="Trigram" [(ngModel)]="resource.trigram">
+    </mat-input-container>
   </tr>
 
   <tr>
-    <md-input-container class="container-full-width">
-      <input name="role" mdInput placeholder="Role" [(ngModel)]="resource.role">
-    </md-input-container>
+    <mat-input-container class="container-full-width">
+      <input name="role" matInput placeholder="Role" [(ngModel)]="resource.role">
+    </mat-input-container>
   </tr>
 
   <tr>
-    <md-input-container class="container-full-width">
-      <input name="description" mdInput placeholder="Description" [(ngModel)]="resource.description">
-    </md-input-container>
+    <mat-input-container class="container-full-width">
+      <input name="description" matInput placeholder="Description" [(ngModel)]="resource.description">
+    </mat-input-container>
   </tr>
 
   <tr>
-    <button md-raised-button (click)="createResource()" *ngIf="isCreate">Create</button>
-    <button md-raised-button (click)="modifyResource()" *ngIf="!isCreate">Modify</button>
+    <button mat-raised-button (click)="createResource()" *ngIf="isCreate">Create</button>
+    <button mat-raised-button (click)="modifyResource()" *ngIf="!isCreate">Modify</button>
   </tr>
 </table>

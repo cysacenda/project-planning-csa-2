@@ -3,7 +3,7 @@ import {PlanningApiService} from './shared/services/planning.api.service';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 import {PlanningParams} from './shared/models/planning-params.model';
-import {MdDialog} from '@angular/material'; // TODO : A supprimer ?
+import {MatDialog} from '@angular/material'; // TODO : A supprimer ?
 import {AddTaskComponent} from './app-new-task.component';
 import {HeaderAction, UIActionsService} from './shared/services/ui.actions.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -31,7 +31,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   DialogUpdateSubscription: Subscription;
 
   constructor(private planningService: PlanningApiService, private uiActionsService: UIActionsService,
-              private dragulaService: DragulaService, public dialog: MdDialog) {
+              private dragulaService: DragulaService, public dialog: MatDialog) {
     this.HeaderSubscription = uiActionsService.actionTriggered$.subscribe(
       action => {
         this.headerAction(action);

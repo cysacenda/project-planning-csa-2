@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PlanningApiService} from './shared/services/planning.api.service';
 import {HeaderAction, UIActionsService} from './shared/services/ui.actions.service';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningParams} from './shared/models/planning-params.model';
 import {DateUtils} from './shared/utils/dateUtils';
@@ -29,7 +29,7 @@ export class ResourcesComponent implements OnInit, OnDestroy {
   DialogUpdateSubscription: Subscription;
 
   constructor(private planningService: PlanningApiService, private uiActionsService: UIActionsService,
-              public dialog: MdDialog) {
+              public dialog: MatDialog) {
     this.HeaderSubscription = uiActionsService.actionTriggered$.subscribe(
       action => {
         this.headerAction(action);

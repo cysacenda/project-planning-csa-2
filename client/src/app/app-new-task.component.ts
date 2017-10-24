@@ -3,7 +3,7 @@ import {PlanningApiService} from './shared/services/planning.api.service';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 import {UIActionsService} from './shared/services/ui.actions.service';
-import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-example-dialog',
@@ -19,8 +19,8 @@ export class AddTaskComponent implements OnInit {
 
   constructor(private planningService: PlanningApiService,
               private uiActionsService: UIActionsService,
-              @Inject(MD_DIALOG_DATA) private data: { selectedTask: PlanningTask },
-              private mdDialogRef: MdDialogRef<AddTaskComponent>) {
+              @Inject(MAT_DIALOG_DATA) private data: { selectedTask: PlanningTask },
+              private matDialogRef: MatDialogRef<AddTaskComponent>) {
   }
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class AddTaskComponent implements OnInit {
 
       });
     this.uiActionsService.dialogTaskActionUpdateTriggered(this.task);
-    this.mdDialogRef.close();
+    this.matDialogRef.close();
     // .catch(error => this.error = error); // TODO: Display error message
   }
 }
