@@ -1,8 +1,8 @@
 // express
-import { NextFunction, Response, Request, Router } from 'express';
-
+import {NextFunction, Request, Response, Router} from 'express';
 // model
-import { PlanningResourceModel, PlanningResourceModelInterface } from '../models/planning-resource.model';
+import {PlanningResourceModel, PlanningResourceModelInterface} from '../models/planning-resource.model';
+import {ThreadManagement} from "../algo/thread-management";
 
 export class PlanningResourceApi {
 
@@ -127,6 +127,10 @@ export class PlanningResourceApi {
       Object.assign(planningResource, req.body).save().then((planningResourceObj: PlanningResourceModelInterface) => {
         res.json(planningResourceObj.toObject());
         next();
+
+        // Lancement du traitement asynchrone de calcul de planning pour la ressource concernée
+        ThreadManagement.StartThreadResource(planningResourceObj.trigram);
+
       }).catch(next);
     }).catch(next);
   }
