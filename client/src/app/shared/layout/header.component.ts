@@ -24,4 +24,8 @@ export class HeaderComponent {
   private previous() {
     this.uiActionsService.actionTriggered(HeaderAction.Previous);
   }
+
+  private moveToNextWeek() {
+    this.uiActionsService.actionTriggered(HeaderAction.MoveToNextWeek);
+  }
 }

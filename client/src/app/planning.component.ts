@@ -63,6 +63,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.updateCurrentDateAdd4weeks();
     } else if (action === HeaderAction.Today) {
       this.resetCurrentDate();
+    } else if (action === HeaderAction.MoveToNextWeek) {
+      this.moveToNextWeek();
     }
   }
 
@@ -178,6 +180,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   public resetCurrentDate() {
     this.updateCurrentDate(new Date(this.planningParams.currentDate));
+  }
+
+  public moveToNextWeek() {
+    // TODO :
+    //  -
   }
 
   private updateCurrentDate(newDate: Date) {

@@ -1,24 +1,5 @@
 <mat-toolbar color="primary" class="mat-elevation-z5">
   <span>
-    <mat-menu #appMenu="matMenu">
-      <button routerLink="/schedule" mat-menu-item>
-        <i class="material-icons">schedule</i>
-        Schedule </button>
-      <button routerLink="/resources" mat-menu-item>
-        <i class="material-icons">people</i>
-        Resources </button>
-      <button mat-menu-item>
-        <i class="material-icons">poll</i>
-        Reports </button>
-      <button mat-menu-item>
-        <i class="material-icons">settings</i>
-        Settings </button>
-      <button mat-menu-item>
-        <i class="material-icons">help</i>
-        Help </button>
-    </mat-menu>
-  </span>
-  <span>
     <button mat-icon-button [matMenuTriggerFor]="appMenu">
        <i class="material-icons">menu</i>
     </button>
@@ -40,17 +21,6 @@
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </mat-list-item>
-
-      <!-- TODO : Replace with DatePicker -->
-      <!-- <mat-list-item>
-        <a mat-line href="https://www.google.fr">2017<i class="material-icons">keyboard_arrow_down</i></a>
-      </mat-list-item>
-      <mat-list-item *ngFor="let monthName of monthNames">
-       <a mat-line href="test">{{ monthName }}</a>
-      </mat-list-item>
-      <mat-list-item>
-       - <mat-slide-toggle></mat-slide-toggle> +
-      </mat-list-item> -->
     </mat-nav-list>
 
   </span>
@@ -58,8 +28,38 @@
   <!-- This fills the remaining space of the current row -->
   <span class="app-toolbar-filler"></span>
 
-  <span><button mat-button>
+  <span>
+    <button mat-button>
        <i class="material-icons">error_outline</i>
     n Alerts
-    </button></span>
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="actionMenu">
+       <i class="material-icons">more_vert</i>
+    </button>
+  </span>
 </mat-toolbar>
+
+<mat-menu #appMenu="matMenu">
+  <button routerLink="/schedule" mat-menu-item>
+    <i class="material-icons">schedule</i>
+    Schedule </button>
+  <button routerLink="/resources" mat-menu-item>
+    <i class="material-icons">people</i>
+    Resources </button>
+  <button mat-menu-item>
+    <i class="material-icons">poll</i>
+    Reports </button>
+  <button mat-menu-item>
+    <i class="material-icons">settings</i>
+    Settings </button>
+  <button mat-menu-item>
+    <i class="material-icons">help</i>
+    Help </button>
+</mat-menu>
+
+<mat-menu #actionMenu="matMenu">
+  <button mat-menu-item (click)="moveToNextWeek()">
+    <i class="material-icons">redo</i>
+    Move to next week </button>
+</mat-menu>

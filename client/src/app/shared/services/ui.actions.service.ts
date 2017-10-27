@@ -45,5 +45,6 @@ export class UIActionsService {
 export enum HeaderAction {
   Previous,
   Next,
-  Today
+  Today,
+  MoveToNextWeek
 }
