@@ -74,13 +74,16 @@
     <tbody class='container' [dragula]='"planningRows"' [dragulaModel]='tasks'>
     <tr *ngFor="let task of tasks">
       <td class="notColored">
-        <mat-checkbox (click)="taskSelected($event, task._id)" [(ngModel)]="task.selected"></mat-checkbox>
+        <mat-checkbox [disabled]="showDoneButton" (click)="taskSelected($event, task._id)" [(ngModel)]="task.selected"></mat-checkbox>
       </td>
       <td class="notColored">{{task.name}}</td>
       <td class="notColored">{{task.projectName}}</td>
       <td class="notColored">{{task.resourceTrigram}}</td>
       <td class="notColored">{{task.workload}}</td>
-      <td class="notColored">{{task.etc}}</td>
+
+      <td class="notColored" *ngIf="!showDoneButton">{{task.etc}}</td>
+      <input name="taskEtc" matInput placeholder="Etc" [(ngModel)]="task.etc" *ngIf="showDoneButton">
+
 
       <!-- TODO : Boucle ? -->
       <td>{{getWorkloadForDate(task.daysMap, currentDate, 0)}}</td>
@@ -113,13 +116,19 @@
 
   <div id="floating-button-area">
     <a mat-fab (click)="openDialogCreate()" *ngIf="showAddButton">
-    <mat-icon>add</mat-icon>
-  </a>
+      <mat-icon>add</mat-icon>
+    </a>
     <a mat-fab (click)="openDialogModify()" *ngIf="showModifyButton">
       <mat-icon>create</mat-icon>
     </a>
     <a mat-fab (click)="deleteSelectedTasksAsync()" *ngIf="showDeleteButton">
       <mat-icon>delete</mat-icon>
+    </a>
+    <a mat-fab (click)="doneNextWeek()" *ngIf="showDoneButton">
+      <mat-icon>done</mat-icon>
+    </a>
+    <a mat-fab (click)="cancelNextWeek()" *ngIf="showDoneButton">
+      <mat-icon>clear</mat-icon>
     </a>
   </div>
 

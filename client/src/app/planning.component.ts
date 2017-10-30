@@ -25,6 +25,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   showAddButton: boolean = true;
   showModifyButton: boolean = false;
   showDeleteButton: boolean = false;
+  showDoneButton: boolean = false;
 
   HeaderSubscription: Subscription;
   DialogCreateSubscription: Subscription;
@@ -81,7 +82,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   dialogUpdateAction(task) {
     task.selected = false;
     this.selectedTasksIds.length = 0;
-    this.updateButtonsStatus();
+    this.updateButtonsStatus(false);
   }
 
   // region Init / Destroy component
@@ -121,39 +122,48 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
-  // region Events
-  private onDrop() {
-    // Create informations for bulk update of positions
-    const tab = this.tasks.map((task, index) => {
-      return {key: task._id, val: index + 1};
+  public moveToNextWeek() {
+    this.updateButtonsStatus(true);
+  }
+
+  public doneNextWeek() {
+    this.updateButtonsStatus(false);
+    this.currentDate = this.addDays(this.currentDate.toJSON(), 7);
+
+    this.planningParams.currentDate = this.currentDate;
+    this.planningService.updatePlanningParams(this.planningParams);
+
+    // Create informations for bulk update of etc
+    const tab = this.tasks.map(task => {
+      return {key: task._id, valEtc: task.etc};
     })
 
     // TODO : récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
     this.planningService.updateTasksBulk(tab);
+
+    // Appel API pour MAJ ETC / tâche (cf. ce qui est déjà fait pour update en masse)
+    // Appel API pour MAJ paramplanning
+    // TODO : Stockage planning avant
+    // Affiche production de la semaine
+
   }
 
-  private taskSelected(event, taskId: number) {
-    const index = this.selectedTasksIds.indexOf(taskId);
-    if (index === -1) {
-      this.selectedTasksIds.push(taskId);
-    } else {
-      this.selectedTasksIds.splice(index, 1);
-    }
-    this.updateButtonsStatus();
-  }
-
-  private updateButtonsStatus() {
-    this.showAddButton = this.selectedTasksIds.length === 0;
-    this.showModifyButton = this.selectedTasksIds.length === 1;
-    this.showDeleteButton = this.selectedTasksIds.length >= 1;
+  public cancelNextWeek() {
+    this.updateButtonsStatus(false);
+    // TODO : Si RAE modifiés, refresh avec valeurs serveur
   }
 
   // endregion
 
-  private async deleteSelectedTasksAsync() {
-    await this.deleteSelectedTasks();
-    this.selectedTasksIds.length = 0;
-    this.updateButtonsStatus();
+  // region Events
+  private onDrop() {
+    // Create informations for bulk update of positions
+    const tab = this.tasks.map((task, index) => {
+      return {key: task._id, valPos: index + 1};
+    })
+
+    // TODO : récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
+    this.planningService.updateTasksBulk(tab);
   }
 
   private async deleteSelectedTasks() {
@@ -182,9 +192,36 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.updateCurrentDate(new Date(this.planningParams.currentDate));
   }
 
-  public moveToNextWeek() {
-    // TODO :
-    //  -
+  private taskSelected(event, taskId: number) {
+    if (!this.showDoneButton) {
+      const index = this.selectedTasksIds.indexOf(taskId);
+      if (index === -1) {
+        this.selectedTasksIds.push(taskId);
+      } else {
+        this.selectedTasksIds.splice(index, 1);
+      }
+      this.updateButtonsStatus(false);
+    }
+  }
+
+  private updateButtonsStatus(isNextWeekAction: boolean) {
+    if (isNextWeekAction) {
+      this.showDoneButton = true;
+      this.showAddButton = false;
+      this.showModifyButton = false;
+      this.showDeleteButton = false;
+    } else {
+      this.showDoneButton = false;
+      this.showAddButton = this.selectedTasksIds.length === 0;
+      this.showModifyButton = this.selectedTasksIds.length === 1;
+      this.showDeleteButton = this.selectedTasksIds.length >= 1;
+    }
+  }
+
+  private async deleteSelectedTasksAsync() {
+    await this.deleteSelectedTasks();
+    this.selectedTasksIds.length = 0;
+    this.updateButtonsStatus(false);
   }
 
   private updateCurrentDate(newDate: Date) {

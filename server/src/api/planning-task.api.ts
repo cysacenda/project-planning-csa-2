@@ -179,11 +179,18 @@ export class PlanningTaskApi {
     ThreadManagement.StartThreadFull();
   }
 
+  // Bulk Update positions or etc
   public bulkUpdate(req: Request, res: Response, next: NextFunction) {
     for (let i = 0, len = req.body.length; i < len; i++) {
-      PlanningTaskModel.findByIdAndUpdate(req.body[i].key, {$set: {position: req.body[i].val}}, (err, tank) => {
-        }
-      );
+      if (typeof(req.body[i].valEtc) === 'undefined') {
+        PlanningTaskModel.findByIdAndUpdate(req.body[i].key, {$set: {position: req.body[i].valPos}}, (err, tank) => {
+          }
+        );
+      } else {
+        PlanningTaskModel.findByIdAndUpdate(req.body[i].key, {$set: {etc: req.body[i].valEtc}}, (err, tank) => {
+          }
+        );
+      }
     }
 
     // region Bulk update code KO

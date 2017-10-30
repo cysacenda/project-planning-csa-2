@@ -65,6 +65,18 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
+  updatePlanningParams(planningParams: PlanningParams): Promise<PlanningParams> {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http
+      .put(this.paramsUrl + '/' + planningParams._id, JSON.stringify(planningParams), {headers: headers})
+      .map(response => response.json())
+      .toPromise()
+      .catch(this.handleError);
+  }
+
   createPlanningTask(planningTask: PlanningTask): Promise<PlanningTask> {
     const headers = new Headers({
       'Content-Type': 'application/json'
