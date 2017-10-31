@@ -35,6 +35,7 @@ import {
   MatSlideToggleModule,
   MatToolbarModule
 } from '@angular/material/';
+import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -63,6 +64,8 @@ import {
     MatSelectModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     DragulaModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true,
@@ -76,8 +79,8 @@ import {
   exports: [
     AddTaskComponent,
     AddResourceComponent,
-    FormsModule, // TODO : Added for bug
-    ReactiveFormsModule, // TODO : Added for bug
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [PlanningApiService, UIActionsService, MatDialogModule],
   bootstrap: [

@@ -52,6 +52,7 @@ export class PlanningTaskApi {
       // Create new task
       const planningTask = new PlanningTaskModel(req.body);
       planningTask.set({position: position});
+
       planningTask.save().then(planningTaskObj => {
         res.json(planningTaskObj.toObject());
 
@@ -157,9 +158,6 @@ export class PlanningTaskApi {
       }
 
       // save planningTaskDocument
-      // console.log('planningtask : ' + planningTask);
-      // console.log('-------------------------------');
-      // console.log('req.body : ' + req.body);
       Object.assign(planningTask, req.body).save().then((planningTaskObj: PlanningTaskModelInterface) => {
         res.json(planningTaskObj.toObject());
 

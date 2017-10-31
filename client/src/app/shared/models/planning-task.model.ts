@@ -7,6 +7,9 @@ export class PlanningTask {
   resourceTrigram: string;
   projectName: string;
 
+  isMilestone: boolean;
+  milestoneDate: Date;
+
   // TODO : Pourri car récupère Array
   daysMap: Map<Date, number>; // Days planned
 

@@ -125,7 +125,8 @@ var monPlanningTaskModel1 = new planningTaskModel({
   daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
     key: '2017-06-13T00:00:00.000Z',
     val: 1
-  }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
+  }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}],
+  isMilestone: false
 });
 
 var monPlanningTaskModel2 = new planningTaskModel({
@@ -135,7 +136,8 @@ var monPlanningTaskModel2 = new planningTaskModel({
   position: 2,
   resourceTrigram: 'CSA',
   projectName: 'NOBC Mobile',
-  daysMap: [{key: '2017-06-14T00:00:00.000Z', val: 0.5}]
+  daysMap: [{key: '2017-06-14T00:00:00.000Z', val: 0.5}],
+  isMilestone: false
 });
 
 var monPlanningTaskModel3 = new planningTaskModel({
@@ -145,7 +147,8 @@ var monPlanningTaskModel3 = new planningTaskModel({
   position: 3,
   resourceTrigram: 'MBO',
   projectName: 'NOBC Mobile',
-  daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 0.5}]
+  daysMap: [{key: '2017-06-12T00:00:00.000Z', val: -1}],
+  isMilestone: true
 });
 
 var monPlanningTaskModel4 = new planningTaskModel({
@@ -158,7 +161,8 @@ var monPlanningTaskModel4 = new planningTaskModel({
   daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 0.5}, {
     key: '2017-06-13T00:00:00.000Z',
     val: 1
-  }, {key: '2017-06-14T00:00:00.000Z', val: 1}, {key: '2017-06-15T00:00:00.000Z', val: 0.5}]
+  }, {key: '2017-06-14T00:00:00.000Z', val: 1}, {key: '2017-06-15T00:00:00.000Z', val: 0.5}],
+  isMilestone: false
 });
 
 // Empty Database

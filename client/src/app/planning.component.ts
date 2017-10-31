@@ -232,8 +232,15 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     return DateUtils.addDays(date, days);
   }
 
-  private getWorkloadForDate(taskMap: any, date: string, days: number): string {
-    return DateUtils.getWorkloadForDate(taskMap, date, days);
+  private getWorkloadForDate(task: PlanningTask, date: string, days: number): string {
+    if (task.isMilestone) {
+//      console.log('task.milestoneDate : ' + task.milestoneDate);
+//      console.log('this.addDays(date, days) : ' + this.addDays(date, days).toJSON());
+      if (task.isMilestone && task.milestoneDate === this.addDays(date, days)) {
+        return 'X';
+      }
+    }
+    return DateUtils.getWorkloadForDate(task.daysMap, date, days);
   }
 
   // endregion

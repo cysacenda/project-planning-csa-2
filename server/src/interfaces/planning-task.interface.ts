@@ -6,4 +6,6 @@ export interface PlanningTaskInterface {
   resourceTrigram: string;
   projectName: string;
   daysMap: any;
+  isMilestone: boolean;
+  milestoneDate: Date;
 }

@@ -85,7 +85,9 @@ class PlanningTaskTest {
       daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
         key: '2017-06-13T00:00:00.000Z',
         val: 1
-      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}],
+      isMilestone: false,
+      milestoneDate: null
     };
     return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
       PlanningTaskTest.planningTaskDocument = planningTask;
@@ -106,7 +108,9 @@ class PlanningTaskTest {
       daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
         key: '2017-06-13T00:00:00.000Z',
         val: 1
-      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}],
+      isMilestone: false,
+      milestoneDate: null
     };
     return new PlanningTaskTest.planningTaskModel(data).save().then(planningTask => {
       return chai.request(PlanningTaskTest.server).del(`${PlanningTaskTest.BASE_URI}/${planningTask._id}`).then(response => {
@@ -126,6 +130,8 @@ class PlanningTaskTest {
       response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
       response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
       response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
+      response.body.should.have.property('isMilestone').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.isMilestone)));
+      response.body.should.have.property('milestoneDate');
     });
   }
 
@@ -151,7 +157,9 @@ class PlanningTaskTest {
       daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
         key: '2017-06-13T00:00:00.000Z',
         val: 1
-      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}],
+      isMilestone: true,
+      milestoneDate: new Date()
     };
     return chai.request(PlanningTaskTest.server).post(PlanningTaskTest.BASE_URI)
       .send(data)
@@ -165,6 +173,8 @@ class PlanningTaskTest {
         response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
         response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
+        response.body.should.have.property('isMilestone').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.isMilestone)));
+        response.body.should.have.property('milestoneDate');
         return PlanningTaskTest.planningTaskModel.findByIdAndRemove(response.body._id).exec();
       });
   }
@@ -181,7 +191,9 @@ class PlanningTaskTest {
       daysMap: [{key: '2017-06-12T00:00:00.000Z', val: 1}, {
         key: '2017-06-13T00:00:00.000Z',
         val: 1
-      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}]
+      }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}],
+      isMilestone: false,
+      milestoneDate: null
     }
     return chai.request(PlanningTaskTest.server).put(`${PlanningTaskTest.BASE_URI}/${PlanningTaskTest.planningTaskDocument._id}`)
       .send(data)
@@ -195,6 +207,8 @@ class PlanningTaskTest {
         response.body.should.have.property('resourceTrigram').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.resourceTrigram)));
         response.body.should.have.property('projectName').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.projectName)));
         response.body.should.have.property('daysMap').to.be.an('array').to.have.a.lengthOf(3);
+        response.body.should.have.property('isMilestone').eql(JSON.parse(JSON.stringify(PlanningTaskTest.planningTaskDocument.isMilestone)));
+        response.body.should.have.property('milestoneDate');
       });
   }
 

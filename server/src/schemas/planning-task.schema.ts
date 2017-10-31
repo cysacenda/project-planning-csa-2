@@ -11,5 +11,7 @@ export let PlanningTaskSchema: Schema = new Schema({
   daysMap: [{
     key: String,
     val: Number
-  }]
+  }],
+  isMilestone: Boolean,
+  milestoneDate: Date
 })

@@ -3,6 +3,10 @@
 <table>
 
   <tr>
+    <mat-checkbox [(ngModel)]="task.isMilestone">Milestone</mat-checkbox>
+  </tr>
+
+  <tr>
     <mat-input-container class="container-full-width">
       <input name="taskName" matInput placeholder="Name" [(ngModel)]="task.name">
     </mat-input-container>
@@ -35,15 +39,23 @@
   <br>
 
   <tr>
-    <mat-input-container class="container-full-width">
+    <mat-input-container class="container-full-width" *ngIf="!task.isMilestone">
       <input name="workload" matInput placeholder="Workload" [(ngModel)]="task.workload">
     </mat-input-container>
   </tr>
 
   <tr>
-    <mat-input-container class="container-full-width">
+    <mat-input-container class="container-full-width" *ngIf="!task.isMilestone">
       <input name="etc" matInput placeholder="Etc" [(ngModel)]="task.etc">
     </mat-input-container>
+  </tr>
+
+  <tr>
+  <mat-form-field *ngIf="task.isMilestone">
+    <input matInput [matDatepicker]="myDatepicker" [(ngModel)]="task.milestoneDate">
+    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker></mat-datepicker>
+  </mat-form-field>
   </tr>
 
   <tr>

@@ -16,7 +16,6 @@ export class DateUtils {
 
       if (taskDays.has(tmpDate)) {
         return taskDays.get(tmpDate).toString();
-
       }
       return '';
     }

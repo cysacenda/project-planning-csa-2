@@ -30,7 +30,8 @@ export class PlanningAlgo {
     // Récupérer toutes les taches d'une resource, non terminées (etc <> 0) triées par position
     const planningTasksCursor = await PlanningTaskModel.find({
       resourceTrigram: resourceTrigram,
-      etc: {'$ne': 0}
+      etc: {'$ne': 0},
+      isMilestone: false,
     }).sort({position: 1}).cursor();
 
     const planningResource = await PlanningResourceModel.findOne({trigram: resourceTrigram});
