@@ -7,5 +7,5 @@ export interface PlanningTaskInterface {
   projectName: string;
   daysMap: any;
   isMilestone: boolean;
-  milestoneDate: Date;
+  milestoneDate: string;
 }

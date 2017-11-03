@@ -51,11 +51,11 @@
   </tr>
 
   <tr>
-  <mat-form-field *ngIf="task.isMilestone">
-    <input matInput [matDatepicker]="myDatepicker" [(ngModel)]="task.milestoneDate">
-    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-    <mat-datepicker #myDatepicker></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field *ngIf="task.isMilestone">
+      <input matInput [matDatepicker]="myDatepicker" [(ngModel)]="task.milestoneDate" [matDatepickerFilter]="myFilter">
+      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker [startAt]="currentDate"></mat-datepicker>
+    </mat-form-field>
   </tr>
 
   <tr>

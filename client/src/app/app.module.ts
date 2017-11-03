@@ -35,7 +35,7 @@ import {
   MatSlideToggleModule,
   MatToolbarModule
 } from '@angular/material/';
-import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
+import {MAT_DATE_LOCALE, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -82,7 +82,8 @@ import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [PlanningApiService, UIActionsService, MatDialogModule],
+  providers: [PlanningApiService, UIActionsService, MatDialogModule,
+    {provide: MAT_DATE_LOCALE, useValue: 'en-US'}],
   bootstrap: [
     AppComponent]
 })

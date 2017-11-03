@@ -159,7 +159,7 @@ class PlanningTaskTest {
         val: 1
       }, {key: '2017-06-14T00:00:00.000Z', val: 0.25}],
       isMilestone: true,
-      milestoneDate: new Date()
+      milestoneDate: '2017-06-13T22:00:00.000Z'
     };
     return chai.request(PlanningTaskTest.server).post(PlanningTaskTest.BASE_URI)
       .send(data)

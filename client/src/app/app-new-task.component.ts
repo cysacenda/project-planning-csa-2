@@ -4,6 +4,7 @@ import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 import {UIActionsService} from './shared/services/ui.actions.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {PlanningParams} from './shared/models/planning-params.model';
 
 @Component({
   selector: 'app-example-dialog',
@@ -14,8 +15,16 @@ export class AddTaskComponent implements OnInit {
 
   projects: String[] = [];
   resources: PlanningResource[] = [];
+  planningParams: PlanningParams = null;
+  currentDate: Date = null;
 
   isCreate: boolean;
+
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  }
 
   constructor(private planningService: PlanningApiService,
               private uiActionsService: UIActionsService,
@@ -30,9 +39,15 @@ export class AddTaskComponent implements OnInit {
     this.planningService.getResources()
       .then(resources => this.resources = resources);
 
+    this.planningService.getPlanningParams()
+      .then(planningParams => this.planningParams = planningParams)
+      .then(() => this.currentDate = new Date(this.planningParams.currentDate))
+    ;
+
     if (this.data === null) {
       this.task = new PlanningTask();
       this.isCreate = true;
+      this.task.isMilestone = false;
     } else {
       this.task = this.data.selectedTask;
       this.isCreate = false;

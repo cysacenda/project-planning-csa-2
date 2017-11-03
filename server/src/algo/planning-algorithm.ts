@@ -49,12 +49,13 @@ export class PlanningAlgo {
       const datesValuesMap = new Array();
       let etcToPlannify = doc.etc;
 
+
       while (etcToPlannify > 0) {
         let incrementDate: Boolean = true;
         let availableAfterVacation: number = 1;
 
-        if (planningResourceVacationMap.has(currentDate.toJSON())) {
-          availableAfterVacation = 1 - planningResourceVacationMap.get(currentDate.toJSON());
+        if (planningResourceVacationMap.has(currentDate)) {
+          availableAfterVacation = 1 - planningResourceVacationMap.get(currentDate);
         }
 
         // Si on a déjà planifié de la charge pour une autre tâche sur cette date
@@ -65,14 +66,16 @@ export class PlanningAlgo {
 
         const nbDaysToPlannify = Math.min(availableAfterVacation, etcToPlannify);
         if (nbDaysToPlannify > 0) {
-          datesValuesMap.push({key: currentDate.toJSON(), val: nbDaysToPlannify});
+          // console.log('currentDate : ' + currentDate);
+          // console.log('currentDateLocaleDate : ' + currentDate.toLocaleDateString());
+          datesValuesMap.push({key: currentDate, val: nbDaysToPlannify});
           etcToPlannify = etcToPlannify - nbDaysToPlannify;
         }
 
         // Si dernière itération
         if (etcToPlannify === 0) {
-          console.log(doc.resourceTrigram + ' - ' + doc.name);
-          console.log(datesValuesMap);
+          // console.log(doc.resourceTrigram + ' - ' + doc.name);
+          // console.log(datesValuesMap);
           doc.daysMap = datesValuesMap;
           doc.save();
 
@@ -84,7 +87,7 @@ export class PlanningAlgo {
         }
 
         if (incrementDate) {
-          currentDate = this.getNextOpenDay(currentDate);
+          currentDate = this.getNextOpenDay(new Date(currentDate)).toJSON();
         }
       }
     }

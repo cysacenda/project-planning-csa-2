@@ -73,9 +73,9 @@ class PlanningParamsTest {
    * Create a test planning-params
    */
   public static CreatePlanningParams(): Promise<PlanningParamsModelInterface> {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
+    const tmpDate: Date = new Date('2017-06-12T00:00:00.000Z');
     const data: PlanningParamsInterface = {
-      currentDate: tmpDate
+      currentDate: tmpDate.toJSON()
     };
     return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
       PlanningParamsTest.planningParamsDocument = planningParams;
@@ -86,9 +86,9 @@ class PlanningParamsTest {
   // Delete a PlanningParam
   @test
   public delete() {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
+    const tmpDate: Date = new Date('2017-06-12T00:00:00.000Z');
     const data: PlanningParamsInterface = {
-      currentDate: tmpDate
+      currentDate: tmpDate.toJSON()
     };
     return new PlanningParamsTest.planningParamsModel(data).save().then(planningParams => {
       return chai.request(PlanningParamsTest.server).del(`${PlanningParamsTest.BASE_URI}/${planningParams._id}`).then(response => {
@@ -102,7 +102,7 @@ class PlanningParamsTest {
     return chai.request(PlanningParamsTest.server).get(`${PlanningParamsTest.BASE_URI}/${PlanningParamsTest.planningParamsDocument._id}`).then(response => {
       response.should.have.status(200);
       response.body.should.be.a('object');
-      response.body.should.have.property('currentDate').eql(PlanningParamsTest.planningParamsDocument.currentDate.toJSON());
+      response.body.should.have.property('currentDate').eql(PlanningParamsTest.planningParamsDocument.currentDate);
     });
   }
 
@@ -118,9 +118,9 @@ class PlanningParamsTest {
   @test
   // @@@Planningparams : OK
   public post() {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
+    const tmpDate: Date = new Date('2017-06-12T00:00:00.000Z');
     const data: PlanningParamsInterface = {
-      currentDate: tmpDate
+      currentDate: tmpDate.toJSON()
     };
     return chai.request(PlanningParamsTest.server).post(PlanningParamsTest.BASE_URI)
       .send(data)
@@ -128,16 +128,16 @@ class PlanningParamsTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(data.currentDate.toJSON());
+        response.body.should.have.property('currentDate').eql(data.currentDate);
         return PlanningParamsTest.planningParamsModel.findByIdAndRemove(response.body._id).exec();
       });
   }
 
   @test
   public put() {
-    const tmpDate: Date = new Date('11/20/2014 04:11');
+    const tmpDate: Date = new Date('2017-06-12T00:00:00.000Z');
     const data: PlanningParamsInterface = {
-      currentDate: tmpDate
+      currentDate: tmpDate.toJSON()
     }
     return chai.request(PlanningParamsTest.server).put(`${PlanningParamsTest.BASE_URI}/${PlanningParamsTest.planningParamsDocument._id}`)
       .send(data)
@@ -145,7 +145,7 @@ class PlanningParamsTest {
         response.should.have.status(200);
         response.body.should.be.a('object');
         response.body.should.have.a.property('_id');
-        response.body.should.have.property('currentDate').eql(data.currentDate.toJSON());
+        response.body.should.have.property('currentDate').eql(data.currentDate);
       });
   }
 

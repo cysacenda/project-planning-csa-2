@@ -8,7 +8,7 @@ import {AddTaskComponent} from './app-new-task.component';
 import {HeaderAction, UIActionsService} from './shared/services/ui.actions.service';
 import {Subscription} from 'rxjs/Subscription';
 import {DragulaService} from 'ng2-dragula';
-import {DateUtils} from "./shared/utils/dateUtils";
+import {DateUtils} from './shared/utils/dateUtils';
 
 @Component({
   selector: 'app-schedule',
@@ -233,12 +233,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   private getWorkloadForDate(task: PlanningTask, date: string, days: number): string {
-    if (task.isMilestone) {
-//      console.log('task.milestoneDate : ' + task.milestoneDate);
-//      console.log('this.addDays(date, days) : ' + this.addDays(date, days).toJSON());
-      if (task.isMilestone && task.milestoneDate === this.addDays(date, days)) {
-        return 'X';
-      }
+    if (task.isMilestone && new Date(task.milestoneDate).toJSON() === this.addDays(date, days).toJSON()) {
+      return 'X';
     }
     return DateUtils.getWorkloadForDate(task.daysMap, date, days);
   }

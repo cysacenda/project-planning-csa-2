@@ -8,7 +8,7 @@ export class PlanningTask {
   projectName: string;
 
   isMilestone: boolean;
-  milestoneDate: Date;
+  milestoneDate: string;
 
   // TODO : Pourri car récupère Array
   daysMap: Map<Date, number>; // Days planned

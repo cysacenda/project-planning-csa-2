@@ -1,3 +1,3 @@
 export interface PlanningParamsInterface {
-  currentDate: Date;
+  currentDate: string;
 }
