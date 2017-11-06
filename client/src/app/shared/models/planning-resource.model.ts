@@ -6,17 +6,28 @@ export class PlanningResource {
               public description?: string,
               public vacationMap?: Map<string, number>,
               public selected?: boolean) {
+    if (this.vacationMap == null) {
+      this.vacationMap = new Map<string, number>();
+    }
   }
 
   public toJSON(): String {
-    let json: String = '';
+    let json: String = '{';
     if (this._id != null) {
-      json = '{"_id":"' + this._id + '",';
+      json += '"_id":"' + this._id + '",';
     }
-    json += '"trigram":"' + this.trigram + '",';
-    json += '"name":"' + this.name + '",';
-    json += '"role":"' + this.role + '",';
-    json += '"description":"' + this.description + '",';
+    if (this.trigram != null) {
+      json += '"trigram":"' + this.trigram + '",';
+    }
+    if (this.name != null) {
+      json += '"name":"' + this.name + '",';
+    }
+    if (this.role != null) {
+      json += '"role":"' + this.role + '",';
+    }
+    if (this.description != null) {
+      json += '"description":"' + this.description + '",';
+    }
     if (this.vacationMap != null && this.vacationMap.size > 0) {
       json += '"vacationMap":[';
       this.vacationMap.forEach(function (value, key) {

@@ -66,16 +66,12 @@ export class PlanningAlgo {
 
         const nbDaysToPlannify = Math.min(availableAfterVacation, etcToPlannify);
         if (nbDaysToPlannify > 0) {
-          // console.log('currentDate : ' + currentDate);
-          // console.log('currentDateLocaleDate : ' + currentDate.toLocaleDateString());
           datesValuesMap.push({key: currentDate, val: nbDaysToPlannify});
           etcToPlannify = etcToPlannify - nbDaysToPlannify;
         }
 
         // Si dernière itération
         if (etcToPlannify === 0) {
-          // console.log(doc.resourceTrigram + ' - ' + doc.name);
-          // console.log(datesValuesMap);
           doc.daysMap = datesValuesMap;
           doc.save();
 

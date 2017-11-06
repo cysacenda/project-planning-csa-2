@@ -8,7 +8,6 @@ export class DateUtils {
 
   public static getWorkloadForDate(daysMap: Map<string, number>, date: string, days: number): string {
     const tmpDate: string = DateUtils.addDays(date, days).toJSON();
-
     if (daysMap != null && daysMap.size > 0) {
       if (daysMap.has(tmpDate)) {
         return daysMap.get(tmpDate).toString();
