@@ -44,6 +44,7 @@ export class AddResourceComponent implements OnInit {
   }
 
   modifyResource(): void {
+    // TODO - fonctionnel : Si update trigramme, doit updater en masse task trigram
     this.planningService
       .updatePlanningResource(this.resource)
       .then(task => {

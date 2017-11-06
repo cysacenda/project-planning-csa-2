@@ -39,7 +39,7 @@ export class AddTaskComponent implements OnInit {
     this.planningService.getResources()
       .then(resources => this.resources = resources);
 
-    this.planningService.getPlanningParams()
+    this.planningService.getParams()
       .then(planningParams => this.planningParams = planningParams)
       .then(() => this.currentDate = new Date(this.planningParams.currentDate))
     ;

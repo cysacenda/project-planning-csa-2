@@ -93,10 +93,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.planningService.getResources()
       .then(resources => this.resources = resources);
 
-    this.planningService.getPlanningTasks()
+    this.planningService.getTasks()
       .then(tasks => this.tasks = tasks);
 
-    this.planningService.getPlanningParams()
+    this.planningService.getParams()
       .then(planningParams => this.planningParams = planningParams)
       .then(() => this.currentDate = new Date(this.planningParams.currentDate))
     ;

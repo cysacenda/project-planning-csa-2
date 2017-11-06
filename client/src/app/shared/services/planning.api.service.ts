@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map'
 import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
 import {PlanningParams} from '../models/planning-params.model';
-import {environment} from "../../../environments/environment";
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class PlanningApiService {
@@ -52,24 +52,43 @@ export class PlanningApiService {
             item.role,
             item.description,
             vacationMap,
-            false,
-          );
+            false);
         }) as PlanningResource[];
       })
       .catch(this.handleError);
   }
 
-  public getPlanningTasks(): Promise<Array<PlanningTask>> {
+  public getTasks(): Promise<Array<PlanningTask>> {
     return this.http
       .get(this.tasksUrl)
       .toPromise()
       .then((response) => {
-        return response.json() as PlanningTask[];
+        return response.json().map(item => {
+          let daysMap: Map<string, number>;
+          if (item.daysMap != null) {
+            daysMap = new Map(item.daysMap.map((i) => [i.key, parseFloat(i.val)]));
+          } else {
+            daysMap = new Map();
+          }
+
+          return new PlanningTask(
+            item._id,
+            item.name,
+            item.workload,
+            item.etc,
+            item.position,
+            item.resourceTrigram,
+            item.projectName,
+            item.isMilestone,
+            item.milestoneDate,
+            daysMap,
+            false);
+        }) as PlanningTask[];
       })
       .catch(this.handleError);
   }
 
-  public getPlanningParams(): Promise<PlanningParams> {
+  public getParams(): Promise<PlanningParams> {
     return this.http
       .get(this.paramsUrl)
       .toPromise()
@@ -97,7 +116,7 @@ export class PlanningApiService {
     });
 
     return this.http
-      .post(this.tasksUrl, JSON.stringify(planningTask), {headers: headers})
+      .post(this.tasksUrl, JSON.parse(JSON.stringify(planningTask)), {headers: headers})
       .map(response => response.json())
       .toPromise()
       .catch(this.handleError);
@@ -109,7 +128,7 @@ export class PlanningApiService {
     });
 
     return this.http
-      .put(this.tasksUrl + '/' + planningTask._id, JSON.stringify(planningTask), {headers: headers})
+      .put(this.tasksUrl + '/' + planningTask._id, JSON.parse(JSON.stringify(planningTask)), {headers: headers})
       .map(response => response.json())
       .toPromise()
       .catch(this.handleError);
@@ -146,7 +165,7 @@ export class PlanningApiService {
     });
 
     return this.http
-      .post(this.resourcesUrl, JSON.stringify(planningResource), {headers: headers})
+      .post(this.resourcesUrl, JSON.parse(JSON.stringify(planningResource)), {headers: headers})
       .map(response => response.json())
       .toPromise()
       .catch(this.handleError);

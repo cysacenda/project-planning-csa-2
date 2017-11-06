@@ -6,16 +6,10 @@ export class DateUtils {
     return newDate;
   }
 
-  public static getWorkloadForDate(daysMaps: any, date: string, days: number, tmpBool?: boolean): string {
-    let daysMap: Map<string, number> = daysMaps;
+  public static getWorkloadForDate(daysMap: Map<string, number>, date: string, days: number): string {
     const tmpDate: string = DateUtils.addDays(date, days).toJSON();
 
-    if (daysMaps != null) {
-
-      if (!tmpBool) {
-        daysMap = new Map(daysMaps.map((i) => [i.key, parseFloat(i.val)]));
-      }
-
+    if (daysMap != null && daysMap.size > 0) {
       if (daysMap.has(tmpDate)) {
         return daysMap.get(tmpDate).toString();
       }

@@ -1,17 +1,58 @@
 export class PlanningTask {
-  _id: number;
-  name: string;
-  workload: number; // Charge
-  etc: number; // Estimate to complete / RAE
-  position: number;
-  resourceTrigram: string;
-  projectName: string;
+  constructor(public _id?: number,
+              public name?: string,
+              public workload?: number,
+              public etc?: number,
+              public position?: number,
+              public resourceTrigram?: string,
+              public projectName?: string,
+              public isMilestone?: boolean,
+              public milestoneDate?: string,
+              public daysMap?: Map<string, number>,
+              public selected?: boolean) {
+    if (this.daysMap == null) {
+      this.daysMap = new Map<string, number>();
+    }
+  }
 
-  isMilestone: boolean;
-  milestoneDate: string;
+  public toJSON(): String {
+    let json: String = '{';
+    if (this._id != null) {
+      json += '"_id":"' + this._id + '",';
+    }
+    json += '"name":"' + this.name + '",';
 
-  // TODO : Pourri car récupère Array
-  daysMap: Map<Date, number>; // Days planned
+    if (this.workload != null) {
+      json += '"workload":' + this.workload + ',';
+    }
 
-  selected: boolean;
+    if (this.etc != null) {
+      json += '"etc":' + this.etc + ',';
+    }
+
+    if (this.position != null) {
+      json += '"position":' + this.position + ',';
+    }
+    json += '"resourceTrigram":"' + this.resourceTrigram + '",';
+    json += '"projectName":"' + this.projectName + '",';
+    json += '"isMilestone":';
+    json += this.isMilestone == null ? 'false,' : this.isMilestone + ',';
+
+    if (this.milestoneDate != null) {
+      json += '"milestoneDate":"' + this.milestoneDate + '",';
+    }
+
+    if (this.daysMap != null && this.daysMap.size > 0) {
+      json += '"daysMap":[';
+      this.daysMap.forEach(function (value, key) {
+        json += '{"key":"' + key + '", "val":' + value + '},';
+      });
+      json = json.slice(0, -1);
+      json += ']';
+    } else {
+      json = json.slice(0, -1);
+    }
+    json += '}';
+    return json;
+  }
 }

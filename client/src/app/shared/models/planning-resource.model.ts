@@ -10,19 +10,24 @@ export class PlanningResource {
 
   public toJSON(): String {
     let json: String = '';
-    json = '{"_id":"' + this._id + '",';
+    if (this._id != null) {
+      json = '{"_id":"' + this._id + '",';
+    }
     json += '"trigram":"' + this.trigram + '",';
     json += '"name":"' + this.name + '",';
     json += '"role":"' + this.role + '",';
     json += '"description":"' + this.description + '",';
-
-    // TODO : Méthode générique static pour toute l'appli ?
-    json += '"vacationMap":[';
-    this.vacationMap.forEach(function (value, key) {
-      json += '{"key":"' + key + '", "val":' + value + '},';
-    });
-    json = json.slice(0, -1);
-    json += ']}' ;
+    if (this.vacationMap != null && this.vacationMap.size > 0) {
+      json += '"vacationMap":[';
+      this.vacationMap.forEach(function (value, key) {
+        json += '{"key":"' + key + '", "val":' + value + '},';
+      });
+      json = json.slice(0, -1);
+      json += ']';
+    } else {
+      json = json.slice(0, -1);
+    }
+    json += '}';
     return json;
   }
 }

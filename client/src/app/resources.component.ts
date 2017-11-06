@@ -79,7 +79,7 @@ export class ResourcesComponent implements OnInit, OnDestroy {
     this.planningService.getResources()
       .then(resources => this.resources = resources);
 
-    this.planningService.getPlanningParams()
+    this.planningService.getParams()
       .then(planningParams => this.planningParams = planningParams)
       .then(() => this.currentDate = new Date(this.planningParams.currentDate))
     ;
@@ -178,16 +178,13 @@ export class ResourcesComponent implements OnInit, OnDestroy {
         selectedResource.vacationMap.set(dateClicked.toJSON(), 1);
       }
     }
-    // TODO : Si on lance une seconde MAJ sur une ressource avant que le callback ait pu mettre à jour
-    // la ressource => Plantage API car on envoie une MAJ avec un vieil objet (pas d'id sur un element
-    // de tableau alors qu'en fait il y en a un dans Mongo
     this.planningService.updatePlanningResource(selectedResource).then(resource => {
       // N/A
     })
   }
 
   private getWorkloadForDate(vacationMap: Map<string, number>, date: string, days: number): string {
-    return DateUtils.getWorkloadForDate(vacationMap, date, days, true);
+    return DateUtils.getWorkloadForDate(vacationMap, date, days);
   }
 
   // endregion
