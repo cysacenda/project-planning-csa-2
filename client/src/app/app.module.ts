@@ -11,9 +11,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import {AppRoutingModule} from './app-routing.module';
-/* TODO : A suprimer quand vraie données depuis API */
-import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {InMemoryDataService} from './shared/services/in-memory-data.service';
 
 import {ScheduleComponent} from './planning.component';
 import {PlanningApiService} from './shared/services/planning.api.service';
@@ -66,11 +63,7 @@ import {MAT_DATE_LOCALE, MatDatepickerModule, MatNativeDateModule} from '@angula
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    DragulaModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService, {
-      passThruUnknownUrl: true,
-      /*delay: 100*/
-    })
+    DragulaModule
   ],
   entryComponents: [
     AddTaskComponent,
@@ -83,7 +76,7 @@ import {MAT_DATE_LOCALE, MatDatepickerModule, MatNativeDateModule} from '@angula
     ReactiveFormsModule,
   ],
   providers: [PlanningApiService, UIActionsService, MatDialogModule,
-    {provide: MAT_DATE_LOCALE, useValue: 'en-US'}],
+    {provide: MAT_DATE_LOCALE, useValue: 'en-US'}], /* TODO : Utile ? */
   bootstrap: [
     AppComponent]
 })

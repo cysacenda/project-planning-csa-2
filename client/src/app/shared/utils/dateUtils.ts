@@ -6,18 +6,21 @@ export class DateUtils {
     return newDate;
   }
 
-  public static getWorkloadForDate(taskMap: any, date: string, days: number): string {
+  public static getWorkloadForDate(daysMaps: any, date: string, days: number, tmpBool?: boolean): string {
+    let daysMap: Map<string, number> = daysMaps;
     const tmpDate: string = DateUtils.addDays(date, days).toJSON();
 
-    if (taskMap != null) {
-      // TODO : Pas optimisé, ne pas faire à chaque fois, devrait être fait à la création de l'objet
-      let taskDays: Map<string, number>;
-      taskDays = new Map(taskMap.map((i) => [i.key, parseFloat(i.val)]));
+    if (daysMaps != null) {
 
-      if (taskDays.has(tmpDate)) {
-        return taskDays.get(tmpDate).toString();
+      if (!tmpBool) {
+        daysMap = new Map(daysMaps.map((i) => [i.key, parseFloat(i.val)]));
       }
-      return '';
+
+      if (daysMap.has(tmpDate)) {
+        return daysMap.get(tmpDate).toString();
+      }
+
     }
+    return '';
   }
 }

@@ -3,7 +3,7 @@ import {PlanningApiService} from './shared/services/planning.api.service';
 import {PlanningResource} from './shared/models/planning-resource.model';
 import {PlanningTask} from './shared/models/planning-task.model';
 import {PlanningParams} from './shared/models/planning-params.model';
-import {MatDialog} from '@angular/material'; // TODO : A supprimer ?
+import {MatDialog} from '@angular/material';
 import {AddTaskComponent} from './app-new-task.component';
 import {HeaderAction, UIActionsService} from './shared/services/ui.actions.service';
 import {Subscription} from 'rxjs/Subscription';
@@ -138,19 +138,19 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       return {key: task._id, valEtc: task.etc};
     })
 
-    // TODO : récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
+    // TODO : Fonctionnel - récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
     this.planningService.updateTasksBulk(tab);
 
     // Appel API pour MAJ ETC / tâche (cf. ce qui est déjà fait pour update en masse)
     // Appel API pour MAJ paramplanning
-    // TODO : Stockage planning avant
+    // TODO : Fonctionnel - Stockage planning avant
     // Affiche production de la semaine
 
   }
 
   public cancelNextWeek() {
     this.updateButtonsStatus(false);
-    // TODO : Si RAE modifiés, refresh avec valeurs serveur
+    // TODO : Fonctionnel - Si RAE modifiés, refresh avec valeurs serveur
   }
 
   // endregion
@@ -162,7 +162,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       return {key: task._id, valPos: index + 1};
     })
 
-    // TODO : récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
+    // TODO : Optimisation perf - récupérer id / resource de la tache modifée pour n'updater qu'une partie du planning
     this.planningService.updateTasksBulk(tab);
   }
 

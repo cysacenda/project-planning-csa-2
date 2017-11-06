@@ -1,0 +1,11 @@
+// Doc : https://www.npmjs.com/package/config
+{
+  // App Db
+  "dbConfig": {
+    "dbAdress": "mongodb://localhost:27017/planning-csa"
+  },
+  "filesPath": {
+    "childThreadFull": "./dist/server/algo/child-thread-full.js",
+    "childThreadResource": "./dist/server/algo/child-thread-resource.js"
+  }
+}

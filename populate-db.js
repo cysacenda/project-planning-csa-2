@@ -2,8 +2,7 @@
 var mongoose = require('mongoose');
 
 // Set up default mongoose connection
-// TODO : variable
-var mongoDB = 'mongodb://localhost:27017/planning-csa';
+var mongoDB = require('config').get('dbConfig.dbAdress');
 mongoose.Promise = require('bluebird');
 mongoose.connect(mongoDB, {useMongoClient: true});
 

@@ -36,12 +36,9 @@ export class PlanningTaskApi {
     });
   }
 
-  // TODO : Refactorer avec du .then() ou await / async
-  // http://www.summa.com/blog/avoiding-callback-hell-while-using-mongoose
   public create(req: Request, res: Response, next: NextFunction) {
     PlanningTaskModel.find().sort({position: -1}).limit(1).then(planningtask => {
       // Get last task position + 1
-      // TODO : Dangereux !
       let position: number = 1;
       if (planningtask === null) {
 
@@ -90,7 +87,6 @@ export class PlanningTaskApi {
         res.sendStatus(200);
 
         // Lancement du traitement asynchrone de calcul de planning global
-        // TODO : A faire pour une ressource uniquement
         ThreadManagement.StartThreadFull();
 
         next();
@@ -173,7 +169,6 @@ export class PlanningTaskApi {
     await this.bulkUpdate(req, res, next);
 
     // Lancement du traitement asynchrone de calcul de planning global
-    // TODO : A faire uniquement pour la ressource pour laquelle on a déplacé une tâche
     ThreadManagement.StartThreadFull();
   }
 

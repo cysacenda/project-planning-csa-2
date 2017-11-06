@@ -7,25 +7,22 @@ import 'rxjs/add/operator/map'
 import {PlanningResource} from '../models/planning-resource.model';
 import {PlanningTask} from '../models/planning-task.model';
 import {PlanningParams} from '../models/planning-params.model';
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class PlanningApiService {
-
-  // Base URL to api
-  // TODO : conf file
-  // TODO : A dissocier en plusieurs services (1 par objet !)
-  private basicURL: string = 'http://localhost:3000/api/';
+  private basicURL: string = environment.apiUrl;
 
   // URL to web api
-  private projectsUrl: string = this.basicURL + 'planning-projects';
-  private resourcesUrl: string = this.basicURL + 'planning-resources';
-  private tasksUrl: string = this.basicURL + 'planning-tasks';
-  private paramsUrl: string = this.basicURL + 'planning-params';
+  private projectsUrl: string = this.basicURL + environment.projectsUrl;
+  private resourcesUrl: string = this.basicURL + environment.resourcesUrl;
+  private tasksUrl: string = this.basicURL + environment.tasksUrl;
+  private paramsUrl: string = this.basicURL + environment.paramsUrl;
 
   constructor(private http: Http) {
   }
 
-  getProjects(): Promise<Array<String>> {
+  public getProjects(): Promise<Array<String>> {
     return this.http
       .get(this.projectsUrl)
       .toPromise()
@@ -35,17 +32,34 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  getResources(): Promise<Array<PlanningResource>> {
+  public getResources(): Promise<Array<PlanningResource>> {
     return this.http
       .get(this.resourcesUrl)
       .toPromise()
       .then((response) => {
-        return response.json() as PlanningResource[];
+        return response.json().map(item => {
+          let vacationMap: Map<string, number>;
+          if (item.vacationMap != null) {
+            vacationMap = new Map(item.vacationMap.map((i) => [i.key, parseFloat(i.val)]));
+          } else {
+            vacationMap = new Map();
+          }
+
+          return new PlanningResource(
+            item._id,
+            item.trigram,
+            item.name,
+            item.role,
+            item.description,
+            vacationMap,
+            false,
+          );
+        }) as PlanningResource[];
       })
       .catch(this.handleError);
   }
 
-  getPlanningTasks(): Promise<Array<PlanningTask>> {
+  public getPlanningTasks(): Promise<Array<PlanningTask>> {
     return this.http
       .get(this.tasksUrl)
       .toPromise()
@@ -55,7 +69,7 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  getPlanningParams(): Promise<PlanningParams> {
+  public getPlanningParams(): Promise<PlanningParams> {
     return this.http
       .get(this.paramsUrl)
       .toPromise()
@@ -65,7 +79,7 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  updatePlanningParams(planningParams: PlanningParams): Promise<PlanningParams> {
+  public updatePlanningParams(planningParams: PlanningParams): Promise<PlanningParams> {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -77,7 +91,7 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  createPlanningTask(planningTask: PlanningTask): Promise<PlanningTask> {
+  public createPlanningTask(planningTask: PlanningTask): Promise<PlanningTask> {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -89,7 +103,7 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  updatePlanningTask(planningTask: PlanningTask): Promise<PlanningTask> {
+  public updatePlanningTask(planningTask: PlanningTask): Promise<PlanningTask> {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -101,14 +115,14 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  deletePlanningTask(planningTaskId: string) {
+  public deletePlanningTask(planningTaskId: string) {
     return this.http
       .delete(this.tasksUrl + '/' + planningTaskId)
       .toPromise()
       .catch(this.handleError);
   }
 
-  updateTasksBulk(tasksList: any) {
+  public updateTasksBulk(tasksList: any) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -119,14 +133,14 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  deletePlanningResource(planningResourceId: string) {
+  public deletePlanningResource(planningResourceId: string) {
     return this.http
       .delete(this.resourcesUrl + '/' + planningResourceId)
       .toPromise()
       .catch(this.handleError);
   }
 
-  createPlanningResource(planningResource: PlanningResource): Promise<PlanningResource> {
+  public createPlanningResource(planningResource: PlanningResource): Promise<PlanningResource> {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -138,13 +152,13 @@ export class PlanningApiService {
       .catch(this.handleError);
   }
 
-  updatePlanningResource(planningResource: PlanningResource): Promise<PlanningResource> {
+  public updatePlanningResource(planningResource: PlanningResource): Promise<PlanningResource> {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     return this.http
-      .put(this.resourcesUrl + '/' + planningResource._id, JSON.stringify(planningResource), {headers: headers})
+      .put(this.resourcesUrl + '/' + planningResource._id, JSON.parse(JSON.stringify(planningResource)), {headers: headers})
       .map(response => response.json())
       .toPromise()
       .catch(this.handleError);
@@ -155,58 +169,4 @@ export class PlanningApiService {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-
-  /*
-   getHero(id: number): Promise<PlanningParamsInterface> {
-   return this.getHeroes()
-   .then(heroes => heroes.find(planningParamsDocument => planningParamsDocument.id === id));
-   }
-
-   save(planningParamsDocument: PlanningParamsInterface): Promise<PlanningParamsInterface> {
-   if (planningParamsDocument.id) {
-   return this.put(planningParamsDocument);
-   }
-   return this.post(planningParamsDocument);
-   }
-
-   delete(planningParamsDocument: PlanningParamsInterface): Promise<Response> {
-   const headers = new Headers();
-   headers.append('Content-Type', 'application/json');
-
-   const url = `${this.heroesUrl}/${planningParamsDocument.id}`;
-
-   return this.http
-   .delete(url, { headers: headers })
-   .toPromise()
-   .catch(this.handleError);
-   }
-
-   // Add new PlanningParamsInterface
-   private post(planningParamsDocument: PlanningParamsInterface): Promise<PlanningParamsInterface> {
-   const headers = new Headers({
-   'Content-Type': 'application/json'
-   });
-
-   return this.http
-   .post(this.heroesUrl, JSON.stringify(planningParamsDocument), { headers: headers })
-   .toPromise()
-   .then(res => res.json().data)
-   .catch(this.handleError);
-   }
-
-   // Update existing PlanningParamsInterface
-   private put(planningParamsDocument: PlanningParamsInterface): Promise<PlanningParamsInterface> {
-   const headers = new Headers();
-   headers.append('Content-Type', 'application/json');
-
-   const url = `${this.heroesUrl}/${planningParamsDocument.id}`;
-
-   return this.http
-   .put(url, JSON.stringify(planningParamsDocument), { headers: headers })
-   .toPromise()
-   .then(() => planningParamsDocument)
-   .catch(this.handleError);
-   }
-
-   */
 }

@@ -4,8 +4,8 @@ import {PlanningResourceModel} from '../models/planning-resource.model';
 import mongoose = require('mongoose');
 
 export class PlanningAlgo {
-  // TODO : Config file
-  private dbAdress: string = 'mongodb://localhost:27017/planning-csa';
+  private config = require('config');
+  private dbAdress: string = this.config.get('dbConfig.dbAdress');
 
   public async CalculFullPlanning() {
     await this.OpenConnection();

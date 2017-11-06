@@ -76,7 +76,6 @@ export class ResourcesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.planningService.getResources()
       .then(resources => this.resources = resources);
 
@@ -161,10 +160,6 @@ export class ResourcesComponent implements OnInit, OnDestroy {
     return DateUtils.addDays(date, days);
   }
 
-  private getWorkloadForDate(taskMap: any, date: string, days: number): string {
-    return DateUtils.getWorkloadForDate(taskMap, date, days);
-  }
-
   public clicked(idResource: number, num: number) {
     const dateClicked: Date = this.addDays(this.currentDate.toJSON(), num);
     const resourceIndex = this.resources.indexOf(this.resources.find(resource => resource._id === idResource));
@@ -172,27 +167,30 @@ export class ResourcesComponent implements OnInit, OnDestroy {
     const selectedResource: PlanningResource = this.resources[resourceIndex];
     const workload: string = this.getWorkloadForDate(selectedResource.vacationMap, this.currentDate.toJSON(), num);
 
-    this.convert(selectedResource.vacationMap, dateClicked);
-
+    if (selectedResource.vacationMap != null) {
+      if (selectedResource.vacationMap.has(dateClicked.toJSON())) {
+        if (selectedResource.vacationMap.get(dateClicked.toJSON()) === 1) {
+          selectedResource.vacationMap.set(dateClicked.toJSON(), 0.5);
+        } else {
+          selectedResource.vacationMap.delete(dateClicked.toJSON());
+        }
+      } else {
+        selectedResource.vacationMap.set(dateClicked.toJSON(), 1);
+      }
+    }
     // TODO : Si on lance une seconde MAJ sur une ressource avant que le callback ait pu mettre à jour
     // la ressource => Plantage API car on envoie une MAJ avec un vieil objet (pas d'id sur un element
     // de tableau alors qu'en fait il y en a un dans Mongo
     this.planningService.updatePlanningResource(selectedResource).then(resource => {
-      this.resources[resourceIndex] = resource;
+      // N/A
     })
   }
 
-  private convert(vacationMap: any, date: Date) {
-    const element = vacationMap.find(x => x.key === date.toJSON());
-    if (element == null) {
-      vacationMap.push({key: date.toJSON(), val: 1});
-    } else if (element.val === 1) {
-      vacationMap[vacationMap.indexOf(element)] = {key: date.toJSON(), val: 0.5};
-    } else {
-      vacationMap.splice(vacationMap.indexOf(element), 1);
-    }
+  private getWorkloadForDate(vacationMap: Map<string, number>, date: string, days: number): string {
+    return DateUtils.getWorkloadForDate(vacationMap, date, days, true);
   }
 
   // endregion
 
 }
+
